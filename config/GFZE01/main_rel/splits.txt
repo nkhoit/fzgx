@@ -6692,3 +6692,6 @@ rel/main_rel/live_camera/fn_1_1350C.c:
 
 rel/main_rel/car/fn_1_8E084.c:
 	.text       start:0x0008E084 end:0x0008E188 align:4
+
+rel/main_rel/car/fn_1_8E244.c:
+	.text       start:0x0008E244 end:0x0008E3A4 align:4

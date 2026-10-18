@@ -33199,6 +33199,20 @@
   },
   {
     "module": "main_rel",
+    "source": "rel/main_rel/car/fn_1_8E244.c",
+    "symbols": [
+      "fn_1_8E244"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/car.c",
+    "pool": {
+      "...rodata.0": "lbl_1_rodata_3508"
+    }
+  },
+  {
+    "module": "main_rel",
     "source": "rel/main_rel/car/fn_1_8E3A4.c",
     "symbols": [
       "fn_1_8E3A4"
