@@ -3483,7 +3483,7 @@ def frame_padding(p, symbol, body, check):
     return out
 
 
-def shared_pool_primer(p, symbol, body, check):
+def shared_pool_primer(p, symbol, body, check, _cut=False):
     """Retail addresses a translation unit's literal pool through one base register: the pool
     is laid out in first-use order across the whole TU, so a per-function unit's own pool never
     has the same offsets and every `lfs f, off(rB)` differs. A primer reproduces retail's pool
@@ -3519,6 +3519,17 @@ def shared_pool_primer(p, symbol, body, check):
         if len(own) < 2:
             continue
         end = (max(o + w for o, (k, w) in own.items()) + 7) & ~7
+        if _cut:
+            # The function's own aggregate initializer (a local struct/array initialised from
+            # the pool, read with lwz) is laid out by MWCC at the function's first use. If the
+            # primer already defines those words as a private table, the compiler appends its
+            # own copy after the primer and every later displacement shifts. End the primer at
+            # the first word this function reads as an integer so the compiler places its own
+            # initializer (and the literals after it) at retail's offsets.
+            ints = [o for o, (k, w) in own.items() if k == 'i']
+            if not ints or min(ints) <= 0 or min(ints) >= end:
+                continue
+            end = min(ints) & ~3
         # the pool's element types come from every function of the module that addresses it:
         # another function's double must not be read as a float and a zero (the float would
         # dedupe with an equal literal and shift everything after it), and a word only ever
@@ -3718,4 +3729,6 @@ def shared_pool_primer(p, symbol, body, check):
                 primer = '\n' + primer
         text = body[:at] + primer + body[at:]
         out.append((f'prime shared-pool layout ({pool.name}, {end:#x} bytes)', text))
+    if not _cut:
+        out = list(out) + list(shared_pool_primer(p, symbol, body, check, _cut=True))
     return out
