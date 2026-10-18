@@ -37,6 +37,30 @@ The disc ships sixteen executables and this project rebuilds every one of them b
 
 Source is organised by recovered translation unit. main.rel embeds its original file names (`camera.c`, `coli.c`, `car.c`, `driver.c`, `enemy_ctrl.c`, ...), and the order of those strings in `.data` matches the order of the code that references them, so each function is placed under `src/rel/main_rel/<file>/`. Struct layouts for the most-referenced globals are recovered from every access in the disassembly and generated into `include/rel/main_rel/globals.h`, with every field offset proven under the original compiler.
 
+Status
+======
+
+Current progress is shown by the badges above. Roughly 30% of the code is matched; the rest is
+linked from your own copy of the game at build time.
+
+What remains is mostly mid-sized and large game logic in `main.rel` (machines, collision,
+effects, course and menu code). Most small functions are already done. Two problems account for
+most of the functions that are close but not finished:
+
+- **Register allocation.** Many near-misses (95–99.9%) differ only in which registers MWCC picks
+  or in the order of a few independent instructions. These usually need a different but
+  equivalent way of writing the same C (declaration order, temporaries, types).
+- **Shared literal pools.** About 840 unmatched functions read float constants from a pool that
+  is shared by the whole original source file. Compiled on their own they get a private pool
+  and every constant offset differs. `tools/fzgx.py fixup` can generate a *pool primer* that
+  reproduces the original layout (see [docs/MWCC_IDIOMS.md](docs/MWCC_IDIOMS.md), "Literal pool
+  base"); once a whole source file is matched it can be compiled as one unit and the primers go
+  away.
+
+Good places to start are source files that already have many matched functions, such as
+`car.c`, `effect.c` and the selection screens: their structs and helper functions are already
+recovered, so the next function in the same file is usually much easier.
+
 Dependencies
 ============
 
@@ -101,9 +125,9 @@ Building
   python configure.py
   ```
 
-  The compilers are downloaded from `files.decomp.dev` by default. decomp.dev is
-  being shut down; if the download fails, pass a local copy of the GameCube
-  Metrowerks compilers with `--compilers <dir>` (the directory containing `GC/`).
+  The compilers are downloaded from `files.decomp.dev` by default. If that
+  download is unavailable, pass a local copy of the GameCube Metrowerks
+  compilers with `--compilers <dir>` (the directory containing `GC/`).
 
   To use a version other than `GFZE01` (USA), specify it with `--version`.
 
