@@ -5338,6 +5338,43 @@ void fn_1_8DBA4(u8 value) {
 }
 /* fzgx:end fn_1_8DBA4 */
 
+/* fzgx:begin fn_1_8E084 noprologue */
+#include "types.h"
+
+// Advances a machine's selected slot to the next available one (bits of
+// avail_38c), wrapping to "none" (5), and updates the running total with the
+// per-row costs of the old and new slots.
+typedef struct MachineSlot {
+    u8  _pad0[0x38c];
+    u8  avail_38c;               // 0x38c
+    u8  _pad38d[0x3ba - 0x38d];
+    s16 slot_3ba;                // 0x3ba
+} MachineSlot;
+
+extern u16 lbl_1_bss_6E82C[30][5];
+
+static inline s8 next_available_slot(MachineSlot *m, s8 id) {
+    s8 i;
+    if (id == 5) return id;
+    if (id < 0 || id > 5) return id < 0 ? 0 : (id > 5 ? 5 : id);
+    for (i = id; i < 5; i++) {
+        if (m->avail_38c & (1 << i)) return i;
+    }
+    return -1;
+}
+
+void fn_1_8E084(MachineSlot *m, s32 *total, s32 row) {
+    s8 cur = m->slot_3ba;
+    m->slot_3ba = next_available_slot(m, cur + 1);
+    if (m->slot_3ba == -1) {
+        m->slot_3ba = 5;
+        *total -= lbl_1_bss_6E82C[row][cur];
+    } else {
+        *total = *total - lbl_1_bss_6E82C[row][cur] + lbl_1_bss_6E82C[row][m->slot_3ba];
+    }
+}
+/* fzgx:end fn_1_8E084 */
+
 /* fzgx:begin fn_1_8E188 */
 void fn_1_8E188(void) {
     if (lbl_1_bss_6E958.unk_4 == 0) {

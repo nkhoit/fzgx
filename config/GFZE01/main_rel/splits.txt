@@ -6689,3 +6689,6 @@ rel/main_rel/_prolog/fn_1_3C18.c:
 
 rel/main_rel/live_camera/fn_1_1350C.c:
 	.text       start:0x0001350C end:0x0001361C align:4
+
+rel/main_rel/car/fn_1_8E084.c:
+	.text       start:0x0008E084 end:0x0008E188 align:4
