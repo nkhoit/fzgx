@@ -1,0 +1,112 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [GFZE01]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Retail-derived inputs and the compilers live in the private nkhoit/fzgx-build
+    # repository and are fetched with a read-only deploy key. Secrets are not available
+    # to pull requests from forks, so those runs stop here with a notice; see
+    # docs/github_actions.md.
+    - name: Check build input access
+      id: access
+      env:
+        KEY: ${{ secrets.FZGX_BUILD_DEPLOY_KEY }}
+      run: |
+        if [ -z "$KEY" ]; then
+          echo "::notice::Build inputs are private; a maintainer must build this change."
+          echo "available=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "available=true" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Fetch build inputs
+      if: steps.access.outputs.available == 'true'
+      uses: actions/checkout@v4
+      with:
+        repository: nkhoit/fzgx-build
+        ssh-key: ${{ secrets.FZGX_BUILD_DEPLOY_KEY }}
+        path: .build-inputs
+
+    - name: Prepare
+      if: steps.access.outputs.available == 'true'
+      run: |
+        (cd .build-inputs/${{ matrix.version }} && sha1sum -c ../SHA1SUMS --quiet)
+        mkdir -p orig
+        cp -a .build-inputs/${{ matrix.version }} orig/
+        mv .build-inputs/compilers "$RUNNER_TEMP/compilers"
+        rm -rf .build-inputs
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq ninja-build
+
+    - name: Build
+      if: steps.access.outputs.available == 'true'
+      run: |
+        python3 configure.py --map --version ${{ matrix.version }} --compilers "$RUNNER_TEMP/compilers"
+        ninja
+        ninja progress build/${{ matrix.version }}/report.json
+
+    - name: Upload report
+      if: steps.access.outputs.available == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.version }}_report
+        path: build/${{ matrix.version }}/report.json
+
+  badges:
+    # Progress badges are shields.io endpoint files on the `badges` branch,
+    # regenerated from the main-branch build report.
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Download report
+      uses: actions/download-artifact@v4
+      with:
+        name: GFZE01_report
+
+    - name: Write badge files
+      run: |
+        mkdir badges
+        python3 - <<'EOF'
+        import json
+        r = json.load(open('report.json'))
+        cats = {c['id']: c['measures'] for c in r.get('categories', [])}
+        def badge(name, label, value):
+            json.dump({'schemaVersion': 1, 'label': label, 'message': f'{value:.2f}%', 'color': 'blue'},
+                      open(f'badges/{name}.json', 'w'))
+        badge('code', 'Code', r['measures']['matched_code_percent'])
+        badge('data', 'Data', r['measures']['matched_data_percent'])
+        badge('dol', 'DOL', cats['dol']['matched_code_percent'])
+        badge('rels', 'RELs', cats['modules']['matched_code_percent'])
+        EOF
+        cp report.json badges/
+
+    - name: Publish to the badges branch
+      run: |
+        cd badges
+        git init -q -b badges
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add -A
+        git commit -q -m "Update progress badges for ${GITHUB_SHA::7}"
+        git push -q --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" badges

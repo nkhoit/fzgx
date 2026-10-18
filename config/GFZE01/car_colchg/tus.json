@@ -1,0 +1,66 @@
+{
+ "module": "car_colchg",
+ "unassigned_prefix": [
+  "_prolog",
+  "fn_9_298",
+  "fn_9_2E0"
+ ],
+ "tus": [
+  {
+   "file": "car_colchg.c",
+   "text": [
+    808,
+    7344
+   ],
+   "data_sec": 5,
+   "data": [
+    4,
+    836
+   ],
+   "anchor_refs": [
+    808
+   ],
+   "functions": [
+    "_epilog",
+    "colchg_menu_init",
+    "fn_9_454",
+    "fn_9_534",
+    "colchg_selcar_init",
+    "fn_9_5D8",
+    "fn_9_6F0",
+    "colchg_selmate_init",
+    "fn_9_7DC",
+    "fn_9_A18",
+    "colchg_chgcol_init",
+    "fn_9_AF0",
+    "fn_9_DC0",
+    "colchg_ezsel_init",
+    "fn_9_E4C",
+    "fn_9_F38",
+    "colchg_save_init",
+    "fn_9_FD0",
+    "fn_9_1018",
+    "fn_9_1054",
+    "fn_9_10BC",
+    "fn_9_1124",
+    "colchg_menu_disp",
+    "fn_9_120C",
+    "fn_9_1310",
+    "colchg_selcar_disp",
+    "colchg_selmate_disp",
+    "colchg_chgcol_disp",
+    "colchg_ezsel_disp",
+    "colchg_save_disp",
+    "fn_9_1AC4",
+    "fn_9_1AFC",
+    "fn_9_1BCC",
+    "fn_9_1C54"
+   ],
+   "confidence": {
+    "text+data": 14,
+    "text-range": 20,
+    "data-vote": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,124 @@
+Sections:
+	.text       type:code align:4
+	.ctors      type:rodata align:4
+	.dtors      type:rodata align:4
+	.rodata     type:rodata align:8
+	.data       type:data align:8
+	.bss        type:bss align:32
+
+rel/pilotpoint/fn_14_900.c:
+	.text       start:0x00000900 end:0x00000904
+
+rel/pilotpoint/fn_14_258C.c:
+	.text       start:0x0000258C end:0x00002590
+
+rel/pilotpoint/fn_14_B480.c:
+	.text       start:0x0000B480 end:0x0000B484
+
+rel/pilotpoint/pilotpoint/fn_14_BCDC.c:
+	.text       start:0x0000BCDC end:0x0000BCF8
+
+rel/pilotpoint/fn_14_C4F4.c:
+	.text       start:0x0000C4F4 end:0x0000C4F8
+
+rel/pilotpoint/fn_14_C698.c:
+	.text       start:0x0000C698 end:0x0000C69C
+
+rel/pilotpoint/fn_14_DC28.c:
+	.text       start:0x0000DC28 end:0x0000DC2C
+
+rel/pilotpoint/pilotpoint/fn_14_315C.c:
+	.text       start:0x0000315C end:0x0000316C align:4
+
+rel/pilotpoint/pilotpoint/fn_14_600C.c:
+	.text       start:0x0000600C end:0x00006044 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_645C.c:
+	.text       start:0x0000645C end:0x00006494 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_A398.c:
+	.text       start:0x0000A398 end:0x0000A3DC align:4
+
+rel/pilotpoint/pilotpoint/fn_14_220.c:
+	.text       start:0x00000220 end:0x00000268 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_A244.c:
+	.text       start:0x0000A244 end:0x0000A2A4 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_DC6C.c:
+	.text       start:0x0000DC6C end:0x0000DC90 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_A1F4.c:
+	.text       start:0x0000A1F4 end:0x0000A244 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_B398.c:
+	.text       start:0x0000B398 end:0x0000B400 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_7E04.c:
+	.text       start:0x00007E04 end:0x00007EAC align:4
+
+rel/pilotpoint/pilotpoint/fn_14_C4F8.c:
+	.text       start:0x0000C4F8 end:0x0000C518 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_2FC.c:
+	.text       start:0x000002FC end:0x00000380 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_B400.c:
+	.text       start:0x0000B400 end:0x0000B480 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_DC2C.c:
+	.text       start:0x0000DC2C end:0x0000DC6C align:4
+
+rel/pilotpoint/pilotpoint/fn_14_DF70.c:
+	.text       start:0x0000DF70 end:0x0000DFE8 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_2A0.c:
+	.text       start:0x000002A0 end:0x000002FC align:4
+
+rel/pilotpoint/pilotpoint/fn_14_32DC.c:
+	.text       start:0x000032DC end:0x00003334 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_3384.c:
+	.text       start:0x00003384 end:0x000033DC align:4
+
+rel/pilotpoint/pilotpoint/fn_14_2AFC.c:
+	.text       start:0x00002AFC end:0x00002C80 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_C69C.c:
+	.text       start:0x0000C69C end:0x0000C850 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_3334.c:
+	.text       start:0x00003334 end:0x00003384 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_34A8.c:
+	.text       start:0x000034A8 end:0x000034FC align:4
+
+rel/pilotpoint/pilotpoint/fn_14_268.c:
+	.text       start:0x00000268 end:0x000002A0 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_33DC.c:
+	.text       start:0x000033DC end:0x0000342C align:4
+
+rel/pilotpoint/pilotpoint/fn_14_3230.c:
+	.text       start:0x00003230 end:0x000032DC align:4
+
+rel/pilotpoint/pilotpoint/_epilog.c:
+	.text       start:0x00000188 end:0x00000220 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_316C.c:
+	.text       start:0x0000316C end:0x00003230 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_DC90.c:
+	.text       start:0x0000DC90 end:0x0000DF70 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_A2A4.c:
+	.text       start:0x0000A2A4 end:0x0000A398 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_380.c:
+	.text       start:0x00000380 end:0x00000900 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_C518.c:
+	.text       start:0x0000C518 end:0x0000C698 align:4
+
+rel/pilotpoint/pilotpoint/fn_14_342C.c:
+	.text       start:0x0000342C end:0x000034A8 align:4

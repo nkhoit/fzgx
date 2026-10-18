@@ -1,0 +1,1020 @@
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/bg_san.h"
+extern void fn_1_DC6FC(void *context);
+extern void fn_1_DC5E8(Obj_1_data_2A7E0_At3C *, s32);
+extern void fn_1_9AD54(void);
+extern void fn_1_FBEA8(void);
+extern void fn_1_103F58(void *arg);
+extern void fn_1_9AD88(void);
+extern void fn_1_9A508(void);
+extern void fn_1_DAF94(Obj_1_data_2A7E0_At3C *);
+extern s32 fn_1_5910(void);
+extern void *fn_1_9D260(Obj_1_data_2A7E0 *arg0);
+extern s16 fn_1_7B054(void);
+extern s16 fn_1_3F0C8(void);
+extern const f32 lbl_1_rodata_663C;
+extern void fn_1_1067A8(void *arg0, f32 arg1, f32 arg2);
+extern void fn_1_103D28(void *arg0, int arg1, f32 arg2);
+extern f32 lbl_1_rodata_66D0[30];
+extern void fn_1_72648(Obj_1_data_2A7E0 *);
+extern void fn_1_103090(void *);
+extern void fn_1_1030A4(void *);
+extern void *fn_1_54448(s32);
+extern void *fn_1_548AC(s32);
+extern void fn_1_DC764(void);
+extern void fn_1_5489C(void *, void *);
+extern const f64 lbl_1_rodata_6748;
+extern void fn_1_D6C10(void *, f32);
+extern f32 lbl_1_rodata_6644[35];
+extern void lbl_8006DCA4(void *data);
+extern void fn_1_DB53C(void);
+extern void fn_1_103264(void *, void *);
+extern void OSPanic(const char *, int, const char *, ...);
+extern struct fn_1_DA6A8_lbl_801A6410 lbl_801A6410;
+extern void * fn_80077B64(struct Sig_fn_80077B64_fn_80077B64_Arg0 *);
+extern s32 fn_80077B14(struct Sig_fn_80077B14_fn_80077B14_Arg0 *);
+extern void fn_1_46B4(u32, u32, const char *, int);
+extern f32 lbl_1_rodata_6628;
+extern void fn_1_FB87C(u32 *, u32);
+extern u32 fn_1_FBFE4();
+extern void fn_1_FB96C(int);
+extern u32 fn_1_105AB8(u32, u32);
+
+/* fzgx:begin fn_1_D8FC4 */
+typedef struct {
+    u32 unk_0;
+    u8 pad_4[0x4];
+    u32 unk_8;
+    u8 pad_C[0xA0];
+} fn_1_D8FC4_Entry;
+
+typedef struct {
+    u8 pad_0[0x6D4];
+    s32 unk_6D4;
+    fn_1_D8FC4_Entry unk_6D8[1];
+} fn_1_D8FC4_Container;
+
+s32 fn_1_D8FC4(s32 arg0, s32 arg1) {
+    fn_1_D8FC4_Container *base = (fn_1_D8FC4_Container *)lbl_1_data_2A7E0.unk_3C;
+
+    switch (arg0) {
+    case 0:
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x40000000;
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x10000000;
+        base->unk_6D8[base->unk_6D4].unk_0 = arg1;
+        base->unk_6D4 += 1;
+        if (base->unk_6D4 >= 0x20) {
+            OSPanic((const char *)lbl_1_data_3DC50, 0x4E7, (const char *)lbl_1_data_3DC5C);
+        }
+        break;
+    case 1:
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x40000000;
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x20000000;
+        base->unk_6D8[base->unk_6D4].unk_0 = arg1;
+        base->unk_6D4 += 1;
+        if (base->unk_6D4 >= 0x20) {
+            OSPanic((const char *)lbl_1_data_3DC50, 0x4EE, (const char *)lbl_1_data_3DC5C);
+        }
+        break;
+    case 2:
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x40000000;
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x10000000;
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x08000000;
+        base->unk_6D8[base->unk_6D4].unk_0 = arg1;
+        base->unk_6D4 += 1;
+        if (base->unk_6D4 >= 0x20) {
+            OSPanic((const char *)lbl_1_data_3DC50, 0x4F6, (const char *)lbl_1_data_3DC5C);
+        }
+        break;
+    case 3:
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x40000000;
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x20000000;
+        base->unk_6D8[base->unk_6D4].unk_8 |= 0x08000000;
+        base->unk_6D8[base->unk_6D4].unk_0 = arg1;
+        base->unk_6D4 += 1;
+        if (base->unk_6D4 >= 0x20) {
+            OSPanic((const char *)lbl_1_data_3DC50, 0x4FE, (const char *)lbl_1_data_3DC5C);
+        }
+        break;
+    }
+    return 1;
+}
+/* fzgx:end fn_1_D8FC4 */
+
+/* fzgx:begin fn_1_DA6A8 */
+#include "types.h"
+
+struct Sig_fn_80077B64_fn_80077B64_Arg0 {
+    u8 pad_0[0x4];
+    u32 unk_4;
+};
+
+struct Sig_fn_80077B14_fn_80077B14_Arg0 {
+    u8 pad_0[0x4];
+    u32 unk_4;
+    u8 pad_8[0x18];
+    u32 unk_20;
+};
+
+struct fn_1_DA6A8_Copy12 { u32 a[3]; };
+struct fn_1_DA6A8_lbl_801A6410 {
+    u32 unk_0;
+};
+
+struct FzgxCopy_12 { u32 words[3]; };
+void fn_1_DA6A8(void *arg0, struct Sig_fn_80077B64_fn_80077B64_Arg0 *arg1) {
+    s32 temp_r5;
+    s32 var_r3;
+    s32 var_r6;
+    u32 *temp_r30;
+    u32 temp_r4;
+    u32 temp_r4_2;
+    u32 temp_r4_3;
+    u32 var_r7;
+
+    if (arg0 != NULL) {
+        temp_r30 = (u32 *)(fn_80077B64((struct Sig_fn_80077B64_fn_80077B64_Arg0 *)(arg1)));
+        var_r3 = fn_80077B14((struct Sig_fn_80077B14_fn_80077B14_Arg0 *)((struct Sig_fn_80077B14_fn_80077B14_Arg0 *) arg1));
+        var_r7 = 0U;
+        var_r6 = 0;
+        while (var_r7 < (u32) (*(u32 *)((u8 *)(temp_r30) + 0))) {
+            var_r7 += 1;
+            temp_r5 = (*(u32 *)((u8 *)(arg0) + 28)) + var_r6;
+            var_r6 += 0xC;
+            *(struct FzgxCopy_12 *)(var_r3) = *(const struct FzgxCopy_12 *)(temp_r5);
+            var_r3 += 0x40;
+                    }
+        temp_r4 = *(u32 *)((u8 *)(arg0) + 20);
+        if (temp_r4 != 0) {
+            fn_1_46B4(lbl_801A6410.unk_0, temp_r4, (const char *)((s8 *) &(*(u32 *)&lbl_1_data_3DC50)), 0x6B6);
+        }
+        temp_r4_2 = *(u32 *)((u8 *)(arg0) + 24);
+        if (temp_r4_2 != 0) {
+            fn_1_46B4(lbl_801A6410.unk_0, temp_r4_2, (const char *)((s8 *) &(*(u32 *)&lbl_1_data_3DC50)), 0x6B9);
+        }
+        temp_r4_3 = *(u32 *)((u8 *)(arg0) + 28);
+        if (temp_r4_3 != 0) {
+            fn_1_46B4(lbl_801A6410.unk_0, temp_r4_3, (const char *)((s8 *) &(*(u32 *)&lbl_1_data_3DC50)), 0x6BC);
+        }
+    }
+}
+/* fzgx:end fn_1_DA6A8 */
+
+/* fzgx:begin fn_1_DA7B8 */
+#include "rel/main_rel/bg_san.h"
+
+extern void fn_1_DAAFC(Obj_1_data_2A7E0_At3C *obj);
+
+// Forwards the active background state to the next processing stage.
+void fn_1_DA7B8(void) {
+    fn_1_DAAFC(lbl_1_data_2A7E0.unk_3C);
+}
+/* fzgx:end fn_1_DA7B8 */
+
+/* fzgx:begin fn_1_DA7E4 noprologue */
+#include "types.h"
+
+struct fn_1_DA7E4_Sub {
+    u8 pad_0[0x9A0];
+    u32 blk[141];
+    u32 unk_BD4;
+    u32 unk_BD8;
+};
+
+struct fn_1_DA7E4_lbl_1_data_2A7E0 {
+    u8 pad_0[0x2C];
+    u32 unk_2C;
+    u8 pad_30[0xC];
+    struct fn_1_DA7E4_Sub *unk_3C;
+};
+
+extern f32 lbl_1_rodata_6628;
+extern struct fn_1_DA7E4_lbl_1_data_2A7E0 lbl_1_data_2A7E0;
+extern void fn_1_FB87C(u32 *, u32);
+extern u32 fn_1_FBFE4();
+extern s32 fn_1_58C4(void);
+extern void fn_1_103D28(void *, u32, f32);
+extern void fn_1_9A508(void);
+extern void fn_1_FB96C(int);
+
+void fn_1_DA7E4(void) {
+    struct fn_1_DA7E4_Sub *obj;
+    u32 tmp[4];
+    s32 n;
+    s32 i;
+
+    obj = lbl_1_data_2A7E0.unk_3C;
+    n = fn_1_58C4();
+    for (i = 0; i < n; i++) {
+        tmp[i] = obj->blk[i];
+    }
+    fn_1_9A508();
+    n = fn_1_58C4();
+    for (i = 0; i < n; i++) {
+        obj->blk[i] = tmp[i];
+    }
+    if (obj->unk_BD4 != 0) {
+        fn_1_FB87C(&obj->unk_BD4, 1);
+        fn_1_FB96C(0);
+        fn_1_FB96C(1);
+        fn_1_FB96C(2);
+        fn_1_FB96C(4);
+    }
+    lbl_1_data_2A7E0.unk_2C = (u32)fn_1_FBFE4;
+    fn_1_103D28(&obj->unk_BD8, 10, lbl_1_rodata_6628);
+}
+/* fzgx:end fn_1_DA7E4 */
+
+/* fzgx:begin fn_1_DA9F0 */
+#include "rel/main_rel/bg_san.h"
+
+extern u32 fn_1_58C4(void);
+extern void fn_1_DAB1C(Obj_1_data_2A7E0_At3C *state);
+
+// Applies the background transition after the scene reports readiness.
+void fn_1_DA9F0(void) {
+    Obj_1_data_2A7E0_At3C *background_state = lbl_1_data_2A7E0.unk_3C;
+
+    if (fn_1_58C4() == 1) {
+        fn_1_DAB1C(background_state);
+    }
+}
+/* fzgx:end fn_1_DA9F0 */
+
+/* fzgx:begin fn_1_DAA34 */
+void fn_1_DAA34(void) {
+    fn_1_9AD54();
+    fn_1_FBEA8();
+}
+/* fzgx:end fn_1_DAA34 */
+
+/* fzgx:begin fn_1_DAA58 */
+#include "rel/main_rel/bg_san.h"
+
+extern void fn_1_FB9C0(u32 value);
+extern void fn_1_103F10(void *state);
+extern void fn_1_DAB3C(Obj_1_data_2A7E0_At3C *state);
+
+// Loads pending background resources before advancing the scene state.
+void fn_1_DAA58(void) {
+    Obj_1_data_2A7E0_At3C *state = lbl_1_data_2A7E0.unk_3C;
+
+    if (state->unk_BD4 != 0) {
+        fn_1_FB9C0(0);
+        fn_1_FB9C0(1);
+        fn_1_FB9C0(2);
+        fn_1_FB9C0(4);
+    }
+
+    fn_1_103F10(&state->unk_BD8);
+    fn_1_DAB3C(state);
+}
+/* fzgx:end fn_1_DAA58 */
+
+/* fzgx:begin fn_1_DAAC4 */
+#include "rel/main_rel/bg_san.h"
+
+void fn_1_DAAC4(void) {
+    fn_1_103F58(&lbl_1_data_2A7E0.unk_3C->unk_BD8);
+    fn_1_9AD88();
+}
+/* fzgx:end fn_1_DAAC4 */
+
+/* fzgx:begin fn_1_DAAF8 */
+// fn_1_DAAF8: empty in retail (single blr).
+void fn_1_DAAF8(void) {
+}
+/* fzgx:end fn_1_DAAF8 */
+
+/* fzgx:begin fn_1_DAAFC */
+// Initialize the background-san subsystem through its shared setup routine.
+void fn_1_DAAFC(void) {
+    fn_1_58C4();
+}
+/* fzgx:end fn_1_DAAFC */
+
+/* fzgx:begin fn_1_DAB1C */
+// Runs the background sanitation update.
+void fn_1_DAB1C(void) {
+    fn_1_58C4();
+}
+/* fzgx:end fn_1_DAB1C */
+
+/* fzgx:begin fn_1_DAB3C */
+// Perform the background sanitation step.
+void fn_1_DAB3C(void) {
+    fn_1_58C4();
+}
+/* fzgx:end fn_1_DAB3C */
+
+/* fzgx:begin fn_1_DAB5C */
+typedef struct {
+    u8 pad_0[0x14];
+    f32 unk_14;
+    u8 pad_18[0xC];
+    u32 unk_24;
+} Fn1DAB5C_Obj;
+
+s32 fn_1_DAB5C(s32 mode, Fn1DAB5C_Obj **arg) {
+    Obj_1_data_2A7E0_At3C *dest;
+    Fn1DAB5C_Obj *obj;
+    u32 val;
+
+    obj = *arg;
+    dest = lbl_1_data_2A7E0.unk_3C;
+    val = obj->unk_24;
+    switch (mode) {
+    case 1:
+        dest->unk_BD4 = val;
+        break;
+    case 3:
+        dest->unk_AF0 = obj->unk_14;
+        break;
+    case 4:
+        dest->unk_18AC = (u32)obj;
+        break;
+    }
+    return 1;
+}
+/* fzgx:end fn_1_DAB5C */
+
+/* fzgx:begin fn_1_DABB4 noprologue */
+// Registers a primitive with the scene manager and updates its bounds.
+
+#include "types.h"
+
+typedef struct { f32 x, y, z; } Vec3f;
+
+
+
+
+// handler on the venue manager root lbl_1_data_2A7E0.x3c (offset 0x3c, the same
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct {
+    void *obj;          /* 0x00 */
+    f32   f4, f8, fc;   /* 0x04, 0x08, 0x0c */
+    u8    m10[0x1c - 0x10];
+    u8    m1c[0x4c - 0x1c];
+    f32   f4c;          /* 0x4c */
+} SanEntry;             /* 0x50 */
+
+typedef struct {
+    u8       _0[0x10];
+    s32      count;         /* 0x10 */
+    SanEntry entries[30];   /* 0x14 */
+    u8       _974[0xbd8 - (0x14 + 30 * 0x50)];
+    void    *wbd8;          /* 0xbd8 */
+} SanObj;
+
+typedef struct {
+    u8      _0[0x3c];
+    SanObj *x3c;            /* 0x3c */
+} SanMgr;
+
+typedef struct {
+    u32   flags;           /* 0x00 */
+    u8    _4[0xc - 0x4];
+    Vec3f vec_c;           /* 0x0c */
+    s16   h18, h1a, h1c;   /* 0x18, 0x1a, 0x1c */
+    u8    _1e[0x20 - 0x1e];
+    Vec3f vec20;           /* 0x20 */
+} SanArg;
+
+extern SanMgr lbl_1_data_2A7E0;
+extern const Vec3f lbl_1_rodata_662C;
+extern void lbl_8006D91C(s16 angle);
+extern void mathutil_mtxA_rotate_y(s16 angle);
+extern void mathutil_mtxA_rotate_x(s16 angle);
+extern void mathutil_mtxA_rotate_z(s16 angle);
+extern void lbl_8006E1C0(void *a, void *b);
+extern void lbl_8006D7DC(void *v);
+extern void lbl_8006E13C(void *v);
+extern void lbl_8006DB74(void *v);
+
+s32 fn_1_DABB4(s32 type, SanArg *obj) {
+    SanObj *ctx = lbl_1_data_2A7E0.x3c;
+    switch (type) {
+    case 0: obj->flags |= 0x02000000; break;
+    case 1: obj->flags |= 0x02000000; break;
+    case 2:
+    case 3: obj->flags |= 0x02000000; break;
+    case 4:
+        obj->flags |= 0x04000000;
+        if (ctx->count < 30) {
+            SanEntry *e = &ctx->entries[ctx->count];
+            Vec3f v = lbl_1_rodata_662C;
+            e->obj = obj;
+            e->f4 = obj->vec_c.x;
+            e->f8 = obj->vec_c.y;
+            e->fc = obj->vec_c.z;
+            lbl_8006D91C(obj->h1c);
+            mathutil_mtxA_rotate_y(obj->h1a);
+            mathutil_mtxA_rotate_x(obj->h18);
+            lbl_8006E1C0(&v, e->m10);
+            lbl_8006D7DC(&obj->vec_c);
+            mathutil_mtxA_rotate_z(obj->h1c);
+            mathutil_mtxA_rotate_y(obj->h1a);
+            mathutil_mtxA_rotate_x(obj->h18);
+            lbl_8006E13C(&obj->vec20);
+            lbl_8006DB74(e->m1c);
+            ctx->count++;
+            e->f4c = (obj->vec20.x > ((obj->vec20.y > obj->vec20.z) ? obj->vec20.y : obj->vec20.z))
+                         ? obj->vec20.x
+                         : ((obj->vec20.y > obj->vec20.z) ? obj->vec20.y : obj->vec20.z);
+        }
+        break;
+    case 8: ctx->wbd8 = obj; break;
+    }
+    return 1;
+}
+/* fzgx:end fn_1_DABB4 */
+
+/* fzgx:begin fn_1_DAD68 */
+// fn_1_DAD68: empty in retail (single blr).
+void fn_1_DAD68(void) {
+}
+/* fzgx:end fn_1_DAD68 */
+
+/* fzgx:begin fn_1_DAD6C */
+#include "rel/main_rel/bg_san.h"
+
+void fn_1_DAD6C(void) {
+    Obj_1_data_2A7E0_At3C *obj;
+
+    obj = lbl_1_data_2A7E0.unk_3C;
+    fn_1_9A508();
+    fn_1_DAF94(obj);
+}
+/* fzgx:end fn_1_DAD6C */
+
+/* fzgx:begin fn_1_DADA8 */
+#include "types.h"
+
+extern u32 fn_1_58C4(void);
+extern u32 fn_1_5948(u32);
+extern u32 fn_1_627C(u32);
+
+struct fn_1_DADA8_lbl_1_data_2A7E0 {
+    u8 pad_0[0x3C];
+    u32 unk_3C;
+};
+
+void fn_1_DADA8(void) {
+    u32 v0;
+    s32 v1;
+    u32 t0;
+    v0 = (*(struct fn_1_DADA8_lbl_1_data_2A7E0 *)&lbl_1_data_2A7E0).unk_3C;
+    t0 = fn_1_58C4();
+    v1 = 0;
+    while (v1 < (s32)t0) {
+    fn_1_5948(v1);
+    fn_1_105AB8(((v0 + 0x10000) + 17056), v1);
+    fn_1_627C(v1);
+    v1++;
+    }
+}
+/* fzgx:end fn_1_DADA8 */
+
+/* fzgx:begin fn_1_DAE24 noprologue */
+#include "types.h"
+
+extern u32 lbl_1_data_2A7E0[62];
+extern void fn_1_9AD54(void);
+extern s32 fn_1_58C4(void);
+extern s16 fn_1_5948(s32 index);
+extern s16 fn_1_7B054(s16 value);
+extern s16 fn_1_3F0C8(void);
+extern f32 lbl_1_rodata_6638;
+extern f32 lbl_1_rodata_663C;
+extern void fn_1_106084(void *target, s32 index, f32 x, f32 y, f32 z);
+extern void fn_1_627C(s32 index);
+extern void fn_1_DB138(void *object);
+
+void fn_1_DAE24(void) {
+    s32 count;
+    f32 *value;
+    s32 index;
+    u32 object;
+
+    object = lbl_1_data_2A7E0[15];
+    fn_1_9AD54();
+    count = fn_1_58C4();
+    value = (f32 *)object;
+    for (index = 0; index < count; index++) {
+        if (fn_1_7B054(fn_1_5948(index)) == 42) {
+            if (fn_1_3F0C8() != 39) {
+                fn_1_106084((void *)(object + 0x142a0), index,
+                    lbl_1_rodata_6638, *value, lbl_1_rodata_663C);
+            }
+        }
+        fn_1_627C(index);
+        value++;
+    }
+    fn_1_DB138((void *)object);
+}
+/* fzgx:end fn_1_DAE24 */
+
+/* fzgx:begin fn_1_DAEF8 */
+// fn_1_DAEF8: empty in retail (single blr).
+void fn_1_DAEF8(void) {
+}
+/* fzgx:end fn_1_DAEF8 */
+
+/* fzgx:begin fn_1_DAEFC */
+extern void fn_1_DB198(void *arg0, void *arg1);
+
+// Initializes the current background object and updates it for the active state.
+void fn_1_DAEFC(void) {
+    s32 slot;
+    Obj_1_data_2A7E0_At3C *background;
+
+    slot = fn_1_5910();
+    background = lbl_1_data_2A7E0.unk_3C;
+    fn_1_DB198(background, fn_1_9D260(&lbl_1_data_2A7E0));
+    fn_1_9AD88();
+    if (fn_1_7B054() == 42) {
+        if (fn_1_3F0C8() != 39) {
+            fn_1_1067A8(
+                (u8 *)background + 0x142a0,
+                ((f32 *)background)[slot],
+                lbl_1_rodata_663C
+            );
+        }
+    }
+}
+/* fzgx:end fn_1_DAEFC */
+
+/* fzgx:begin fn_1_DAF90 */
+// fn_1_DAF90: empty in retail (single blr).
+void fn_1_DAF90(void) {
+}
+/* fzgx:end fn_1_DAF90 */
+
+/* fzgx:begin fn_1_DB138 */
+typedef struct {
+    u8 unk_00[0x10];
+    s32 unk_10;
+} BgSanContext;
+
+extern u32 fn_1_58C4(BgSanContext *context);
+extern void fn_1_DB268(void *entry);
+
+// Process each background-san entry when the object is in an eligible state.
+void fn_1_DB138(BgSanContext *context) {
+    u8 *entry;
+    s32 count;
+
+    if (fn_1_58C4(context) < 2) {
+        count = context->unk_10;
+        entry = (u8 *)context + 0x14;
+        while (count > 0) {
+            fn_1_DB268(entry);
+            count -= 1;
+            entry += 0x1020;
+        }
+    }
+}
+/* fzgx:end fn_1_DB138 */
+
+/* fzgx:begin fn_1_DB198 */
+typedef struct BgSanObject {
+    u8 unk_00[0x10];
+    s32 unk_10;
+    void *unk_14;
+    u8 unk_18[0x80c];
+    f32 unk_824;
+    f32 unk_828;
+    f32 unk_82c;
+} BgSanObject;
+
+typedef struct BgSanPosition {
+    f32 unk_00;
+    f32 unk_04;
+    f32 unk_08;
+} BgSanPosition;
+
+typedef struct BgSanAllocation {
+    u8 unk_00[0x4];
+    void (*unk_04)(void);
+    void *unk_08;
+} BgSanAllocation;
+
+extern u32 fn_1_58C4(Obj_1_data_2A7E0 *object);
+extern void *fn_1_5448C(BgSanPosition *position);
+extern void fn_1_DB53C(void);
+
+// Builds a scaled position event when the object is active.
+void fn_1_DB198(BgSanObject *object, void *arg1) {
+    BgSanPosition position;
+    void *result;
+    BgSanAllocation *allocation;
+
+    if (fn_1_58C4((Obj_1_data_2A7E0 *)object) < 2 && object->unk_10 != 0) {
+        position.unk_00 = (((f32 *)object->unk_14)[3] + object->unk_824) * lbl_1_rodata_6644[0];
+        position.unk_04 = (((f32 *)object->unk_14)[4] + object->unk_828) * lbl_1_rodata_6644[0];
+        position.unk_08 = (((f32 *)object->unk_14)[5] + object->unk_82c) * lbl_1_rodata_6644[0];
+        lbl_8006DCA4(object->unk_14);
+        result = fn_1_5448C(&position);
+        allocation = (BgSanAllocation *)fn_1_548AC(12);
+        if (allocation != 0) {
+            allocation->unk_04 = fn_1_DB53C;
+            allocation->unk_08 = arg1;
+            fn_1_5489C(result, allocation);
+        }
+    }
+}
+/* fzgx:end fn_1_DB198 */
+
+/* fzgx:begin fn_1_DC1B8 */
+// fn_1_DC1B8: returns a constant.
+int fn_1_DC1B8(void) {
+    return 0;
+}
+/* fzgx:end fn_1_DC1B8 */
+
+/* fzgx:begin fn_1_DC1C0 */
+typedef struct {
+    u8 pad_0[0x14];
+    u32 unk_14;
+    u8 pad_18[0x1008];
+} BgSanEntry;
+
+int fn_1_DC1C0(int arg0, int arg1) {
+    Obj_1_data_2A7E0_At3C *obj = lbl_1_data_2A7E0.unk_3C;
+    switch (arg0) {
+    case 0:
+        if ((s32)obj->unk_10 < 20) {
+            BgSanEntry *entry = (BgSanEntry *)obj;
+            entry += (s32)obj->unk_10;
+            entry->unk_14 = arg1;
+            obj->unk_10 = (s32)obj->unk_10 + 1;
+        }
+        break;
+    default:
+        break;
+    }
+    return 1;
+}
+/* fzgx:end fn_1_DC1C0 */
+
+/* fzgx:begin fn_1_DC204 */
+// fn_1_DC204: empty in retail (single blr).
+void fn_1_DC204(void) {
+}
+/* fzgx:end fn_1_DC204 */
+
+/* fzgx:begin fn_1_DC208 */
+#include "rel/main_rel/bg_san.h"
+
+extern void fn_1_DC3A4(Obj_1_data_2A7E0_At3C *arg0);
+
+void fn_1_DC208(void) {
+    Obj_1_data_2A7E0_At3C *obj = lbl_1_data_2A7E0.unk_3C;
+
+    obj->unk_0 = 0;
+    fn_1_9A508();
+    fn_1_103D28((u8 *)obj + 0x1588, 0x14, lbl_1_rodata_66D0[0]);
+    fn_1_DC3A4(obj);
+}
+/* fzgx:end fn_1_DC208 */
+
+/* fzgx:begin fn_1_DC264 */
+// fn_1_DC264: empty in retail (single blr).
+void fn_1_DC264(void) {
+}
+/* fzgx:end fn_1_DC264 */
+
+/* fzgx:begin fn_1_DC268 noprologue */
+#include "rel/main_rel/bg_san.h"
+
+void fn_1_9AD54(void);
+s32 fn_1_9D260(void);
+void fn_1_DCB10(void);
+void fn_1_DC454(Obj_1_data_2A7E0_At3C *, s32);
+s32 fn_1_58C4(void);
+void fn_1_5948(s32);
+void fn_1_DC648(Obj_1_data_2A7E0_At3C *);
+void fn_1_627C(s32);
+
+// Initializes scene data and updates each active scene entry.
+void fn_1_DC268(void) {
+    Obj_1_data_2A7E0_At3C *scene_data;
+    s32 entry_index;
+    s32 entry_count;
+
+    scene_data = lbl_1_data_2A7E0.unk_3C;
+    fn_1_9AD54();
+    entry_count = fn_1_9D260();
+    fn_1_DCB10();
+    fn_1_DC454(scene_data, entry_count);
+
+    entry_count = fn_1_58C4();
+    for (entry_index = 0; entry_index < entry_count; entry_index++) {
+        fn_1_5948(entry_index);
+        fn_1_DC648(scene_data);
+        fn_1_627C(entry_index);
+    }
+}
+/* fzgx:end fn_1_DC268 */
+
+/* fzgx:begin fn_1_DC2F8 */
+#include "rel/main_rel/bg_san.h"
+
+extern void fn_1_DC404(Obj_1_data_2A7E0_At3C *);
+
+void fn_1_DC2F8(void) {
+    Obj_1_data_2A7E0_At3C *obj;
+
+    obj = lbl_1_data_2A7E0.unk_3C;
+    fn_1_72648(&lbl_1_data_2A7E0);
+    fn_1_DC404(obj);
+    fn_1_103F10((u8 *)obj + 0x1588);
+}
+/* fzgx:end fn_1_DC2F8 */
+
+/* fzgx:begin fn_1_DC33C */
+// Builds the active background scene and publishes it to the renderer.
+void fn_1_DC33C(void) {
+    Obj_1_data_2A7E0_At3C *background;
+    s32 scene_data;
+
+    background = lbl_1_data_2A7E0.unk_3C;
+    scene_data = (s32)fn_1_9D260(&lbl_1_data_2A7E0);
+    fn_1_103F58(&background->unk_1588);
+    fn_1_DC6FC(background);
+    fn_1_DC5E8(background, scene_data);
+    fn_1_9AD88();
+}
+/* fzgx:end fn_1_DC33C */
+
+/* fzgx:begin fn_1_DC3A0 */
+// fn_1_DC3A0: empty in retail (single blr).
+void fn_1_DC3A0(void) {
+}
+/* fzgx:end fn_1_DC3A0 */
+
+/* fzgx:begin fn_1_DC3A4 */
+typedef struct fn_1_DC3A4_Entry {
+    u8 unk00[0x68];
+    s32 initialized;
+    u8 unk6c[0x40];
+} fn_1_DC3A4_Entry;
+
+typedef struct fn_1_DC3A4_Container {
+    s32 count;
+    fn_1_DC3A4_Entry entries[1];
+} fn_1_DC3A4_Container;
+
+// Marks each entry as initialized and processes all entries in the container.
+void fn_1_DC3A4(fn_1_DC3A4_Container *container) {
+    s32 count;
+    fn_1_DC3A4_Entry *entry;
+
+    count = container->count;
+    entry = container->entries;
+    while (count > 0) {
+        entry->initialized = 1;
+        fn_1_103090(entry);
+        count--;
+        entry++;
+    }
+}
+/* fzgx:end fn_1_DC3A4 */
+
+/* fzgx:begin fn_1_DC404 */
+// Calls the cleanup routine for each entry in the container.
+typedef struct fn_1_DC404_Entry {
+    u8 data[0xac];
+} fn_1_DC404_Entry;
+
+typedef struct fn_1_DC404_Container {
+    s32 count;
+    fn_1_DC404_Entry entries[1];
+} fn_1_DC404_Container;
+
+void fn_1_DC404(fn_1_DC404_Container *container) {
+    s32 count;
+    fn_1_DC404_Entry *entry;
+
+    count = container->count;
+    entry = container->entries;
+    while (count > 0) {
+        fn_1_1030A4(entry);
+        count--;
+        entry++;
+    }
+}
+/* fzgx:end fn_1_DC404 */
+
+/* fzgx:begin fn_1_DC454 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+
+const f32 lbl_1_rodata_66D0 = 0.5f;
+
+extern u32 lbl_801A66A0;
+extern f32 lbl_8006D188(s32);
+extern void fn_1_1030D4(void *entry, void *arg);
+
+typedef struct SanEntry {
+    u8 unk00[0x08];
+    u32 unk08;
+    u8 unk0c[0x20];
+    f32 value2c;
+    f32 value30;
+    f32 value34;
+    u8 unk38[0x74];
+} SanEntry;
+
+typedef struct SanContainer {
+    s32 count;
+    SanEntry entries[1];
+} SanContainer;
+
+void fn_1_DC454(SanContainer *container, void *arg) {
+    void *saved_arg;
+    s32 count;
+    SanEntry *entry;
+
+    saved_arg = arg;
+    entry = container->entries;
+    count = container->count;
+    while (count > 0) {
+        if (((1) & ((entry->unk08 >> 28)))) {
+            entry->value2c = 0.6499999761581421f;
+            entry->value30 = 0.75f;
+            entry->value34 = 1.0f;
+        } else if ((entry->unk08 >> 29) & 1) {
+            entry->value2c = 1.0f;
+            entry->value30 = 0.0f;
+            entry->value34 = 0.0f;
+        } else {
+            entry->value2c = (f32)__fabs(lbl_8006D188(
+                (s32)(182.04444885253906f * (f32)lbl_801A66A0)));
+            entry->value30 = (f32)__fabs(lbl_8006D188(
+                (s32)(((((f32)lbl_801A66A0) * (182.04444885253906f)) * (0.5)))));
+            entry->value34 = (f32)__fabs(lbl_8006D188(
+                (s32)(2.0 * (182.04444885253906f * (f32)lbl_801A66A0))));
+        }
+        fn_1_1030D4(entry, saved_arg);
+        count--;
+        entry++;
+    }
+}
+/* fzgx:end fn_1_DC454 */
+
+/* fzgx:begin fn_1_DC5E8 */
+typedef struct fn_1_DC5E8_Entry {
+    u8 unk_00[0xac];
+} fn_1_DC5E8_Entry;
+
+typedef struct fn_1_DC5E8_Container {
+    s32 unk_00;
+    fn_1_DC5E8_Entry unk_04[1];
+} fn_1_DC5E8_Container;
+
+// Apply the supplied argument to each active entry in the container.
+void fn_1_DC5E8(Obj_1_data_2A7E0_At3C *container, s32 arg) {
+    s32 count;
+    fn_1_DC5E8_Entry *entry;
+    fn_1_DC5E8_Container *data;
+
+    data = (fn_1_DC5E8_Container *)container;
+    entry = data->unk_04;
+    count = data->unk_00;
+    while (count > 0) {
+        fn_1_103264(entry, (void *)arg);
+        count--;
+        entry++;
+    }
+}
+/* fzgx:end fn_1_DC5E8 */
+
+/* fzgx:begin fn_1_DC648 noprologue */
+#include "types.h"
+
+extern u32 fn_1_5910(void *);
+extern void fn_1_681C(u8, u8 *);
+extern s32 fn_1_1FB80(u8 *, s32);
+
+void fn_1_DC648(void *object) {
+    u32 index;
+    u32 direction;
+    u32 offset;
+    u8 local;
+    s32 value;
+
+    index = fn_1_5910(object);
+    fn_1_681C((u8)index, &local);
+    direction = fn_1_1FB80(&local, 1);
+    offset = (index << 1) + 0x2264;
+    if ((direction & 1) != 0) {
+        value = *(s16 *)((u8 *)object + offset);
+        value += 1;
+        *(s16 *)((u8 *)object + offset) = (value < 0) ? 0 : ((value > 30) ? 30 : value);
+    } else {
+        value = *(s16 *)((u8 *)object + offset);
+        value -= 1;
+        *(s16 *)((u8 *)object + offset) = (value < 0) ? 0 : ((value > 30) ? 30 : value);
+    }
+}
+/* fzgx:end fn_1_DC648 */
+
+/* fzgx:begin fn_1_DC6FC */
+typedef struct Handler {
+    u8 unk_00[4];
+    void (*unk_04)(void);
+    void *unk_08;
+} Handler;
+
+// Registers the callback and its context with a newly allocated handler.
+void fn_1_DC6FC(void *context) {
+    void *value;
+    Handler *handler;
+
+    value = fn_1_54448(0);
+    handler = fn_1_548AC(12);
+    if (handler != 0) {
+        handler->unk_04 = fn_1_DC764;
+        handler->unk_08 = context;
+        fn_1_5489C(value, handler);
+    }
+}
+/* fzgx:end fn_1_DC6FC */
+
+/* fzgx:begin fn_1_DCB10 */
+#include "rel/main_rel/bg_san.h"
+
+typedef struct fn_1_DCB10_Entry {
+    u8 pad_00[0x20];
+    u32 flags;
+} fn_1_DCB10_Entry;
+
+typedef struct fn_1_DCB10_Container {
+    u8 pad_00[0xa4];
+    s32 count;
+    fn_1_DCB10_Entry *entries;
+} fn_1_DCB10_Container;
+
+void fn_1_DCB10(void) {
+    fn_1_DCB10_Container **global;
+    s32 i;
+    fn_1_DCB10_Entry *entry;
+
+    global = (fn_1_DCB10_Container **)&lbl_1_bss_3BE0;
+    i = 0;
+    entry = (*global)->entries;
+    while (i < (*global)->count) {
+        if (entry->flags & 2) {
+            fn_1_D6C10(entry, *(const f32 *)&lbl_1_rodata_6748);
+        }
+        i++;
+        entry++;
+    }
+}
+/* fzgx:end fn_1_DCB10 */
+
+/* fzgx:begin fn_1_DCB9C */
+#include "rel/main_rel/bg_san.h"
+
+s32 fn_1_DCB9C(s32 value, u32 *data) {
+    Obj_1_data_2A7E0_At3C *obj;
+
+    obj = lbl_1_data_2A7E0.unk_3C;
+    switch (value) {
+    case 0:
+        obj->unk_1584 = *data;
+        break;
+    case 1:
+        obj->unk_225C = *data;
+        break;
+    case 2:
+        obj->unk_2260 = *data;
+        break;
+    }
+    return 1;
+}
+/* fzgx:end fn_1_DCB9C */

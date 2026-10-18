@@ -1,0 +1,55 @@
+# Game files and toolchain: never committed
+orig/**
+!orig/**/.gitkeep
+build/
+*.iso
+*.rvz
+*.gcm
+*.dol
+*.rel
+*.bin
+# Generated
+objdiff.json
+build.ninja
+.ninja_*
+__pycache__/
+.venv/
+.DS_Store
+# Private planning docs
+SPEC.md
+docs/batches/
+# IDE folders
+.idea/
+.vs/
+# Caches
+__pycache__
+.mypy_cache
+.cache/
+# Original files
+orig/*/*
+!orig/*/.gitkeep
+*.elf
+*.o
+*.map
+*.MAP
+# Build files
+# decompctx output
+ctx.*
+*.ctx
+# Generated configs
+compile_commands.json
+# Miscellaneous
+/*.txt
+*.exe
+
+# fzgx local state (ledger, locks, attempts); committed snapshot lives in state/
+.fzgx/
+
+# Editors, caches, per-user settings
+.vscode/
+.idea/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+*.pyc

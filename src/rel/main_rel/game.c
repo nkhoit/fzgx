@@ -1,0 +1,2966 @@
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/game.h"
+
+typedef struct Sig_ADXT_Pause_AdxSjdHandle Sig_ADXT_Pause_AdxSjdHandle;
+
+typedef struct Sig_ADXT_Pause_ADXStream Sig_ADXT_Pause_ADXStream;
+
+typedef struct Sig_ADXT_Pause_AXRNAHandle Sig_ADXT_Pause_AXRNAHandle;
+
+typedef struct Sig_ADXT_Pause_SJCK {
+    unsigned char *data;
+    int len;
+} Sig_ADXT_Pause_SJCK;
+
+typedef void (*Sig_ADXT_Pause_SJErrorCallback)(void *object, int error);
+
+typedef struct Sig_ADXT_Pause_SJInterface Sig_ADXT_Pause_SJInterface;
+
+typedef struct Sig_ADXT_Pause_SJ Sig_ADXT_Pause_SJ;
+
+struct Sig_ADXT_Pause_SJ {
+    const Sig_ADXT_Pause_SJInterface *interface;
+};
+
+struct Sig_ADXT_Pause_SJInterface {
+    void *reserved[3];
+    void (*destroy)(Sig_ADXT_Pause_SJ *sj);
+    const void *(*get_uuid)(Sig_ADXT_Pause_SJ *sj);
+    void (*reset)(Sig_ADXT_Pause_SJ *sj);
+    void (*get_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, int max_size, Sig_ADXT_Pause_SJCK *chunk);
+    void (*unget_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, Sig_ADXT_Pause_SJCK *chunk);
+    void (*put_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, Sig_ADXT_Pause_SJCK *chunk);
+    int (*get_num_data)(Sig_ADXT_Pause_SJ *sj, int channel);
+    int (*is_get_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, int size, int *available);
+    void (*entry_error_func)(Sig_ADXT_Pause_SJ *sj, Sig_ADXT_Pause_SJErrorCallback callback, void *object);
+};
+
+typedef struct Sig_ADXT_Pause_ADX_AMP Sig_ADXT_Pause_ADX_AMP;
+
+typedef struct Sig_ADXT_Pause_LSCObject Sig_ADXT_Pause_LSCObject;
+
+typedef struct Sig_ADXT_Pause_ADXTHandle {
+    s8 used;
+    s8 status;
+    s8 stream_type;
+    s8 maximum_channels;
+    Sig_ADXT_Pause_AdxSjdHandle *decoder;
+    Sig_ADXT_Pause_ADXStream *stream;
+    Sig_ADXT_Pause_AXRNAHandle *rna;
+    Sig_ADXT_Pause_SJ *stream_sj;
+    Sig_ADXT_Pause_SJ *input_sj;
+    Sig_ADXT_Pause_SJ *output_sj[2];
+    u8 *input_buffer;
+    s32 input_buffer_size;
+    s32 input_extra_size;
+    u8 *output_buffer;
+    s32 output_buffer_size;
+    s32 output_buffer_distance;
+    s32 server_frequency;
+    s16 stream_buffer_sectors;
+    s16 minimum_buffer_sectors;
+    s16 output_volume;
+    s16 output_pan[2];
+    s16 field_46;
+    s32 maximum_decode_samples;
+    s32 loop_count;
+    s32 link_data_length;
+    s32 field_54;
+    s32 field_58;
+    s32 field_5C;
+    s16 error_code;
+    u8 reserved_62[2];
+    s32 field_64;
+    s16 field_68;
+    s16 field_6A;
+    s8 stream_loop_enabled;
+    s8 auto_receiver;
+    u8 reserved_6E[2];
+    s8 suppress_playback;
+    s8 decoder_ready;
+    s8 paused;
+    u8 reserved_73;
+    Sig_ADXT_Pause_ADX_AMP *amplifier;
+    Sig_ADXT_Pause_SJ *amplifier_input[2];
+    Sig_ADXT_Pause_SJ *amplifier_output[2];
+    s32 time_offset;
+    s32 eos_sector;
+    s32 loop_sample_count;
+    Sig_ADXT_Pause_LSCObject *linked_stream_controller;
+    s8 link_enabled;
+    u8 reserved_99[3];
+    u32 playback_time;
+    s32 playback_start_vsync;
+    s32 linked_decoded_samples;
+    s8 pending_stream_start;
+    u8 reserved_A9[3];
+    u8 *work_end;
+    const char *pending_filename;
+    void *pending_directory;
+    s32 pending_file_offset;
+    s32 pending_file_sectors;
+} Sig_ADXT_Pause_ADXTHandle;
+
+typedef struct Sig_ADXT_Stop_AdxSjdHandle Sig_ADXT_Stop_AdxSjdHandle;
+
+typedef struct Sig_ADXT_Stop_ADXStream Sig_ADXT_Stop_ADXStream;
+
+typedef struct Sig_ADXT_Stop_AXRNAHandle Sig_ADXT_Stop_AXRNAHandle;
+
+typedef struct Sig_ADXT_Stop_SJCK {
+    unsigned char *data;
+    int len;
+} Sig_ADXT_Stop_SJCK;
+
+typedef void (*Sig_ADXT_Stop_SJErrorCallback)(void *object, int error);
+
+typedef struct Sig_ADXT_Stop_SJInterface Sig_ADXT_Stop_SJInterface;
+
+typedef struct Sig_ADXT_Stop_SJ Sig_ADXT_Stop_SJ;
+
+struct Sig_ADXT_Stop_SJInterface {
+    void *reserved[3];
+    void (*destroy)(Sig_ADXT_Stop_SJ *sj);
+    const void *(*get_uuid)(Sig_ADXT_Stop_SJ *sj);
+    void (*reset)(Sig_ADXT_Stop_SJ *sj);
+    void (*get_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, int max_size, Sig_ADXT_Stop_SJCK *chunk);
+    void (*unget_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, Sig_ADXT_Stop_SJCK *chunk);
+    void (*put_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, Sig_ADXT_Stop_SJCK *chunk);
+    int (*get_num_data)(Sig_ADXT_Stop_SJ *sj, int channel);
+    int (*is_get_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, int size, int *available);
+    void (*entry_error_func)(Sig_ADXT_Stop_SJ *sj, Sig_ADXT_Stop_SJErrorCallback callback, void *object);
+};
+
+struct Sig_ADXT_Stop_SJ {
+    const Sig_ADXT_Stop_SJInterface *interface;
+};
+
+typedef struct Sig_ADXT_Stop_ADX_AMP Sig_ADXT_Stop_ADX_AMP;
+
+typedef struct Sig_ADXT_Stop_LSCObject Sig_ADXT_Stop_LSCObject;
+
+typedef struct Sig_ADXT_Stop_ADXTHandle {
+    s8 used;
+    s8 status;
+    s8 stream_type;
+    s8 maximum_channels;
+    Sig_ADXT_Stop_AdxSjdHandle *decoder;
+    Sig_ADXT_Stop_ADXStream *stream;
+    Sig_ADXT_Stop_AXRNAHandle *rna;
+    Sig_ADXT_Stop_SJ *stream_sj;
+    Sig_ADXT_Stop_SJ *input_sj;
+    Sig_ADXT_Stop_SJ *output_sj[2];
+    u8 *input_buffer;
+    s32 input_buffer_size;
+    s32 input_extra_size;
+    u8 *output_buffer;
+    s32 output_buffer_size;
+    s32 output_buffer_distance;
+    s32 server_frequency;
+    s16 stream_buffer_sectors;
+    s16 minimum_buffer_sectors;
+    s16 output_volume;
+    s16 output_pan[2];
+    s16 field_46;
+    s32 maximum_decode_samples;
+    s32 loop_count;
+    s32 link_data_length;
+    s32 field_54;
+    s32 field_58;
+    s32 field_5C;
+    s16 error_code;
+    u8 reserved_62[2];
+    s32 field_64;
+    s16 field_68;
+    s16 field_6A;
+    s8 stream_loop_enabled;
+    s8 auto_receiver;
+    u8 reserved_6E[2];
+    s8 suppress_playback;
+    s8 decoder_ready;
+    s8 paused;
+    u8 reserved_73;
+    Sig_ADXT_Stop_ADX_AMP *amplifier;
+    Sig_ADXT_Stop_SJ *amplifier_input[2];
+    Sig_ADXT_Stop_SJ *amplifier_output[2];
+    s32 time_offset;
+    s32 eos_sector;
+    s32 loop_sample_count;
+    Sig_ADXT_Stop_LSCObject *linked_stream_controller;
+    s8 link_enabled;
+    u8 reserved_99[3];
+    u32 playback_time;
+    s32 playback_start_vsync;
+    s32 linked_decoded_samples;
+    s8 pending_stream_start;
+    u8 reserved_A9[3];
+    u8 *work_end;
+    const char *pending_filename;
+    void *pending_directory;
+    s32 pending_file_offset;
+    s32 pending_file_sectors;
+} Sig_ADXT_Stop_ADXTHandle;
+
+typedef struct {
+    u8 unk[0xb];
+    u8 value;
+} Entry;
+
+typedef struct {
+    u8 pad_0[2];
+    s16 unk_2;
+    u8 pad_4[8];
+    u32 unk_C;
+    u8 pad_10[0x10];
+} Obj_1_bss_25E9C;
+
+typedef struct {
+    u8 pad[0x2f8];
+    u32 value_2f8;
+    u32 value_2fc;
+    u32 value_300;
+    u32 value_304;
+    u32 value_308;
+    u32 value_30c;
+    u32 value_310;
+    u32 value_314;
+    u32 value_318;
+    u32 value_31c;
+} Fn40710Config;
+extern void fn_1_15E330(s32 index, u32 value, void *arg);
+extern void fn_1_15E5E4(s32 index, void *arg);
+extern void fn_1_15E688(s32 index, u32 value, u8 state, void *arg);
+extern void fn_1_15E3E0(s32 index, u32 value);
+extern void fn_1_15E434(u32 value);
+extern void fn_1_15E540(s32 index, void *arg);
+extern void fn_1_CB404(u8 value);
+extern void fn_1_D07C4(u32 arg0, u32 arg1);
+extern u32 lbl_1_bss_25B84;
+extern u32 OSGetTick(void);
+extern void fn_1_A0978(void);
+extern void fn_1_35174(void);
+extern s32 fn_1_3EFA8(void);
+extern u16 lbl_1_bss_26B7A[3];
+extern u16 lbl_1_bss_26300;
+extern void fn_80008BA8(u32 arg0, u32 arg1, u32 arg2);
+extern void fn_80008BEC(void *dest, int value, u32 size);
+extern u32 fn_1_101C0(void);
+extern u32 fn_1_A11EC(void);
+extern u32 fn_1_435C(u32 value);
+extern void ADXT_Pause(Sig_ADXT_Pause_ADXTHandle *, s32);
+extern void fn_1_4310(u32 arg0);
+extern void fn_1_48004(s32 index, s32 image);
+extern void fn_1_8616C(void);
+extern void fn_1_A1588(u32 arg0, u32 arg1);
+extern void fn_1_D0790(void);
+extern void fn_1_817C0(void);
+extern u32 lbl_1_bss_381FC;
+extern void fn_1_EB080(int mode);
+extern s64 OSGetTime(void);
+extern void fn_1_4A00(u32 arg0, u32 arg1, u32 arg2);
+extern void fn_1_5370(u32 arg0, u32 arg1);
+extern void fn_1_15E27C(void);
+extern void fn_1_4811C(int arg);
+extern void fn_1_A8F78(void);
+extern u8 lbl_1_bss_262F4;
+extern u32 lbl_1_bss_25E74[7];
+extern u8 lbl_1_bss_3C10;
+extern void fn_1_36330(void);
+extern void fn_1_36B10(void);
+extern void fn_1_3C98(void);
+extern void fn_1_37AA8(void);
+extern void fn_1_37E98(void);
+extern f32 lbl_1_bss_26304[4];
+extern u8 lbl_1_bss_26B04[20];
+extern u8 lbl_1_bss_26314[2032];
+extern s16 fn_1_12EF24(s16 row, s16 column);
+extern u8 lbl_1_bss_523C[32];
+extern Entry *lbl_1_bss_53F8[34];
+extern void OSPanic(const void *, u32, const char *, ...);
+extern Obj_1_bss_25E9C lbl_1_bss_25E9C[30];
+extern void fn_1_12AB38(void *arg0);
+extern void fn_1_465D0(char *value, u32 flag);
+extern void* fn_1_7F518(s16 car_type, void* car, s32 initialize);
+extern int sprintf(char *s, const char *format, ...);
+extern void fn_1_451E4(void);
+extern void fn_1_D3214(void);
+extern void fn_8001AF64(void);
+extern u32 fn_1_467F4(void);
+extern u32 fn_1_13018(void);
+extern u32 fn_1_46C60(void);
+extern u32 lbl_1_bss_26C2C[2];
+extern u32 lbl_1_bss_262F8[2];
+extern u16 lbl_1_bss_26C68[35526];
+extern u32 lbl_1_bss_3C08[2];
+extern u32 fn_800075AC(u32, u32, u32);
+extern u32 ghost_test_record_flag0(s32 arg);
+extern u32 fn_1_F9D44(u32 arg);
+extern u8 fn_1_F8C50(s32 arg0);
+extern void fn_1_2DB50(void);
+extern void fn_1_3F8C(void *, void *, Obj_1_bss_5138 *, int);
+extern void fn_1_2D888(void);
+extern void fn_1_2D524(void);
+extern u32 fn_1_FA070(void);
+extern int fn_1_FA180(int, u8);
+extern u32 fn_1_F9FEC(void);
+extern void fn_1_A2DC4(u32 arg0);
+extern Fn40710Config lbl_1_rodata_BD8;
+extern u8 lbl_1_bss_26B54[8];
+extern u32 fn_1_40EE4(void);
+extern u32 lbl_801A63D0;
+extern u32 lbl_1_bss_26C34[9];
+extern u8 lbl_1_bss_38218[568];
+extern u32 fn_1_4060(void);
+extern void ARQPostRequest(u8 *arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, u32 arg7);
+extern u32 lbl_801A63C0;
+extern void fn_1_40BE4(void);
+extern u32 GXGetTexBufferSize(u32, u32, u32, u32, u32);
+extern u32 lbl_1_bss_26B4C;
+extern u8 lbl_1_bss_25E90[8];
+extern s32 fn_1_48B0(u32 arg0, u32 arg1);
+extern void fn_1_40F54(void *arg0);
+extern u32 lbl_801A6CE0;
+extern u32 lbl_1_bss_38454;
+extern u32 fn_80070DE0(u32 arg0);
+extern void fn_1_D3884();
+extern void fn_1_D358C();
+extern void fn_800711A8(Obj_1_bss_38458_Target *target);
+extern void fn_80071718(u32 value);
+extern void fn_1_41134(void *unused, char *value);
+extern void fn_1_411D4(u32, char *);
+extern int fn_80016DF8(char *buffer);
+extern void fn_1_412A0(u32 index);
+extern size_t strlen(const char *str);
+extern int fn_80083BCC(const char *s1, const char *s2);
+extern u8 lbl_1_A9011300;
+extern u8 lbl_1_A9011100;
+extern u8 lbl_1_A9011000;
+
+/* fzgx:begin fn_1_327F8 */
+struct fn_1_327F8_Arg0 {
+    u32 unk_0;
+    s16 unk_4;
+    u8 pad_6[0x46F];
+    s8 unk_475;
+    u8 pad_476[0x26];
+    u32 unk_49C;
+};
+struct fn_1_327F8_lbl_1_bss_3C30 {
+    u32 unk_0;
+    u8 unk_4;
+    u8 unk_5;
+    u8 pad_6[0x13B4 - 0x6];
+    u32 unk_13B4;
+    u8 pad_13B8[0x13D4 - 0x13B8];
+    u32 unk_13D4;
+    u8 pad_13D8[0x13F4 - 0x13D8];
+    u8 unk_13F4;
+    u8 unk_13F5;
+    u8 pad_13F6[0x1468 - 0x13F6];
+    u8 unk_1468;
+    u8 pad_1469[0x1474 - 0x1469];
+    u32 unk_1474;
+};
+struct fn_1_327F8_lbl_1_bss_25B88 {
+    u32 unk_0;
+};
+
+
+void fn_1_327F8(struct fn_1_327F8_Arg0 *arg0, u32 arg1) {
+    u8 *v0;
+    s32 v1;
+    u32 v5;
+    u32 v2;
+    u32 v3;
+    u32 v4;
+
+    v0 = (u8 *)arg0->unk_49C;
+    v1 = arg0->unk_475;
+    v2 = ((*(u8 *)(v0 + 0x174) << 20) | (*(u8 *)(v0 + 0x175) << 12)) | *(u16 *)(v0 + 0x176);
+    v3 = ((*(u8 *)(v0 + 0x1e0) << 20) | (*(u8 *)(v0 + 0x1e1) << 12)) | *(u16 *)(v0 + 0x1e2);
+    v5 = *(u32 *)(v0 + 0x118);
+
+    if (arg0->unk_475 != -1) {
+        if (v5 == 1 && ((*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_0 & 0x10) == 0) {
+            fn_1_15E540(v1, (void *)(*((struct fn_1_327F8_lbl_1_bss_25B88 *)&lbl_1_bss_25B88)).unk_0);
+        }
+        if (v5 == ((*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_4 - 1) && (*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_5 != 3) {
+            u32 a = (*((struct fn_1_327F8_lbl_1_bss_25B88 *)&lbl_1_bss_25B88)).unk_0;
+            fn_1_15E5E4(arg0->unk_475, (void *)a);
+        }
+        fn_1_D07C4((u8)arg0->unk_475,
+                   (((*(u8 *)(v0 + 0x1d4) << 20) | (*(u8 *)(v0 + 0x1d5) << 12)) | *(u16 *)(v0 + 0x1d6)));
+        fn_1_CB404((u8)arg0->unk_475);
+    }
+    if ((s32)arg1 != -1) {
+        *((u8 *)&(*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)) + 0x1468 + arg1) = (u8)v5;
+    }
+    if (v5 < 8) {
+        *((u32 *)((u8 *)&(*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)) + 0x12c) + arg0->unk_4 * 0x28 + v5) = v2;
+    }
+    if (arg0->unk_475 != -1) {
+        fn_1_15E688(arg0->unk_475, v2, (u8)v5, (void *)(*((struct fn_1_327F8_lbl_1_bss_25B88 *)&lbl_1_bss_25B88)).unk_0);
+    }
+    if ((*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_1474 <= 0x50000 + 0x6ff4) {
+        if ((arg0->unk_0 & 0x08000000) != 0) {
+            v3 = 0;
+        }
+        if (*(u8 *)(v0 + 0x115) == 0) {
+            if (v5 > (*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_13F4) {
+                *(u32 *)((u8 *)&(*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)) + (((v5 - 1) & 3) << 2) + 0x13b4) = v3;
+                (*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_13F4 = (u8)v5;
+                fn_1_15E3E0(arg0->unk_475, v3);
+            }
+        } else {
+            if (*(u8 *)(v0 + 0x115) == 1) {
+                if (v5 > (*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_13F5) {
+                    *(u32 *)((u8 *)&(*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)) + (((v5 - 1) & 3) << 2) + 0x13d4) = v3;
+                    (*((struct fn_1_327F8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30)).unk_13F5 = (u8)v5;
+                    fn_1_15E434((*((struct fn_1_327F8_lbl_1_bss_25B88 *)&lbl_1_bss_25B88)).unk_0);
+                }
+            }
+            if (arg0->unk_475 != -1) {
+                fn_1_15E330(arg0->unk_475, v3, (void *)(u32)((*((struct fn_1_327F8_lbl_1_bss_25B88 *)&lbl_1_bss_25B88)).unk_0));
+            }
+        }
+    }
+}
+/* fzgx:end fn_1_327F8 */
+
+/* fzgx:begin fn_1_33890 */
+typedef struct {
+    u8 pad_0[0x5];
+    u8 unk_5;
+    u8 pad_6[0x4];
+    u8 unk_A;
+    u8 pad_B[0x1];
+    u8 unk_C;
+    u8 unk_D;
+} Fn33890Arg;
+
+int fn_1_33890(Fn33890Arg* arg0) {
+    u8 count;
+    u8 limit;
+    u32 flags;
+
+    if ((s32)lbl_1_bss_25BA0.unk_0 != 0) {
+        return 0;
+    }
+
+    if (((flags = lbl_1_bss_3C30.unk_0) & 0x800) != 0) {
+        return 0;
+    }
+
+    switch (arg0->unk_5) {
+    case 4:
+        if (arg0->unk_D == 0 || arg0->unk_A != 1) {
+            /* Shared fallback is the irreducible default path. */
+            goto fallback;
+        }
+        return 1;
+
+    case 2:
+        if (arg0->unk_C == 0) {
+            /* Shared fallback is the irreducible default path. */
+            goto fallback;
+        }
+        return 1;
+
+    case 0:
+    case 1:
+    case 6:
+        count = arg0->unk_C;
+        if (count == 0) {
+            /* Shared fallback is the irreducible default path. */
+            goto fallback;
+        }
+        limit = arg0->unk_D;
+        if (limit <= count) {
+            if ((s32)lbl_1_bss_25B84 != 0) {
+                lbl_1_bss_3C30.unk_0 |= 0x10000;
+            }
+            return 1;
+        }
+        if (lbl_1_bss_3C30.unk_5 == 0 && (limit - count) <= 1) {
+            lbl_1_bss_25B98++;
+            return 1;
+        }
+        break;
+
+    default:
+        break;
+    }
+
+fallback:
+    if (lbl_1_bss_3C30.unk_8 != 0) {
+        if (lbl_1_bss_3C30.unk_D == 0) {
+            return -1;
+        }
+    } else if (lbl_1_bss_3C30.pad_A[0] == 0) {
+        return -1;
+    }
+
+    if ((flags & 0x04000000) == 0 && lbl_1_bss_3C30.unk_1474 > 0x57030) {
+        lbl_1_bss_3C30.unk_0 |= 0x80000;
+        return -1;
+    }
+    return 0;
+}
+/* fzgx:end fn_1_33890 */
+
+/* fzgx:begin fn_1_34E08 noprologue */
+#include "types.h"
+
+// Builds a formatted listing from the current archive state.
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct {
+    u8 _0[0xe];
+    s16 fe;
+} ArchiveState;
+
+typedef struct {
+    u32 flags;
+    u8 _4[0x81a0 - 4];
+    u8 f81a0;
+} Handle;
+
+extern u8 lbl_1_data_5730[];
+extern ArchiveState lbl_1_bss_8B3A0;
+extern s8 lbl_1_bss_26B5C[];
+
+extern Handle *fn_1_36AD0(void);
+extern void fn_1_34AC0(s8 *table, s32 a, s32 n, s32 b);
+extern void fn_1_8001C(void);
+extern void fn_1_12AB38(const char *msg);
+extern void fn_1_465D0(const char *msg, s32 flag);
+extern void *fn_1_7F518(int sel, void *handle, int flag);
+extern void sprintf(void *dst, const char *fmt, ...);
+
+void fn_1_34E08(void) {
+    char *s = (char *)lbl_1_data_5730;
+    s16 i;
+    char buf[0x20];
+    char handle[0x20];
+    int count;
+
+    count = lbl_1_bss_8B3A0.fe;
+    if (count > 0x28) {
+        Handle *h = fn_1_36AD0();
+        count = 0x32;
+        if (!(h->flags & 0x40000000)) {
+            count = h->f81a0;
+        }
+    }
+    lbl_1_bss_26B5C[0] = count;
+    fn_1_34AC0(lbl_1_bss_26B5C, 1, 0x1e, 1);
+    fn_1_8001C();
+    fn_1_12AB38(s + 0xce4);
+    fn_1_465D0(s + 0xcf0, 1);
+    for (i = 0; i < 0x1e; i++) {
+        if (i == 0) {
+            sprintf(buf, s + 0xd00, fn_1_7F518(lbl_1_bss_26B5C[i], handle, 0));
+        } else {
+            sprintf(buf, s + 0xd0c, fn_1_7F518(lbl_1_bss_26B5C[i], handle, 0));
+        }
+        fn_1_465D0(buf, 1);
+    }
+    fn_1_12AB38(s + 0xd18);
+}
+/* fzgx:end fn_1_34E08 */
+
+/* fzgx:begin fn_1_35124 */
+// Updates game state for the current frame.
+
+void fn_1_35124(void) {
+    OSGetTick();
+    fn_1_A0978();
+    OSGetTick();
+}
+/* fzgx:end fn_1_35124 */
+
+/* fzgx:begin fn_1_3514C */
+void fn_1_3514C(void* arg0, int arg1) {
+    if (arg1 == 1) {
+        fn_1_35174();
+    }
+}
+/* fzgx:end fn_1_3514C */
+
+/* fzgx:begin fn_1_35174 */
+// fn_1_35174: empty in retail (single blr).
+void fn_1_35174(void) {
+}
+/* fzgx:end fn_1_35174 */
+
+/* fzgx:begin fn_1_35178 */
+// Decrement the counter while the associated state is active.
+void fn_1_35178(u32* arg0) {
+    if (fn_1_3EFA8() == 0) {
+        switch (lbl_1_bss_3C2A) {
+        case 0x29:
+            if ((lbl_1_bss_3C30.unk_0 & 0x00000800) == 0) {
+                if (lbl_1_bss_3C30.unk_5 == 2) {
+                    u32 value = -(*arg0);
+
+                    if (lbl_1_bss_3C30.unk_14A8 != value) {
+                        lbl_1_bss_3C30.unk_14A8 = value;
+                    }
+                    if (*(s16*)&lbl_1_bss_26B7A[0] == -1 ||
+                        *(s16*)&lbl_1_bss_26300 == -1) {
+                        lbl_1_bss_3C30.unk_5 = 6;
+                    }
+                }
+                *arg0 -= 1;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+}
+/* fzgx:end fn_1_35178 */
+
+/* fzgx:begin fn_1_36A94 */
+// Clears one indexed 0x81c0-byte entry in the shared buffer.
+void fn_1_36A94(u32 arg0, u32 arg1) {
+    u8 *entry = lbl_1_bss_5480;
+    u32 stride = 0x81c0;
+    u32 offset = (arg0 & 0xFF) * stride;
+
+    fn_80008BA8( (u32)(void *)(entry + offset), (u32)((void *)arg1), stride);
+}
+/* fzgx:end fn_1_36A94 */
+
+/* fzgx:begin fn_1_36AD0 */
+u8* fn_1_36AD0(void) {
+    return lbl_1_bss_5480;
+}
+/* fzgx:end fn_1_36AD0 */
+
+/* fzgx:begin fn_1_36ADC */
+void fn_1_36ADC(void) {
+    fn_80008BEC(lbl_1_bss_5480, (int)(void *)(0), 0x20700);
+}
+/* fzgx:end fn_1_36ADC */
+
+/* fzgx:begin fn_1_3908C noprologue */
+#include "types.h"
+
+typedef struct Sig_ADXT_Stop_AdxSjdHandle Sig_ADXT_Stop_AdxSjdHandle;
+typedef struct Sig_ADXT_Stop_ADXStream Sig_ADXT_Stop_ADXStream;
+typedef struct Sig_ADXT_Stop_AXRNAHandle Sig_ADXT_Stop_AXRNAHandle;
+typedef struct Sig_ADXT_Stop_SJInterface Sig_ADXT_Stop_SJInterface;
+typedef struct Sig_ADXT_Stop_SJ Sig_ADXT_Stop_SJ;
+typedef struct Sig_ADXT_Stop_ADX_AMP Sig_ADXT_Stop_ADX_AMP;
+typedef struct Sig_ADXT_Stop_LSCObject Sig_ADXT_Stop_LSCObject;
+typedef struct Sig_ADXT_Pause_AdxSjdHandle Sig_ADXT_Pause_AdxSjdHandle;
+typedef struct Sig_ADXT_Pause_ADXStream Sig_ADXT_Pause_ADXStream;
+typedef struct Sig_ADXT_Pause_AXRNAHandle Sig_ADXT_Pause_AXRNAHandle;
+typedef struct Sig_ADXT_Pause_SJInterface Sig_ADXT_Pause_SJInterface;
+typedef struct Sig_ADXT_Pause_SJ Sig_ADXT_Pause_SJ;
+typedef struct Sig_ADXT_Pause_ADX_AMP Sig_ADXT_Pause_ADX_AMP;
+typedef struct Sig_ADXT_Pause_LSCObject Sig_ADXT_Pause_LSCObject;
+typedef struct Sig_ADXT_Stop_SJCK {
+    unsigned char *data;
+    int len;
+} Sig_ADXT_Stop_SJCK;
+typedef void (*Sig_ADXT_Stop_SJErrorCallback)(void *object, int error);
+struct Sig_ADXT_Stop_SJInterface {
+    void *reserved[3];
+    void (*destroy)(Sig_ADXT_Stop_SJ *sj);
+    const void *(*get_uuid)(Sig_ADXT_Stop_SJ *sj);
+    void (*reset)(Sig_ADXT_Stop_SJ *sj);
+    void (*get_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, int max_size, Sig_ADXT_Stop_SJCK *chunk);
+    void (*unget_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, Sig_ADXT_Stop_SJCK *chunk);
+    void (*put_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, Sig_ADXT_Stop_SJCK *chunk);
+    int (*get_num_data)(Sig_ADXT_Stop_SJ *sj, int channel);
+    int (*is_get_chunk)(Sig_ADXT_Stop_SJ *sj, int channel, int size, int *available);
+    void (*entry_error_func)(Sig_ADXT_Stop_SJ *sj, Sig_ADXT_Stop_SJErrorCallback callback, void *object);
+};
+struct Sig_ADXT_Stop_SJ {
+    const Sig_ADXT_Stop_SJInterface *interface;
+};
+typedef struct Sig_ADXT_Stop_ADXTHandle {
+    s8 used;
+    s8 status;
+    s8 stream_type;
+    s8 maximum_channels;
+    Sig_ADXT_Stop_AdxSjdHandle *decoder;
+    Sig_ADXT_Stop_ADXStream *stream;
+    Sig_ADXT_Stop_AXRNAHandle *rna;
+    Sig_ADXT_Stop_SJ *stream_sj;
+    Sig_ADXT_Stop_SJ *input_sj;
+    Sig_ADXT_Stop_SJ *output_sj[2];
+    u8 *input_buffer;
+    s32 input_buffer_size;
+    s32 input_extra_size;
+    u8 *output_buffer;
+    s32 output_buffer_size;
+    s32 output_buffer_distance;
+    s32 server_frequency;
+    s16 stream_buffer_sectors;
+    s16 minimum_buffer_sectors;
+    s16 output_volume;
+    s16 output_pan[2];
+    s16 field_46;
+    s32 maximum_decode_samples;
+    s32 loop_count;
+    s32 link_data_length;
+    s32 field_54;
+    s32 field_58;
+    s32 field_5C;
+    s16 error_code;
+    u8 reserved_62[2];
+    s32 field_64;
+    s16 field_68;
+    s16 field_6A;
+    s8 stream_loop_enabled;
+    s8 auto_receiver;
+    u8 reserved_6E[2];
+    s8 suppress_playback;
+    s8 decoder_ready;
+    s8 paused;
+    u8 reserved_73;
+    Sig_ADXT_Stop_ADX_AMP *amplifier;
+    Sig_ADXT_Stop_SJ *amplifier_input[2];
+    Sig_ADXT_Stop_SJ *amplifier_output[2];
+    s32 time_offset;
+    s32 eos_sector;
+    s32 loop_sample_count;
+    Sig_ADXT_Stop_LSCObject *linked_stream_controller;
+    s8 link_enabled;
+    u8 reserved_99[3];
+    u32 playback_time;
+    s32 playback_start_vsync;
+    s32 linked_decoded_samples;
+    s8 pending_stream_start;
+    u8 reserved_A9[3];
+    u8 *work_end;
+    const char *pending_filename;
+    void *pending_directory;
+    s32 pending_file_offset;
+    s32 pending_file_sectors;
+} Sig_ADXT_Stop_ADXTHandle;
+typedef struct Sig_ADXT_Pause_SJCK {
+    unsigned char *data;
+    int len;
+} Sig_ADXT_Pause_SJCK;
+typedef void (*Sig_ADXT_Pause_SJErrorCallback)(void *object, int error);
+struct Sig_ADXT_Pause_SJInterface {
+    void *reserved[3];
+    void (*destroy)(Sig_ADXT_Pause_SJ *sj);
+    const void *(*get_uuid)(Sig_ADXT_Pause_SJ *sj);
+    void (*reset)(Sig_ADXT_Pause_SJ *sj);
+    void (*get_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, int max_size, Sig_ADXT_Pause_SJCK *chunk);
+    void (*unget_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, Sig_ADXT_Pause_SJCK *chunk);
+    void (*put_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, Sig_ADXT_Pause_SJCK *chunk);
+    int (*get_num_data)(Sig_ADXT_Pause_SJ *sj, int channel);
+    int (*is_get_chunk)(Sig_ADXT_Pause_SJ *sj, int channel, int size, int *available);
+    void (*entry_error_func)(Sig_ADXT_Pause_SJ *sj, Sig_ADXT_Pause_SJErrorCallback callback, void *object);
+};
+struct Sig_ADXT_Pause_SJ {
+    const Sig_ADXT_Pause_SJInterface *interface;
+};
+typedef struct Sig_ADXT_Pause_ADXTHandle {
+    s8 used;
+    s8 status;
+    s8 stream_type;
+    s8 maximum_channels;
+    Sig_ADXT_Pause_AdxSjdHandle *decoder;
+    Sig_ADXT_Pause_ADXStream *stream;
+    Sig_ADXT_Pause_AXRNAHandle *rna;
+    Sig_ADXT_Pause_SJ *stream_sj;
+    Sig_ADXT_Pause_SJ *input_sj;
+    Sig_ADXT_Pause_SJ *output_sj[2];
+    u8 *input_buffer;
+    s32 input_buffer_size;
+    s32 input_extra_size;
+    u8 *output_buffer;
+    s32 output_buffer_size;
+    s32 output_buffer_distance;
+    s32 server_frequency;
+    s16 stream_buffer_sectors;
+    s16 minimum_buffer_sectors;
+    s16 output_volume;
+    s16 output_pan[2];
+    s16 field_46;
+    s32 maximum_decode_samples;
+    s32 loop_count;
+    s32 link_data_length;
+    s32 field_54;
+    s32 field_58;
+    s32 field_5C;
+    s16 error_code;
+    u8 reserved_62[2];
+    s32 field_64;
+    s16 field_68;
+    s16 field_6A;
+    s8 stream_loop_enabled;
+    s8 auto_receiver;
+    u8 reserved_6E[2];
+    s8 suppress_playback;
+    s8 decoder_ready;
+    s8 paused;
+    u8 reserved_73;
+    Sig_ADXT_Pause_ADX_AMP *amplifier;
+    Sig_ADXT_Pause_SJ *amplifier_input[2];
+    Sig_ADXT_Pause_SJ *amplifier_output[2];
+    s32 time_offset;
+    s32 eos_sector;
+    s32 loop_sample_count;
+    Sig_ADXT_Pause_LSCObject *linked_stream_controller;
+    s8 link_enabled;
+    u8 reserved_99[3];
+    u32 playback_time;
+    s32 playback_start_vsync;
+    s32 linked_decoded_samples;
+    s8 pending_stream_start;
+    u8 reserved_A9[3];
+    u8 *work_end;
+    const char *pending_filename;
+    void *pending_directory;
+    s32 pending_file_offset;
+    s32 pending_file_sectors;
+} Sig_ADXT_Pause_ADXTHandle;
+
+struct fn_1_3908C_lbl_1_bss_25B88 {
+    u32 unk_0;
+};
+struct fn_1_3908C_lbl_1_bss_25CA4 {
+    u32 unk_0;
+};
+struct fn_1_3908C_lbl_1_bss_3C30 {
+    u8 pad_0[0x5];
+    u8 unk_5;
+    u8 unk_6;
+    u8 pad_7[0x146D];
+    u32 unk_1474;
+};
+struct fn_1_3908C_lbl_1_bss_6EAD0 {
+    u32 unk_0;
+};
+struct fn_1_3908C_lbl_1_bss_381F5 {
+    u8 unk_0;
+};
+
+extern s16 lbl_1_bss_960;
+extern struct fn_1_3908C_lbl_1_bss_25B88 lbl_1_bss_25B88;
+extern struct fn_1_3908C_lbl_1_bss_25CA4 lbl_1_bss_25CA4;
+extern struct fn_1_3908C_lbl_1_bss_381F5 lbl_1_bss_381F5;
+extern struct fn_1_3908C_lbl_1_bss_3C30 lbl_1_bss_3C30;
+extern struct fn_1_3908C_lbl_1_bss_6EAD0 lbl_1_bss_6EAD0;
+extern u32 fn_1_101C0(void);
+extern u32 fn_1_A11EC(void);
+extern u32 lbl_1_bss_26C28;
+extern s8 lbl_1_bss_5104;
+extern void * fn_1_435C(void *);
+extern void ADXT_Pause(Sig_ADXT_Pause_ADXTHandle *, s32);
+extern void fn_1_4310(u32);
+extern void fn_1_48004(s32, s32);
+extern void fn_1_8616C(void);
+extern void fn_1_A1588(Sig_ADXT_Stop_ADXTHandle *, u32);
+extern void fn_1_D0790(void);
+
+void fn_1_3908C(void) {
+    u32 v0;
+    u32 v1;
+    s32 t7;
+    fn_1_435C((void *)lbl_1_bss_25B88.unk_0);
+    fn_1_4310(-1);
+    fn_1_435C((void *)lbl_1_bss_25CA4.unk_0);
+    fn_1_4310(-1);
+    fn_1_8616C();
+    switch ((s32)lbl_1_bss_3C30.unk_6) {
+case 31: case 32: case 33: case 34: case 35: case 36: {
+
+    v0 = 1;
+    
+} break;
+default: {
+
+    v0 = 0;
+    
+} break;
+}
+    fn_1_A11EC();
+    fn_1_D0790();
+    lbl_1_bss_5104 = -1;
+    t7 = fn_1_101C0();
+    lbl_1_bss_26C28 = t7;    if (t7 < 0) {
+    lbl_1_bss_26C28 = 0xf0;
+    }
+    if (lbl_1_bss_960 == 9 || (v0 & 0xFF) != 0) {
+    lbl_1_bss_26C28 = 350;
+    fn_1_A1588((Sig_ADXT_Stop_ADXTHandle *)*(u32 *)((u8 *)lbl_1_bss_6EAD0.unk_0 + 0), 7);
+    } else {
+    fn_1_A1588((Sig_ADXT_Stop_ADXTHandle *)*(u32 *)((u8 *)lbl_1_bss_6EAD0.unk_0 + 0), 6);
+    }
+    lbl_1_bss_3C30.unk_1474 = 0;
+    v1 = lbl_1_bss_6EAD0.unk_0;
+    lbl_1_bss_381F5.unk_0 = 1;
+    ADXT_Pause((Sig_ADXT_Pause_ADXTHandle *)*(u32 *)((u8 *)v1 + 0), 1);
+    if (lbl_1_bss_3C30.unk_5 == 1) {
+    fn_1_48004(187, 1);
+    }
+}
+/* fzgx:end fn_1_3908C */
+
+/* fzgx:begin fn_1_3A2C4 */
+void fn_1_3A2C4(void) {
+    s64 time;
+    u32 lo, hi;
+
+    fn_1_817C0();
+    lbl_1_bss_381FC = 0;
+    fn_1_EB080(1);
+    time = OSGetTime();
+    lo = (u32)time;
+    hi = (u32)(time >> 32);
+    lbl_1_bss_3C30.unk_14A4 = lo;
+    lbl_1_bss_3C30.unk_14A0 = hi;
+    lbl_1_bss_3C30.unk_1494 = lo;
+    lbl_1_bss_3C30.unk_1490 = hi;
+    lbl_1_bss_3C30.unk_149C = 0;
+    lbl_1_bss_3C30.unk_1498 = 0;
+    lbl_1_bss_38200 = 0xff;
+}
+/* fzgx:end fn_1_3A2C4 */
+
+/* fzgx:begin fn_1_3DDAC */
+// Initializes global game state and configures startup resources.
+void fn_1_3DDAC(void) {
+    fn_1_4A00(1, 0x1e, lbl_1_bss_5100);
+    fn_1_5370(3, 0);
+    fn_1_15E27C();
+
+    lbl_1_bss_26C28 = 0;
+    fn_1_D0790();
+
+    lbl_1_bss_3C30.unk_0 |= 0x8;
+    lbl_1_bss_6EAB4.unk_0 |= 0x2c;
+    fn_1_4811C(0x94);
+
+    fn_1_48004(0x8a, 1);
+    fn_1_435C( (u32)((void *)lbl_1_bss_25CA4.unk_0));
+    fn_1_4310(0x20000);
+    fn_1_435C( (u32)((void *)lbl_1_bss_25B88.unk_0));
+    fn_1_4310(0x2c3);
+
+    fn_1_A1588(lbl_1_bss_6EAD0.unk_0->unk_0, 0x1e);
+}
+/* fzgx:end fn_1_3DDAC */
+
+/* fzgx:begin fn_1_3E5D0 */
+// Resets both state objects and advances the game initialization sequence.
+void fn_1_3E5D0(void) {
+    fn_1_435C( (u32)((void *)lbl_1_bss_25B88.unk_0));
+    fn_1_4310(0);
+    fn_1_435C( (u32)((void *)lbl_1_bss_25CA4.unk_0));
+    fn_1_4310(0);
+    fn_1_4811C(0x8a);
+    fn_1_A8F78();
+}
+/* fzgx:end fn_1_3E5D0 */
+
+/* fzgx:begin fn_1_3E628 */
+// fn_1_3E628: empty in retail (single blr).
+void fn_1_3E628(void) {
+}
+/* fzgx:end fn_1_3E628 */
+
+/* fzgx:begin fn_1_3E62C noprologue */
+#include "types.h"
+
+// Initializes game state once and sets its startup flags.
+
+
+
+
+
+
+
+
+
+extern s32 lbl_1_bss_25BA0;
+extern u32 lbl_1_bss_6EAB4;
+extern s16 lbl_1_bss_53F4;
+void fn_1_3E628(void);
+
+void fn_1_3E62C(void) {
+    if (lbl_1_bss_25BA0 != 0)
+        return;
+    lbl_1_bss_53F4 = 0xd;
+    lbl_1_bss_6EAB4 |= 0x2c;
+    lbl_1_bss_25BA0 = 1;
+}
+void fn_1_3E66C(void);
+/* fzgx:end fn_1_3E62C */
+
+/* fzgx:begin fn_1_3E66C */
+// fn_1_3E66C: empty in retail (single blr).
+void fn_1_3E66C(void) {
+}
+/* fzgx:end fn_1_3E66C */
+
+/* fzgx:begin fn_1_3E670 */
+void fn_1_3E670(void) {
+    fn_1_4A00(1, 0x1e, lbl_1_bss_5100);
+    lbl_1_bss_26C28 = 0;
+    fn_1_D0790();
+    lbl_1_bss_3C30.unk_0 |= 8;
+    lbl_1_bss_6EAB4.unk_0 |= 0x2c;
+}
+/* fzgx:end fn_1_3E670 */
+
+/* fzgx:begin fn_1_3EA70 */
+void fn_1_3EA70(void) {
+    fn_1_A8F78();
+}
+/* fzgx:end fn_1_3EA70 */
+
+/* fzgx:begin fn_1_3EF08 */
+void fn_1_3EF08(u8 value) {
+    lbl_1_bss_262F4 = value;
+}
+/* fzgx:end fn_1_3EF08 */
+
+/* fzgx:begin fn_1_3EF14 */
+static inline s16 current_mode(void) {
+    return *(s16 *)&lbl_1_bss_960;
+}
+
+// Selects the appropriate buffer initialization based on the current mode.
+void fn_1_3EF14(void *arg1) {
+    if (lbl_1_bss_3C12.unk_0 != 0 ||
+        (u16)(current_mode() - 13) <= 1 ||
+        current_mode() == 10 ||
+        current_mode() == 16) {
+        fn_80008BA8( (u32)(void *)(arg1), (u32)(void *)(&lbl_1_bss_3C30), 0x14b8);
+    } else {
+        fn_80008BEC(arg1, (int)(void *)(0), 0x14b8);
+    }
+}
+/* fzgx:end fn_1_3EF14 */
+
+/* fzgx:begin fn_1_3EF8C */
+// Stores the value unless initialization has already occurred.
+void fn_1_3EF8C(u8 value) {
+    if (lbl_1_bss_3C12.unk_0 == 0) {
+        lbl_1_data_5B7C = value;
+    }
+}
+/* fzgx:end fn_1_3EF8C */
+
+/* fzgx:begin fn_1_3EFA8 */
+typedef struct MainRelState {
+    u8 pad_0000[0x12];
+    u8 unk_12;
+    u8 pad_0013[0x1D];
+    s32 unk_30;
+    u8 pad_0034[0x14C4];
+    s32 unk_14F8;
+} MainRelState;
+
+// Reports whether the relevant state is active and enabled.
+s32 fn_1_3EFA8(void) {
+    s32 result = 0;
+    MainRelState *state = (MainRelState *)&lbl_1_bss_3C00;
+
+    if (state->unk_14F8 != 0 ||
+        (state->unk_30 & 2) != 0 ||
+        (s32)lbl_1_bss_26B50 != 0) {
+        if (state->unk_12 != 0) {
+            result = 1;
+        }
+    }
+    return result;
+}
+/* fzgx:end fn_1_3EFA8 */
+
+/* fzgx:begin fn_1_3EFF0 */
+void fn_1_3EFF0(u32 arg1, u8 arg2) {
+    lbl_1_bss_25E74[0] = arg1;
+    lbl_1_bss_3C10 = arg2;
+    lbl_1_bss_3C11 = 1;
+    lbl_1_bss_26C58 = 0;
+    lbl_1_bss_26C64 = 0;
+}
+/* fzgx:end fn_1_3EFF0 */
+
+/* fzgx:begin fn_1_3F02C */
+void fn_1_3F02C(u32 arg1) {
+    lbl_1_bss_26C64 = arg1;
+}
+/* fzgx:end fn_1_3F02C */
+
+/* fzgx:begin fn_1_3F038 */
+// Initializes the game state and reports whether startup has completed.
+int fn_1_3F038(void) {
+    if (lbl_1_bss_26C58 != 0) {
+        return 1;
+    }
+
+    if (lbl_1_bss_3C11 != 0) {
+        fn_1_36330();
+        lbl_1_bss_3C11 = 0;
+    }
+
+    fn_1_36B10();
+    fn_1_3C98();
+    if ((lbl_1_bss_3C30.unk_0 & 4) == 0) {
+        fn_1_37AA8();
+    }
+
+    if (lbl_1_bss_26C58 != 0) {
+        fn_1_37E98();
+        return 1;
+    }
+    return 0;
+}
+/* fzgx:end fn_1_3F038 */
+
+/* fzgx:begin fn_1_3F0C8 */
+s16 fn_1_3F0C8(void) {
+    return lbl_1_bss_3C2A;
+}
+/* fzgx:end fn_1_3F0C8 */
+
+/* fzgx:begin fn_1_3F0D8 */
+u8 *fn_1_3F0D8(u32 index, f32 *value, u8 *flag) {
+    u8 idx = (u8)index;
+    *value = lbl_1_bss_26304[idx];
+    *flag = lbl_1_bss_26B04[idx];
+    return &lbl_1_bss_26314[idx * 0x1fc];
+}
+/* fzgx:end fn_1_3F0D8 */
+
+/* fzgx:begin fn_1_3F114 */
+// Returns the current global status byte when the subsystem is enabled.
+u8 fn_1_3F114(void) {
+    if (lbl_1_bss_3C12.unk_0 != 0) {
+        return lbl_1_bss_3C30.unk_4;
+    }
+    return 0;
+}
+/* fzgx:end fn_1_3F114 */
+
+/* fzgx:begin fn_1_3F13C */
+u8 fn_1_3F13C(void) {
+    if (lbl_1_bss_3C12.unk_0 != 0) {
+        return lbl_1_bss_3C30.unk_5;
+    }
+    return 0xff;
+}
+/* fzgx:end fn_1_3F13C */
+
+/* fzgx:begin fn_1_3F164 */
+typedef struct {
+    u8 unk_00[0x12];
+    u8 unk_12;
+    u8 unk_13[0x1d];
+    s32 unk_30;
+    u8 unk_34[0x14c4];
+    s32 unk_14f8;
+} MainState;
+
+// Reports whether the active state permits the current mode.
+s32 fn_1_3F164(void) {
+    s32 result = 0;
+    MainState *state = (MainState *)&lbl_1_bss_3C00;
+
+    if (state->unk_14f8 != 0 ||
+        (state->unk_30 & 2) != 0 ||
+        (s32)lbl_1_bss_26B50 != 0) {
+        if (state->unk_12 != 0) {
+            result = 1;
+        }
+    }
+    return result;
+}
+/* fzgx:end fn_1_3F164 */
+
+/* fzgx:begin fn_1_3F1AC */
+u32 fn_1_3F1AC(u32 arg0) {
+    u32 v0;
+    v0 = arg0;
+    if ((*(u8 *)&lbl_1_bss_3C12) == 0) {
+    v0 = 0;
+    return v0;
+    }
+    return (((*(u32 (*)[])&lbl_1_bss_3C30)[0] >> 1) & 0x1);
+}
+/* fzgx:end fn_1_3F1AC */
+
+/* fzgx:begin fn_1_3F1D4 */
+// Return the stored status byte when the game state is initialized.
+s32 fn_1_3F1D4(void) {
+    if (lbl_1_bss_3C30.unk_5 == 1) {
+        return lbl_1_bss_3C30.unk_13F6;
+    }
+    return -1;
+}
+/* fzgx:end fn_1_3F1D4 */
+
+/* fzgx:begin fn_1_3F1F8 */
+u8 fn_1_3F1F8(void) {
+    if (lbl_1_bss_3C30.unk_A6 != 0xff) {
+        return fn_1_12EF24(lbl_1_bss_3C30.unk_A6, lbl_1_bss_3C30.unk_A7);
+    }
+    return lbl_1_bss_3C30.unk_6;
+}
+/* fzgx:end fn_1_3F1F8 */
+
+/* fzgx:begin fn_1_3F23C */
+// Reads the byte selected by the low eight bits of the index.
+u8 fn_1_3F23C(u32 index) {
+    u8 *table = &lbl_1_bss_2625C.unk_0;
+
+    return table[index & 0xff];
+}
+/* fzgx:end fn_1_3F23C */
+
+/* fzgx:begin fn_1_3F250 */
+u8 fn_1_3F250(u32 index) {
+    return lbl_1_bss_523C[index & 0xff];
+}
+/* fzgx:end fn_1_3F250 */
+
+/* fzgx:begin fn_1_3F264 */
+// Return the stored entry byte, or the indexed fallback when no entry exists.
+u8 fn_1_3F264(u32 index) {
+    u32 masked = index & 0xff;
+    Entry *entry = lbl_1_bss_53F8[masked];
+
+    if (entry != 0) {
+        return entry->value;
+    }
+
+    return (u8)(&lbl_1_bss_25C48.unk_0)[masked];
+}
+/* fzgx:end fn_1_3F264 */
+
+/* fzgx:begin fn_1_3F2A0 noprologue */
+#include "types.h"
+
+// Recomputes racer standings and maps racers to finishing ranks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __INTELLISENSE__
+
+typedef int ptrdiff_t;
+#else
+
+typedef long ptrdiff_t;
+#endif
+
+#define offsetof(type, member)	((size_t)&(((type*)0)->member))
+
+#ifndef NULL
+
+#endif
+
+#ifdef __cplusplus
+};
+#endif
+
+
+struct RacerBody;
+
+
+
+typedef struct GameStateRecord {
+    unsigned int unk_00;
+    unsigned short score;                 /* 0x04 */
+    unsigned short unk_06;
+    unsigned char rank;                   /* 0x08 */
+    unsigned char stage_points[5];        /* 0x09 */
+    unsigned char stage_status[5];        /* 0x0E */
+    unsigned char stage_places[5];        /* 0x13 */
+    unsigned short unk_18;
+    unsigned char unknown_1A[0x24 - 0x1A];
+    unsigned int unk_24;
+    unsigned char unknown_28[0x38 - 0x28];
+    unsigned int unk_38;
+    unsigned char unknown_3C[0x4C - 0x3C];
+    unsigned short stage_times[5];        /* 0x4C */
+    unsigned char unknown_56[0x58 - 0x56];
+    unsigned int unk_58;
+    unsigned char unknown_5C[0x78 - 0x5C];
+    unsigned int accumulated;             /* 0x78 */
+    unsigned char unknown_7C[0x7E - 0x7C];
+    unsigned char unk_7E;
+    unsigned char unk_7F;
+    unsigned char unk_80;
+    unsigned char unk_81;
+    unsigned char unknown_82;
+    unsigned char previous_rank;          /* 0x83 */
+    unsigned char unknown_84[0x9E - 0x84];
+    unsigned short half_result;           /* 0x9E */
+} GameStateRecord;
+
+
+
+typedef struct GameStateTime {
+    unsigned int high;
+    unsigned int low;
+} GameStateTime;
+
+
+
+typedef struct GameState {
+    unsigned int unk_0x0;
+    unsigned char unk_0x4, unk_0x5, unk_0x6, unk_0x7;
+    unsigned char unk_0x8, unk_0x9, unk_0xA;
+    unsigned char unknown_000B[2];
+    unsigned char unk_0xD;
+    unsigned char order[30];              /* 0x000E */
+    struct RacerBody *racers[30];         /* 0x002C */
+    unsigned short unk_0xA4;
+    unsigned char unk_0xA6, unk_0xA7;
+    unsigned char unknown_00A8[0xD4 - 0xA8];
+    GameStateRecord records[5][6];          /* 0x00D4 */
+    unsigned char rank_to_racer[30];      /* 0x1394 */
+    unsigned char unknown_13B2[0x13B4 - 0x13B2];
+    unsigned int unk_0x13B4;
+    unsigned char unknown_13B8[0x13D4 - 0x13B8];
+    unsigned int unk_0x13D4;
+    unsigned char unknown_13D8[0x13F4 - 0x13D8];
+    unsigned char unk_0x13F4, unk_0x13F5, unk_0x13F6, unknown_13F7;
+    unsigned short unk_0x13F8, unk_0x13FA, unk_0x13FC, unk_0x13FE, unk_0x1400;
+    unsigned char unk_0x1402;
+    unsigned char unknown_1403[2];
+    unsigned char unk_0x1405;
+    unsigned char unknown_1406[0x1464 - 0x1406];
+    unsigned int unk_0x1464;
+    unsigned char unk_0x1468;
+    unsigned char unknown_1469[3];
+    unsigned char unk_0x146C, unk_0x146D;
+    unsigned short unk_0x146E;
+    unsigned char unk_0x1470, unk_0x1471, unk_0x1472, unknown_1473;
+    unsigned int unk_0x1474;
+    unsigned short half_results[4];       /* 0x1478 */
+    signed int word_results[4];           /* 0x1480 */
+    GameStateTime stamp_1490;
+    signed int zero_1498, zero_149c;
+    GameStateTime stamp_14a0;
+    unsigned int unk_0x14A8;
+    unsigned char unknown_14AC[0x14B8 - 0x14AC];
+} GameState;
+
+
+
+
+
+
+typedef struct GameStateStorage {
+    GameState state;
+    signed short live_mode;               /* 0x14B8, outside snapshot */
+    unsigned char unknown_14BA[2];
+} GameStateStorage;
+
+#define GAME_STATE_OFFSET(type, member) offsetof(type, member)
+#define GAME_STATE_ASSERT(name, expression) typedef char name[(expression) ? 1 : -1]
+GAME_STATE_ASSERT(game_state_word_width, sizeof(unsigned int) == 4);
+GAME_STATE_ASSERT(game_state_pointer_width, sizeof(void *) == 4);
+GAME_STATE_ASSERT(game_record_size, sizeof(GameStateRecord) == 0xA0);
+GAME_STATE_ASSERT(game_record_score, GAME_STATE_OFFSET(GameStateRecord, score) == 4);
+GAME_STATE_ASSERT(game_record_rank, GAME_STATE_OFFSET(GameStateRecord, rank) == 8);
+GAME_STATE_ASSERT(game_record_prev, GAME_STATE_OFFSET(GameStateRecord, previous_rank) == 0x83);
+GAME_STATE_ASSERT(game_state_size, sizeof(GameState) == 0x14B8);
+GAME_STATE_ASSERT(game_storage_size, sizeof(GameStateStorage) == 0x14BC);
+GAME_STATE_ASSERT(game_state_order, GAME_STATE_OFFSET(GameState, order) == 0xE);
+GAME_STATE_ASSERT(game_state_racers, GAME_STATE_OFFSET(GameState, racers) == 0x2C);
+GAME_STATE_ASSERT(game_state_records, GAME_STATE_OFFSET(GameState, records) == 0xD4);
+GAME_STATE_ASSERT(game_state_ranks, GAME_STATE_OFFSET(GameState, rank_to_racer) == 0x1394);
+GAME_STATE_ASSERT(game_state_halves, GAME_STATE_OFFSET(GameState, half_results) == 0x1478);
+GAME_STATE_ASSERT(game_state_words, GAME_STATE_OFFSET(GameState, word_results) == 0x1480);
+GAME_STATE_ASSERT(game_state_stamp0, GAME_STATE_OFFSET(GameState, stamp_1490) == 0x1490);
+GAME_STATE_ASSERT(game_state_stamp1, GAME_STATE_OFFSET(GameState, stamp_14a0) == 0x14A0);
+GAME_STATE_ASSERT(game_state_tail, GAME_STATE_OFFSET(GameState, unknown_14AC) == 0x14AC);
+GAME_STATE_ASSERT(game_storage_mode, GAME_STATE_OFFSET(GameStateStorage, live_mode) == 0x14B8);
+GAME_STATE_ASSERT(game_storage_mode_width, sizeof(signed short) == 2);
+GAME_STATE_ASSERT(game_storage_tail, GAME_STATE_OFFSET(GameStateStorage, unknown_14BA) == 0x14BA);
+#undef GAME_STATE_ASSERT
+#undef GAME_STATE_OFFSET
+
+
+
+enum { GAME_STATE_RECORDS_OFFSET = offsetof(GameState, records) };
+
+
+
+
+
+#define GAME_STATE_RECORD_AT(state, index) \
+    ((GameStateRecord *)((unsigned char *)&(state) + \
+                        (index) * sizeof(GameStateRecord) + \
+                        GAME_STATE_RECORDS_OFFSET))
+
+extern GameStateStorage lbl_1_bss_3C30;
+void fn_1_3EF14(GameState *snapshot);
+
+#define G lbl_1_bss_3C30.state
+
+void fn_1_3F2A0(void) {
+    int pos, oidx, count;
+    int racer, rank, j, key;
+    GameStateRecord *rec;
+
+    if (G.unk_0x5 == 0)
+        count = G.unk_0x8;
+    else
+        count = G.unk_0x9;
+    oidx = 0;
+    for (pos = 0; pos < count; pos++) {
+        if (G.unk_0x5 == 0) {
+            while (G.order[oidx] >= count)
+                oidx++;
+        }
+        racer = G.order[oidx];
+        rank = 0;
+        rec = GAME_STATE_RECORD_AT(G, racer);
+        if (G.unk_0x5 == 0) {
+            key = G.word_results[racer];
+            rec->score = (u16)key;
+            rec->half_result = G.half_results[racer];
+        } else {
+            key = rec->score;
+        }
+        for (j = 0; j < G.unk_0x9; j++) {
+            int rj, okey;
+            if (oidx == j)
+                continue;
+            rj = G.order[j];
+            if (G.unk_0x5 == 0) {
+                if (rj >= count)
+                    continue;
+                okey = G.word_results[rj];
+            } else {
+                okey = GAME_STATE_RECORD_AT(G, rj)->score;
+            }
+            if (key < okey)
+                rank++;
+            else if (key == okey && oidx > j)
+                rank++;
+        }
+        G.rank_to_racer[rank] = racer;
+        rec->rank = rank;
+        if (G.unk_0xA7 == 0 && G.unk_0x5 != 0)
+            rec->previous_rank = rank;
+        oidx++;
+    }
+}
+/* fzgx:end fn_1_3F2A0 */
+
+/* fzgx:begin fn_1_3F440 */
+// Returns a standings slot after checking its bounds.
+s32 fn_1_3F440(u8 index) {
+    u8 *limits;
+
+    if (index > 0x1d) {
+        OSPanic(&lbl_1_data_62EC, 0x2654, (const char *)lbl_1_data_65E8);
+    }
+
+    limits = (u8 *)&lbl_1_bss_3C30.unk_0;
+    if (lbl_1_bss_3C30.unk_8 > limits[index + 14]) {
+        return limits[index + 14];
+    }
+
+    return -1;
+}
+/* fzgx:end fn_1_3F440 */
+
+/* fzgx:begin fn_1_3F4B8 noprologue */
+#include "types.h"
+
+// Reads a bounded standings slot and updates its result fields.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __INTELLISENSE__
+
+typedef int ptrdiff_t;
+#else
+
+typedef long ptrdiff_t;
+#endif
+
+#define offsetof(type, member)	((size_t)&(((type*)0)->member))
+
+#ifndef NULL
+
+#endif
+
+#ifdef __cplusplus
+};
+#endif
+
+
+struct RacerBody;
+
+
+
+typedef struct GameStateRecord {
+    unsigned int unk_00;
+    unsigned short score;                 /* 0x04 */
+    unsigned short unk_06;
+    unsigned char rank;                   /* 0x08 */
+    unsigned char stage_points[5];        /* 0x09 */
+    unsigned char stage_status[5];        /* 0x0E */
+    unsigned char stage_places[5];        /* 0x13 */
+    unsigned short unk_18;
+    unsigned char unknown_1A[0x24 - 0x1A];
+    unsigned int unk_24;
+    unsigned char unknown_28[0x38 - 0x28];
+    unsigned int unk_38;
+    unsigned char unknown_3C[0x4C - 0x3C];
+    unsigned short stage_times[5];        /* 0x4C */
+    unsigned char unknown_56[0x58 - 0x56];
+    unsigned int unk_58;
+    unsigned char unknown_5C[0x78 - 0x5C];
+    unsigned int accumulated;             /* 0x78 */
+    unsigned char unknown_7C[0x7E - 0x7C];
+    unsigned char unk_7E;
+    unsigned char unk_7F;
+    unsigned char unk_80;
+    unsigned char unk_81;
+    unsigned char unknown_82;
+    unsigned char previous_rank;          /* 0x83 */
+    unsigned char unknown_84[0x9E - 0x84];
+    unsigned short half_result;           /* 0x9E */
+} GameStateRecord;
+
+
+
+typedef struct GameStateTime {
+    unsigned int high;
+    unsigned int low;
+} GameStateTime;
+
+
+
+typedef struct GameState {
+    unsigned int unk_0x0;
+    unsigned char unk_0x4, unk_0x5, unk_0x6, unk_0x7;
+    unsigned char unk_0x8, unk_0x9, unk_0xA;
+    unsigned char unknown_000B[2];
+    unsigned char unk_0xD;
+    unsigned char order[30];              /* 0x000E */
+    struct RacerBody *racers[30];         /* 0x002C */
+    unsigned short unk_0xA4;
+    unsigned char unk_0xA6, unk_0xA7;
+    unsigned char unknown_00A8[0xD4 - 0xA8];
+    GameStateRecord records[5][6];          /* 0x00D4 */
+    unsigned char rank_to_racer[30];      /* 0x1394 */
+    unsigned char unknown_13B2[0x13B4 - 0x13B2];
+    unsigned int unk_0x13B4;
+    unsigned char unknown_13B8[0x13D4 - 0x13B8];
+    unsigned int unk_0x13D4;
+    unsigned char unknown_13D8[0x13F4 - 0x13D8];
+    unsigned char unk_0x13F4, unk_0x13F5, unk_0x13F6, unknown_13F7;
+    unsigned short unk_0x13F8, unk_0x13FA, unk_0x13FC, unk_0x13FE, unk_0x1400;
+    unsigned char unk_0x1402;
+    unsigned char unknown_1403[2];
+    unsigned char unk_0x1405;
+    unsigned char unknown_1406[0x1464 - 0x1406];
+    unsigned int unk_0x1464;
+    unsigned char unk_0x1468;
+    unsigned char unknown_1469[3];
+    unsigned char unk_0x146C, unk_0x146D;
+    unsigned short unk_0x146E;
+    unsigned char unk_0x1470, unk_0x1471, unk_0x1472, unknown_1473;
+    unsigned int unk_0x1474;
+    unsigned short half_results[4];       /* 0x1478 */
+    signed int word_results[4];           /* 0x1480 */
+    GameStateTime stamp_1490;
+    signed int zero_1498, zero_149c;
+    GameStateTime stamp_14a0;
+    unsigned int unk_0x14A8;
+    unsigned char unknown_14AC[0x14B8 - 0x14AC];
+} GameState;
+
+
+
+
+
+
+typedef struct GameStateStorage {
+    GameState state;
+    signed short live_mode;               /* 0x14B8, outside snapshot */
+    unsigned char unknown_14BA[2];
+} GameStateStorage;
+
+#define GAME_STATE_OFFSET(type, member) offsetof(type, member)
+#define GAME_STATE_ASSERT(name, expression) typedef char name[(expression) ? 1 : -1]
+GAME_STATE_ASSERT(game_state_word_width, sizeof(unsigned int) == 4);
+GAME_STATE_ASSERT(game_state_pointer_width, sizeof(void *) == 4);
+GAME_STATE_ASSERT(game_record_size, sizeof(GameStateRecord) == 0xA0);
+GAME_STATE_ASSERT(game_record_score, GAME_STATE_OFFSET(GameStateRecord, score) == 4);
+GAME_STATE_ASSERT(game_record_rank, GAME_STATE_OFFSET(GameStateRecord, rank) == 8);
+GAME_STATE_ASSERT(game_record_prev, GAME_STATE_OFFSET(GameStateRecord, previous_rank) == 0x83);
+GAME_STATE_ASSERT(game_state_size, sizeof(GameState) == 0x14B8);
+GAME_STATE_ASSERT(game_storage_size, sizeof(GameStateStorage) == 0x14BC);
+GAME_STATE_ASSERT(game_state_order, GAME_STATE_OFFSET(GameState, order) == 0xE);
+GAME_STATE_ASSERT(game_state_racers, GAME_STATE_OFFSET(GameState, racers) == 0x2C);
+GAME_STATE_ASSERT(game_state_records, GAME_STATE_OFFSET(GameState, records) == 0xD4);
+GAME_STATE_ASSERT(game_state_ranks, GAME_STATE_OFFSET(GameState, rank_to_racer) == 0x1394);
+GAME_STATE_ASSERT(game_state_halves, GAME_STATE_OFFSET(GameState, half_results) == 0x1478);
+GAME_STATE_ASSERT(game_state_words, GAME_STATE_OFFSET(GameState, word_results) == 0x1480);
+GAME_STATE_ASSERT(game_state_stamp0, GAME_STATE_OFFSET(GameState, stamp_1490) == 0x1490);
+GAME_STATE_ASSERT(game_state_stamp1, GAME_STATE_OFFSET(GameState, stamp_14a0) == 0x14A0);
+GAME_STATE_ASSERT(game_state_tail, GAME_STATE_OFFSET(GameState, unknown_14AC) == 0x14AC);
+GAME_STATE_ASSERT(game_storage_mode, GAME_STATE_OFFSET(GameStateStorage, live_mode) == 0x14B8);
+GAME_STATE_ASSERT(game_storage_mode_width, sizeof(signed short) == 2);
+GAME_STATE_ASSERT(game_storage_tail, GAME_STATE_OFFSET(GameStateStorage, unknown_14BA) == 0x14BA);
+#undef GAME_STATE_ASSERT
+#undef GAME_STATE_OFFSET
+
+
+
+enum { GAME_STATE_RECORDS_OFFSET = offsetof(GameState, records) };
+
+
+
+
+
+#define GAME_STATE_RECORD_AT(state, index) \
+    ((GameStateRecord *)((unsigned char *)&(state) + \
+                        (index) * sizeof(GameStateRecord) + \
+                        GAME_STATE_RECORDS_OFFSET))
+
+extern GameStateStorage lbl_1_bss_3C30;
+void fn_1_3EF14(GameState *snapshot);
+
+extern s32 lbl_1_bss_26C5C;
+extern const char lbl_1_data_62EC[];
+extern const char lbl_1_data_65E8[];
+extern void OSPanic(const char *file, int line, const char *msg, ...);
+s32 fn_1_3F440(u8 arg);
+
+void fn_1_3F4B8(int a0, int a1, int a2, int a3, int a4, int a5) {
+    lbl_1_bss_3C30.state.unk_0x13F8 = a0 * 0x3c;
+    lbl_1_bss_3C30.state.unk_0x13FA = a1 * 0x3c;
+    lbl_1_bss_3C30.state.unk_0x13FC = a2 * 0x3c;
+    lbl_1_bss_3C30.state.unk_0x13FE = a3 * 0x3c;
+    lbl_1_bss_3C30.state.unk_0x1400 = a4 * 0x3c;
+    lbl_1_bss_3C30.state.unk_0x1402 = a5;
+    lbl_1_bss_26C5C = 1;
+}
+/* fzgx:end fn_1_3F4B8 */
+
+/* fzgx:begin fn_1_3F4FC */
+// Returns a standings value for the requested slot.
+
+void fn_1_3F4FC(void) {
+    u8 *dp;
+    s16 i;
+    s32 mode;
+    u32 flags;
+    char buffer[0x20];
+    char temp[0x20];
+
+    dp = (u8 *)&lbl_1_data_5730;
+    fn_1_12AB38(dp + 0xce4);
+    fn_1_465D0( (char *)(void *)(dp + 0xcf0), 1);
+
+    i = 0;
+    while (i < lbl_1_bss_3C30.unk_9) {
+        flags = lbl_1_bss_25E9C[i].unk_C;
+        mode = 0;
+        if (flags & 0x100000) {
+            mode = 1;
+        }
+
+        if (flags & 0xf0000000) {
+            sprintf(buffer, (const char *)(dp + 0xd00), (s32)fn_1_7F518(lbl_1_bss_25E9C[i].unk_2, temp, mode));
+        } else {
+            sprintf(buffer, (const char *)(dp + 0xd0c), (s32)fn_1_7F518(lbl_1_bss_25E9C[i].unk_2, temp, mode));
+        }
+
+        fn_1_465D0( (char *)(void *)(buffer), 1);
+        i++;
+    }
+
+    fn_1_12AB38(dp + 0xd18);
+}
+/* fzgx:end fn_1_3F4FC */
+
+/* fzgx:begin fn_1_3F75C noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/game.h"
+
+extern void fn_1_451E4(void);
+extern void fn_1_D3214(void);
+extern void fn_8001AF64(void);
+extern s32 fn_1_467F4(void);
+extern s32 fn_1_13018(void);
+
+void fn_1_3F75C(void) {
+    while (fn_1_467F4() || fn_1_13018()) {
+        fn_1_451E4();
+        fn_1_D3214();
+        fn_8001AF64();
+    }
+}
+/* fzgx:end fn_1_3F75C */
+
+/* fzgx:begin fn_1_3F7A0 */
+void fn_1_3F7A0(u32* self) {
+    self[0] = fn_1_46C60();
+}
+/* fzgx:end fn_1_3F7A0 */
+
+/* fzgx:begin fn_1_3F7D0 */
+u32 fn_1_3F7D0(void) {
+    return lbl_1_bss_26C28;
+}
+/* fzgx:end fn_1_3F7D0 */
+
+/* fzgx:begin fn_1_3F7E0 */
+// Selects the mode-specific byte from the shared game state.
+u8 fn_1_3F7E0(void) {
+    if (lbl_1_bss_3C30.unk_0 & 0x00008000) {
+        return lbl_1_bss_3C30.unk_9;
+    }
+    return lbl_1_bss_3C30.pad_A[0];
+}
+/* fzgx:end fn_1_3F7E0 */
+
+/* fzgx:begin fn_1_3F800 */
+// Stores the value in the shared game state.
+void fn_1_3F800(u32 value) {
+    lbl_1_bss_3C30.unk_1464 = value;
+}
+/* fzgx:end fn_1_3F800 */
+
+/* fzgx:begin fn_1_3F810 */
+// Stores a value and its scaled companion in the shared game state.
+void fn_1_3F810(u8 value, u32 input) {
+    lbl_1_bss_3C30.unk_146C = value;
+    lbl_1_bss_3C30.unk_146D = (u8)((input / 5) >> 1);
+}
+/* fzgx:end fn_1_3F810 */
+
+/* fzgx:begin fn_1_3F834 */
+// Stores the byte value in the shared game state.
+void fn_1_3F834(u8 value) {
+    lbl_1_bss_3C30.unk_1470 = value;
+}
+/* fzgx:end fn_1_3F834 */
+
+/* fzgx:begin fn_1_3F844 */
+// Store the current 16-bit value in the shared game state.
+void fn_1_3F844(u16 value) {
+    lbl_1_bss_3C30.unk_146E = value;
+}
+/* fzgx:end fn_1_3F844 */
+
+/* fzgx:begin fn_1_3F854 */
+// Return the current game-state byte.
+u8 fn_1_3F854(void) {
+    return lbl_1_bss_3C30.unk_8;
+}
+/* fzgx:end fn_1_3F854 */
+
+/* fzgx:begin fn_1_3F864 */
+// Reports whether the game is in the guarded state or mode 0x000c.
+u8 fn_1_3F864(void) {
+    if ((lbl_1_bss_3C30.unk_0 & 0x00100000) != 0 ||
+        *(s16 *)&lbl_1_bss_960 == 0x000c) {
+        return 1;
+    }
+    return 0;
+}
+/* fzgx:end fn_1_3F864 */
+
+/* fzgx:begin fn_1_3F894 */
+// Enables the associated game state and records the current mode.
+void fn_1_3F894(void) {
+    lbl_1_bss_53F4 = lbl_1_bss_3C30.unk_7;
+    lbl_1_bss_25BA0.unk_0 = 1;
+    lbl_1_bss_26C2C[0] = 1;
+}
+/* fzgx:end fn_1_3F894 */
+
+/* fzgx:begin fn_1_3F8C0 */
+u32 fn_1_3F8C0(void) {
+    return lbl_1_bss_262F8[0];
+}
+/* fzgx:end fn_1_3F8C0 */
+
+/* fzgx:begin fn_1_3F8D0 */
+void fn_1_3F8D0(void) {
+    u16 *values = (u16 *)&lbl_1_bss_38204;
+
+    values[0] = 0;
+    values[1] = 0;
+    values[2] = 0;
+    values[3] = 0;
+}
+/* fzgx:end fn_1_3F8D0 */
+
+/* fzgx:begin fn_1_3FBF4 */
+void fn_1_3FBF4(u32 arg0) {
+    u32 v0;
+    v0 = ((*(u32 *)&lbl_1_bss_3C30) & 0xFFFFFFFD);
+    if ((s32)arg0 != 0) {
+    v0 = ((*(u32 *)&lbl_1_bss_3C30) | 2);
+    }
+    (*(u32 *)&lbl_1_bss_3C30) = v0;
+}
+/* fzgx:end fn_1_3FBF4 */
+
+/* fzgx:begin fn_1_3FC18 */
+u16 fn_1_3FC18(void) {
+    return lbl_1_bss_26C68[0];
+}
+/* fzgx:end fn_1_3FC18 */
+
+/* fzgx:begin fn_1_3FC28 */
+u32 fn_1_3FC28(void) {
+    return lbl_1_bss_3C30.unk_0 & 0x00800000;
+}
+/* fzgx:end fn_1_3FC28 */
+
+/* fzgx:begin fn_1_3FC38 */
+u8 fn_1_3FC38(void) {
+    return lbl_1_bss_3C12.unk_0;
+}
+/* fzgx:end fn_1_3FC38 */
+
+/* fzgx:begin fn_1_3FC48 */
+u32 fn_1_3FC48(void) {
+    return lbl_1_bss_3C30.unk_0 & 0x100;
+}
+/* fzgx:end fn_1_3FC48 */
+
+/* fzgx:begin fn_1_3FC58 */
+u32 fn_1_3FC58(void) {
+    return lbl_1_bss_3C30.unk_0 & 0x01000000;
+}
+/* fzgx:end fn_1_3FC58 */
+
+/* fzgx:begin fn_1_3FC68 */
+// Toggles the 0x02000000 status flag according to the requested state.
+void fn_1_3FC68(s32 enabled) {
+    lbl_1_bss_3C30.unk_0 = enabled != 0
+        ? lbl_1_bss_3C30.unk_0 & ~0x02000000
+        : lbl_1_bss_3C30.unk_0 | 0x02000000;
+}
+/* fzgx:end fn_1_3FC68 */
+
+/* fzgx:begin fn_1_3FC8C */
+// Return the global state flag stored in bit 6 of the control word.
+u32 fn_1_3FC8C(void) {
+    return lbl_1_bss_3C30.unk_0 & 0x02000000;
+}
+/* fzgx:end fn_1_3FC8C */
+
+/* fzgx:begin fn_1_3FC9C */
+ // Return the low byte of the signed global status field.
+u32 fn_1_3FC9C(void) {
+    return (u32)lbl_1_bss_8B3A0.unk_8 & 0xff;
+}
+/* fzgx:end fn_1_3FC9C */
+
+/* fzgx:begin fn_1_3FCB0 */
+static inline u32 fn_1_3FCB0_operand(u32 left, u32 right) { left &= right; return left; }
+#pragma opt_propagation off
+void fn_1_3FCB0(s32 value) {
+    s32 mask = -value;
+    mask |= value;
+    mask >>= 31;
+    lbl_1_bss_3C08[0] = fn_1_3FCB0_operand(((lbl_1_bss_3C08[0] | (u32)value)), ((u32)mask));
+}
+#pragma opt_propagation reset
+/* fzgx:end fn_1_3FCB0 */
+
+/* fzgx:begin fn_1_3FCF8 */
+struct fn_1_3FCF8_lbl_1_bss_3C30 {
+    u8 pad_0[0x1478];
+    u16 unk_1478;
+    u16 unk_147A;
+    u16 unk_147C;
+    u16 unk_147E;
+    u32 unk_1480;
+    u32 unk_1484;
+    u32 unk_1488;
+    u32 unk_148C;
+};
+
+u32 fn_1_3FCF8(void) {
+    u32 v0;
+    u32 v1;
+    u32 t0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_1480 = 0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_1478 = 0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_1484 = 0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_147A = 0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_1488 = 0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_147C = 0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_148C = 0;
+    (*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30).unk_147E = 0;
+    v1 = (u32)&(*(struct fn_1_3FCF8_lbl_1_bss_3C30 *)&lbl_1_bss_3C30);
+    for (v0 = 5; v0 != 0; v0--) {
+    *(u8 *)((u8 *)v1 + 343) = 0;
+    *(u8 *)((u8 *)v1 + 220) = 0;
+    *(u16 *)((u8 *)v1 + 216) = 0;
+    *(u8 *)((u8 *)v1 + 503) = 0;
+    *(u8 *)((u8 *)v1 + 380) = 0;
+    *(u16 *)((u8 *)v1 + 376) = 0;
+    *(u8 *)((u8 *)v1 + 663) = 0;
+    *(u8 *)((u8 *)v1 + 540) = 0;
+    *(u16 *)((u8 *)v1 + 536) = 0;
+    *(u8 *)((u8 *)v1 + 823) = 0;
+    *(u8 *)((u8 *)v1 + 700) = 0;
+    *(u16 *)((u8 *)v1 + 696) = 0;
+    *(u8 *)((u8 *)v1 + 983) = 0;
+    *(u8 *)((u8 *)v1 + 860) = 0;
+    *(u16 *)((u8 *)v1 + 856) = 0;
+    *(u8 *)((u8 *)v1 + 1143) = 0;
+    *(u8 *)((u8 *)v1 + 1020) = 0;
+    *(u16 *)((u8 *)v1 + 1016) = 0;
+    v1 = (u32)((u8 *)v1 + 960);
+    }
+    v1 = 0x80000000;
+    t0 = fn_800075AC(v1, 8192, 1);
+    v1 = t0;
+    return v1;
+}
+/* fzgx:end fn_1_3FCF8 */
+
+/* fzgx:begin fn_1_3FDA8 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/game.h"
+
+extern void *fn_1_435C(void *value);
+extern s32 ghost_test_record_flag0(u8 value);
+extern s32 fn_1_F9D44(u32 value);
+extern u8 fn_1_F8C50(u8 value);
+extern void fn_1_2DB50(void);
+extern void fn_1_3F8C(void *arg0, void (*arg1)(void), Obj_1_bss_5138 *arg2, u32 arg3);
+extern void fn_1_2D888(void);
+extern void fn_1_2D524(void);
+
+extern void *fn_1_435C(void *value);
+
+void fn_1_3FDA8(void *arg0, void *arg1) {
+    s32 condition;
+    void *value;
+
+    if (lbl_1_bss_5138.unk_0 != 0) {
+        lbl_1_bss_5138.unk_E1 = 0;
+    } else {
+        if (lbl_1_bss_5138.unk_E3 == 0xff) {
+            condition = 0;
+        } else if (ghost_test_record_flag0(lbl_1_bss_3C30.unk_6) != 0) {
+            condition = 0;
+        } else {
+            condition = 1;
+        }
+        if (condition != 0) {
+            lbl_1_bss_5138.unk_E1 = 1;
+        } else {
+            if (lbl_1_bss_5138.unk_E5 == 0xff) {
+                condition = 0;
+            } else if (fn_1_F9D44(lbl_1_bss_5138.unk_E5 & 0xf) != 0) {
+                condition = 0;
+            } else {
+                condition = 1;
+            }
+            if (condition != 0) {
+                lbl_1_bss_5138.unk_E1 = 2;
+            } else {
+                if (lbl_1_bss_5138.unk_EB == 0xff) {
+                    condition = 0;
+                } else if (fn_1_F8C50(lbl_1_bss_5138.unk_EB) != 0) {
+                    condition = 0;
+                } else {
+                    condition = 1;
+                }
+                if (condition != 0) {
+                    lbl_1_bss_5138.unk_E1 = 3;
+                } else if (lbl_1_bss_5138.unk_3 + lbl_1_bss_5138.unk_2 + lbl_1_bss_5138.unk_E4 != 0) {
+                    lbl_1_bss_5138.unk_E1 = 4;
+                } else {
+                    // Skip setup when no state transition is selected.
+                    goto done;
+                }
+            }
+        }
+    }
+
+    value = fn_1_435C(arg0);
+    fn_1_3F8C(lbl_1_data_6608, fn_1_2DB50, &lbl_1_bss_5138, 30);
+    fn_1_435C(arg1);
+    fn_1_3F8C(lbl_1_data_6618, fn_1_2D888, &lbl_1_bss_5138, 30);
+    fn_1_435C(value);
+    lbl_1_bss_5138.unk_E2 = 1;
+    fn_1_2D524();
+
+done:
+    return;
+}
+/* fzgx:end fn_1_3FDA8 */
+
+/* fzgx:begin fn_1_3FF90 */
+void fn_1_3FF90(void) {
+    u32 bss_25b88;
+    u32 bss_25ca4;
+    int flag;
+
+    bss_25ca4 = lbl_1_bss_25CA4.unk_0;
+    bss_25b88 = lbl_1_bss_25B88.unk_0;
+    if (lbl_1_bss_5138.unk_0 != 0) {
+        lbl_1_bss_5138.unk_E1 = 0;
+    } else {
+        if (lbl_1_bss_5138.unk_E3 == 0xff) {
+            flag = 0;
+        } else if ((int)ghost_test_record_flag0(lbl_1_bss_3C30.unk_6) != 0) {
+            flag = 0;
+        } else {
+            flag = 1;
+        }
+        if (flag != 0) {
+            lbl_1_bss_5138.unk_E1 = 1;
+        } else {
+            if (lbl_1_bss_5138.unk_E5 == 0xff) {
+                flag = 0;
+            } else if ((int)fn_1_F9D44(lbl_1_bss_5138.unk_E5 & 0xf) != 0) {
+                flag = 0;
+            } else {
+                flag = 1;
+            }
+            if (flag != 0) {
+                lbl_1_bss_5138.unk_E1 = 2;
+            } else {
+                if (lbl_1_bss_5138.unk_EB == 0xff) {
+                    flag = 0;
+                } else if (fn_1_F8C50(lbl_1_bss_5138.unk_EB)) {
+                    flag = 0;
+                } else {
+                    flag = 1;
+                }
+                if (flag != 0) {
+                    lbl_1_bss_5138.unk_E1 = 3;
+                } else if ((lbl_1_bss_5138.unk_3 + lbl_1_bss_5138.unk_2 +
+                            lbl_1_bss_5138.unk_E4) == 0) {
+                    return;
+                } else {
+                    lbl_1_bss_5138.unk_E1 = 4;
+                }
+            }
+        }
+    }
+
+    bss_25b88 = fn_1_435C(bss_25b88);
+    fn_1_3F8C(lbl_1_data_6608, fn_1_2DB50, &lbl_1_bss_5138, 30);
+    fn_1_435C(bss_25ca4);
+    fn_1_3F8C(lbl_1_data_6618, fn_1_2D888, &lbl_1_bss_5138, 30);
+    bss_25b88 = fn_1_435C(bss_25b88);
+    lbl_1_bss_5138.unk_E2 = 1;
+    fn_1_2D524();
+}
+/* fzgx:end fn_1_3FF90 */
+
+/* fzgx:begin fn_1_4017C */
+int fn_1_4017C(void) {
+    int i;
+    int result1;
+    int result2;
+    int result3;
+
+    if ((int)fn_1_FA070() != 0) {
+        return 1;
+    }
+    for (i = 0; i < 3; i++) {
+        result1 = fn_1_FA180(1, i);
+        result2 = fn_1_FA180(2, i);
+        result3 = fn_1_FA180(3, i);
+        if (result1 == 0 && result2 == 0 && result3 == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+/* fzgx:end fn_1_4017C */
+
+/* fzgx:begin fn_1_40224 */
+int fn_1_40224(void) {
+    int result;
+
+    if ((int)fn_1_F9FEC() != 0) {
+        return 1;
+    }
+    if (fn_1_FA180(2, 0) == 0) {
+        return 0;
+    }
+    if (fn_1_FA180(2, 1) == 0) {
+        return 0;
+    }
+    result = fn_1_FA180(2, 2);
+    return result != 0;
+}
+/* fzgx:end fn_1_40224 */
+
+/* fzgx:begin fn_1_402D4 */
+typedef struct {
+    u8 pad_0[8];
+    u16 unk_8;
+    u8 pad_A[0xA];
+} Elem_1_bss_9F8;
+
+int fn_1_402D4(void) {
+    s32 i;
+
+    if (lbl_1_bss_3C30.unk_8 != 0) {
+        for (i = 0; i < lbl_1_bss_3C30.unk_8; i++) {
+            if ((((Elem_1_bss_9F8 *)&lbl_1_bss_9F8)[(&lbl_1_bss_25E98)[i]].unk_8 >> 8) & 1) {
+                return 1;
+            }
+        }
+    } else if ((lbl_1_bss_9F8.unk_8 >> 12) & 1) {
+        return 1;
+    }
+    return 0;
+}
+/* fzgx:end fn_1_402D4 */
+
+/* fzgx:begin fn_1_40354 */
+typedef struct {
+    u8 pad_0[8];
+    u16 unk_8;
+    u8 pad_A[0xa];
+} Entry_1_bss_9F8;
+
+int fn_1_40354(void) {
+    int i;
+
+    if (lbl_1_bss_3C30.unk_8 != 0) {
+        for (i = 0; i < lbl_1_bss_3C30.unk_8; i++) {
+            if ((((Entry_1_bss_9F8 *)&lbl_1_bss_9F8)[((u8 *)&lbl_1_bss_25E98)[i]].unk_8 >> 12) & 1) {
+                return 1;
+            }
+        }
+    } else if ((lbl_1_bss_9F8.unk_8 >> 12) & 1) {
+        return 1;
+    }
+    return 0;
+}
+/* fzgx:end fn_1_40354 */
+
+/* fzgx:begin fn_1_40710 */
+typedef struct {
+    u8 state;
+    u8 enabled;
+    u8 applied;
+    u8 flags;
+    u8 pad[0x24];
+    u32 value_28;
+    u32 value_2c;
+} Fn40710Object;
+
+
+
+void fn_1_40710(Fn40710Object *obj) {
+    Fn40710Object *self = obj;
+    Fn40710Config *config = &lbl_1_rodata_BD8;
+    int state = self->state;
+    u8 *values;
+    u32 limits[8];
+    u32 flags;
+
+    switch (state) {
+    case 2:
+        self->enabled &= 1;
+        if (self->enabled != 0) {
+            self->value_2c = config->value_2f8;
+            values = (u8 *)&self->value_28;
+        } else {
+            self->value_28 = config->value_2fc;
+            values = (u8 *)&self->value_2c;
+        }
+        limits[0] = config->value_300;
+        if (values[0] < ((u8 *)&limits[0])[0] - 0x14) {
+            values[0] += 0x14;
+        } else {
+            limits[1] = config->value_304;
+            values[0] = ((u8 *)&limits[1])[0];
+        }
+        limits[2] = config->value_308;
+        if (values[1] < ((u8 *)&limits[2])[1] - 0x14) {
+            values[1] += 0x14;
+        } else {
+            limits[3] = config->value_30c;
+            values[1] = ((u8 *)&limits[3])[1];
+        }
+        limits[4] = config->value_310;
+        if (values[2] < ((u8 *)&limits[4])[2] - 0x14) {
+            values[2] += 0x14;
+        } else {
+            limits[5] = config->value_314;
+            values[2] = ((u8 *)&limits[5])[2];
+        }
+        limits[6] = config->value_318;
+        if (values[3] > ((u8 *)&limits[6])[3] + 0x14) {
+            values[3] -= 0x14;
+        } else {
+            limits[7] = config->value_31c;
+            values[3] = ((u8 *)&limits[7])[3];
+        }
+        // The case-2 path joins the shared state update below.
+        goto update_state;
+    case 0:
+        // The case-0 path joins the shared state update below.
+        goto update_state;
+    case 1:
+        // The case-1 path joins the shared state update below.
+        goto update_state;
+    default:
+        break;
+    }
+    return;
+
+update_state:
+    if (self->enabled != self->applied) {
+        /* fzgx-allow: A1 absolute game data address */
+        fn_1_A2DC4((u32)0xA9011300);
+        self->applied = self->enabled;
+    }
+    if ((self->flags & 2) != 0) {
+        /* fzgx-allow: A1 absolute game data address */
+        fn_1_A2DC4((u32)0xA9011100);
+        flags = __rlwinm(self->flags, 0, 24, 29);
+        self->flags = flags;
+    } else if ((self->flags & 4) != 0) {
+        /* fzgx-allow: A1 absolute game data address */
+        fn_1_A2DC4((u32)0xA9011000);
+        self->flags = self->flags & -6;
+    }
+}
+/* fzgx:end fn_1_40710 */
+
+/* fzgx:begin fn_1_40B14 */
+u8 *fn_1_40B14(void) {
+    return lbl_1_bss_26B54;
+}
+/* fzgx:end fn_1_40B14 */
+
+/* fzgx:begin fn_1_40B20 */
+s32 fn_1_40B20(void) {
+    s32 i;
+    u8 *q;
+    s32 n;
+    u8 a7;
+    u8 min;
+    u8 v;
+
+    if (lbl_1_bss_3C30.unk_5 == 5) {
+        return *(s8 *)((u8 *)&lbl_1_bss_9C + 6);
+    }
+    if (lbl_1_bss_3C30.unk_5 != 1) {
+        return -1;
+    }
+    a7 = lbl_1_bss_3C30.unk_A7;
+    if (a7 == 0) {
+        return -1;
+    }
+    n = lbl_1_bss_3C30.unk_9;
+    q = (u8 *)&lbl_1_bss_3C30 + a7;
+    min = lbl_1_bss_3C30.unk_8;
+    for (i = 0; i < n; i++) {
+        v = *(u8 *)((u8 *)&lbl_1_bss_3C30 + i + 0x1394);
+        if ((s32)v >= (s32)min) {
+            if (q[v * 160 + 226] != 254) {
+                return v;
+            }
+        }
+    }
+    return -1;
+}
+/* fzgx:end fn_1_40B20 */
+
+/* fzgx:begin fn_1_40BB4 */
+u8 fn_1_40BB4(void) {
+    return (s8)lbl_1_bss_5104.unk_0 != -1;
+}
+/* fzgx:end fn_1_40BB4 */
+
+/* fzgx:begin fn_1_40BD4 */
+void fn_1_40BD4(void) {
+    lbl_1_bss_3820C = 0;
+}
+/* fzgx:end fn_1_40BD4 */
+
+/* fzgx:begin fn_1_40BE4 noprologue */
+// Updates the selection-screen effect for the active racer.
+
+#include "types.h"
+
+typedef struct { f32 x, y, z; } Vec3f;
+typedef struct { f32 x, y, z, w; } Quaternion;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// don't corroborate keep offset names (unk_0x…). `body` (0x49c) is the
+
+
+// Machine-physics body (`racer->body`, 0x49C). Offsets attested by the asm
+
+
+typedef struct RacerBody {
+                u8  _pad000[0x050 - 0x000];
+                Vec3f unk_0x50;
+                Vec3f unk_0x5C;
+                u8  _pad068[0x115 - 0x068];
+                u8  unk_0x115;
+} RacerBody;
+
+typedef struct Racer {
+                s32 general_state;
+                s16 unk_0x4;
+                s16 unk_0x6;
+                u8  _pad008[0x00C - 0x008];
+                f32 unk_0xC;
+                u8  _pad010[0x034 - 0x010];
+                f32 camera_reorienting_stat;
+                f32 camera_repositioning_stat;
+                u8  _pad03C[0x07C - 0x03C];
+                Vec3f unk_0x7C;
+                Vec3f unk_0x88;
+                u8  _pad094[0x0DC - 0x094];
+                f32 unk_0xDC;
+                u8  _pad0E0[0x0EC - 0x0E0];
+                Quaternion unk_0xEC;
+                u8  _pad0FC[0x14C - 0x0FC];
+                Quaternion unk_0x14C;
+                u8  _pad15C[0x17C - 0x15C];
+                f32 speed_kmh;
+                u8  _pad180[0x184 - 0x180];
+                f32 unk_0x184;
+                s16 unk_0x188;
+                u8  _pad18A[0x1BC - 0x18A];
+                Vec3f unk_0x1BC;
+                u8  _pad1C8[0x1F4 - 0x1C8];
+                f32 updown_steer_input;
+                f32 strafe_input_1;
+                f32 leftright_steer_input;
+                f32 accel_input;
+                f32 airbrake_input;
+                u8  _pad208[0x214 - 0x208];
+                u16 unk_0x214;
+                u8  _pad216[0x218 - 0x216];
+                s32 unk_0x218;
+                u8  _pad21C[0x224 - 0x21C];
+                f32 base_speed;
+                u8  _pad228[0x474 - 0x228];
+                u8  unk_0x474;
+                u8  unk_0x475;
+                u8  _pad476[0x484 - 0x476];
+                u8* unk_ptr_484;
+                u8  _pad488[0x49C - 0x488];
+                u8* body;
+                Vec3f unk_0x4A0;
+                u8  _pad4AC[0x58C - 0x4AC];
+                s32 unk_0x58C;
+                u8  _pad590[0x5E0 - 0x590];
+                Quaternion unk_0x5E0;
+                u8  _pad5F0[0x620 - 0x5F0];
+} Racer;  // 0x620
+
+typedef struct {
+    u32 w0;
+    u32 w1;
+    u32 w2;
+    u32 w3;
+} Game40BE4Config;
+
+typedef struct {
+    u8 _000[0x30];
+    f32 scale;                         /* 0x030 */
+    u8 _034[0x12C - 0x034];
+    f32 minimum;                       /* 0x12C */
+    u8 _130[0x344 - 0x130];
+    Game40BE4Config effect_config;     /* 0x344 */
+    f32 maximum;                       /* 0x354 */
+} Game40BE4Table;
+
+extern s16 lbl_1_bss_960;
+extern u8 lbl_1_rodata_BD8[];
+extern u32 lbl_1_bss_38210;
+extern u32 lbl_1_bss_38214;
+extern void *lbl_1_bss_3C1C;
+extern void *lbl_801A63D0;
+
+extern Racer *fn_1_86254(int);
+extern void *fn_1_868C0(s8);
+extern f32 fn_1_84038(void *, s16, u8, f32);
+extern int fn_1_76504();
+extern void fn_1_7269C();
+extern void *fn_1_4030(void *);
+extern void fn_1_40D44(void);
+
+void fn_1_40BE4(void) {
+    u8 valid = 1;
+    Game40BE4Table *table = (Game40BE4Table *)lbl_1_rodata_BD8;
+
+    if (lbl_1_bss_960 == 2) {
+        f32 value;
+
+        if (fn_1_86254(0)->unk_0x6 > 0x29) {
+            value = fn_1_84038(fn_1_868C0(0), 0, 1, table->scale);
+        } else {
+            value = fn_1_84038(fn_1_868C0(0), 0, 0, table->scale);
+        }
+        if (value < table->minimum || value > table->maximum) {
+            valid = 0;
+        }
+    }
+
+    if (lbl_1_bss_38210 != 0) {
+        Game40BE4Config config = table->effect_config;
+        void *target;
+        u8 effect = fn_1_76504(0x25, &config, 0);
+        u32 remaining;
+        if (lbl_1_bss_3C1C == (void *)-1) {
+            target = lbl_801A63D0;
+        } else {
+            target = lbl_1_bss_3C1C;
+        }
+        fn_1_7269C(effect, 0, target);
+
+        remaining = lbl_1_bss_38210 - 1;
+        lbl_1_bss_38210 = remaining;
+        if ((remaining < lbl_1_bss_38214 && valid != 0) || remaining == 0) {
+            fn_1_4030((void *)fn_1_40D44);
+        }
+    }
+}
+/* fzgx:end fn_1_40BE4 */
+
+/* fzgx:begin fn_1_40D44 */
+// Refreshes the selection-screen display after its countdown.
+
+void fn_1_40D44(void) {
+    u32 result;
+    u32 state;
+    u32 arg;
+
+    result = fn_1_40EE4();
+    state = lbl_1_bss_3C1C.unk_0;
+    if ((state + 0x10000) == 0xffff) {
+        lbl_1_bss_3C1C.unk_0 = 0;
+        arg = lbl_801A63D0;
+    } else {
+        arg = state;
+    }
+
+    ARQPostRequest(lbl_1_bss_38218, 0, 0, 1, arg, result,
+                lbl_1_bss_26C34[0], 0);
+
+    lbl_1_bss_3820C = lbl_1_bss_3820C + 1;
+    if (lbl_1_bss_3820C > 6 || result >= 0x00f95fff) {
+        lbl_1_bss_3820C = 6;
+    }
+
+    fn_1_4060();
+}
+/* fzgx:end fn_1_40D44 */
+
+/* fzgx:begin fn_1_40E08 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/game.h"
+
+extern void fn_1_3F8C(void *arg0, void (*arg1)(void), Obj_1_bss_5138 *arg2, u32 arg3);
+extern u32 lbl_801A63C0;
+extern void fn_1_40BE4(void);
+
+// Initializes the random-selection bounds and schedules the next callback.
+void fn_1_40E08(u32 arg0) {
+    u32 value;
+    u32 half;
+    u32 max;
+    u32 remainder;
+
+    if (*(s16 *)&lbl_1_bss_960 == 0x10) {
+        lbl_1_bss_3C1C.unk_0 = -1;
+    }
+
+    lbl_1_bss_38210 = arg0;
+    if (arg0 < 5) {
+        lbl_1_bss_38210 = 5;
+    }
+
+    value = lbl_801A63C0 * 0x676A4B6B + 0x33CB;
+    lbl_801A63C0 = value;
+
+    half = lbl_1_bss_38210 >> 1;
+    max = lbl_1_bss_38210 - 5;
+    remainder = ((value >> 16) & 0x7FFF) % half;
+    lbl_1_bss_38214 = half + remainder;
+    if (lbl_1_bss_38214 > max) {
+        lbl_1_bss_38214 = max;
+    }
+
+    fn_1_3F8C(lbl_1_data_662C, fn_1_40BE4, 0, 1);
+}
+/* fzgx:end fn_1_40E08 */
+
+/* fzgx:begin fn_1_40ED4 */
+u8 fn_1_40ED4(void) {
+    return lbl_1_bss_3820C;
+}
+/* fzgx:end fn_1_40ED4 */
+
+/* fzgx:begin fn_1_40EE4 */
+u32 fn_1_40EE4(void) {
+    u32 t0;
+    return (((lbl_1_bss_3820C * (((GXGetTexBufferSize(320, 224, 1, 0, 0)) + 31) & ~0x1F)) + 0xF20000) + 16384);
+}
+/* fzgx:end fn_1_40EE4 */
+
+/* fzgx:begin fn_1_40F34 */
+u32 fn_1_40F34(void) {
+    return lbl_1_bss_26B4C;
+}
+/* fzgx:end fn_1_40F34 */
+
+/* fzgx:begin fn_1_40F44 */
+u8 fn_1_40F44(void) {
+    return lbl_1_bss_25E90[0];
+}
+/* fzgx:end fn_1_40F44 */
+
+/* fzgx:begin fn_1_40F54 */
+// Initializes the related game state with the standard allocation size.
+void fn_1_40F54(void *arg0) {
+    fn_1_48B0( (u32)(void *)(arg0), 0x20);
+}
+/* fzgx:end fn_1_40F54 */
+
+/* fzgx:begin fn_1_40F78 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/game.h"
+
+extern u32 lbl_801A6CE0;
+extern u32 lbl_1_bss_38454;
+extern u32 fn_80070DE0(void (*)(void));
+extern void fn_1_40F54(void *arg0);
+extern void *fn_1_D3884(u8 *arg0);
+extern void *fn_1_D358C(u8 *arg0, void *arg1);
+
+extern u32 lbl_801A6CE0;
+extern u32 lbl_1_bss_38454;
+extern u32 fn_80070DE0(void (*)(void));
+extern void fn_1_40F54(void *arg0);
+extern void *fn_1_D3884(u8 *arg0);
+extern void *fn_1_D358C(u8 *arg0, void *arg1);
+
+// Initializes the shared resource handles when the subsystem is enabled.
+void fn_1_40F78(void) {
+    u32 resource_handle;
+    void *decoded_data;
+
+    if ((lbl_801A6CE0 & 1) == 0) {
+        lbl_1_bss_38450 = 0;
+        lbl_1_bss_38454 = 0;
+        return;
+    }
+
+    resource_handle = fn_80070DE0((void (*)(void))fn_1_40F54);
+    decoded_data = fn_1_D3884((u8 *)lbl_1_data_66C0);
+    lbl_1_bss_38450 = (u32)decoded_data;
+    lbl_1_bss_38454 = (u32)fn_1_D358C((u8 *)lbl_1_data_66D0, decoded_data);
+    fn_80070DE0((void (*)(void))resource_handle);
+}
+/* fzgx:end fn_1_40F78 */
+
+/* fzgx:begin fn_1_4100C */
+// Initializes both shared data blocks with their default state.
+void fn_1_4100C(void) {
+    fn_1_465D0((char *)lbl_1_data_66E0, 1);
+    fn_1_465D0((char *)lbl_1_data_66F0, 1);
+}
+/* fzgx:end fn_1_4100C */
+
+/* fzgx:begin fn_1_41048 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/game.h"
+
+extern void *fn_1_D3884(u8 *arg0);
+extern void *fn_1_D358C(u8 *arg0, void *arg1);
+
+extern void *fn_1_D3884(u8 *arg0);
+extern void *fn_1_D358C(u8 *arg0, void *arg1);
+
+void fn_1_41048(void) {
+    void *value;
+
+    if (lbl_1_bss_38458 == 0) {
+        value = fn_1_D3884(lbl_1_data_66E0);
+        lbl_1_bss_3845C = (u32)value;
+        lbl_1_bss_38458 = (Obj_1_bss_38458_Target *)fn_1_D358C(lbl_1_data_66F0, value);
+    }
+}
+/* fzgx:end fn_1_41048 */
+
+/* fzgx:begin fn_1_410A0 */
+void fn_1_410A0(void) {
+    if (lbl_1_bss_38458 != 0) {
+        fn_800711A8(lbl_1_bss_38458);
+        lbl_1_bss_38458 = 0;
+    }
+
+    if (lbl_1_bss_3845C != 0) {
+        fn_80071718(lbl_1_bss_3845C);
+        lbl_1_bss_3845C = 0;
+    }
+}
+/* fzgx:end fn_1_410A0 */
+
+/* fzgx:begin fn_1_41104 */
+// Forwards the selected message entry to the formatter.
+void fn_1_41104(u32 message_index) {
+    char *message = *(char **)(lbl_1_data_66A0 + message_index * sizeof(char *));
+    fn_1_41134((void *)message_index, message);
+}
+/* fzgx:end fn_1_41104 */
+
+/* fzgx:begin fn_1_41134 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/game.h"
+
+extern void fn_1_465D0(char *value, u32 flag);
+extern void sprintf(char *buffer, u32 *format, ...);
+
+extern void fn_1_41134(void *unused, char *value);
+
+// Format the value with each registered template and publish both results.
+void fn_1_41134(void *unused, char *value) {
+    char buffer[128];
+
+    sprintf(buffer, &lbl_1_data_6700, value);
+    fn_1_465D0(buffer, 1);
+    sprintf(buffer, &lbl_1_data_6708, value);
+    fn_1_465D0(buffer, 1);
+}
+/* fzgx:end fn_1_41134 */
+
+/* fzgx:begin fn_1_411A4 */
+// Forwards the indexed message entry to the follow-up handler.
+void fn_1_411A4(u32 index) {
+    fn_1_411D4(index, ((char **)lbl_1_data_66A0)[index]);
+}
+/* fzgx:end fn_1_411A4 */
+
+/* fzgx:begin fn_1_411D4 pool noprologue */
+#include "types.h"
+#include "rel/main_rel/game.h"
+
+typedef struct Fn411D4Cache {
+    u8 pad_00[0x10];
+    u32 flags[7];
+    int cached[7];
+    char *generated[7];
+} Fn411D4Cache;
+
+extern int sprintf(char *buffer, char *format, ...);
+extern int fn_80016DF8(char *buffer);
+extern void fn_1_412A0(u32 index);
+extern char *fn_1_D3884(char *buffer);
+extern int fn_1_D358C(char *buffer, char *value);
+
+/* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
+u32 fzgx_obj_lbl_1_bss_38450;
+u32 fzgx_obj_lbl_1_bss_38454;
+u32 fzgx_obj_lbl_1_bss_38458;
+u32 fzgx_obj_lbl_1_bss_3845C;
+u8 fzgx_obj_lbl_1_bss_38460;
+u8 lbl_1_bss_38460_fill_38461;
+u16 lbl_1_bss_38460_fill_38462;
+u32 lbl_1_bss_38460_fill_38464[6];
+u8 lbl_1_bss_38460_1C;
+u8 lbl_1_bss_38460_fill_3847D;
+u16 lbl_1_bss_38460_fill_3847E;
+u32 lbl_1_bss_38460_fill_38480[6];
+u8 lbl_1_bss_38460_38;
+u8 lbl_1_bss_38460_fill_38499;
+u16 lbl_1_bss_38460_fill_3849A;
+u32 lbl_1_bss_38460_fill_3849C[6];
+u32 fzgx_obj_lbl_1_bss_384B4;
+
+#pragma section code_type ".fzgxpool"
+static void fzgx_bss_layout(void) {
+    volatile u8 s;  /* fzgx-allow: S2 layout primer sink: MWCC emits .bss objects in first-access order */
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38450;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38454;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38458;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_3845C;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38460;
+    s = *(u8 *)&lbl_1_bss_38460_fill_38461;
+    s = *(u8 *)&lbl_1_bss_38460_fill_38462;
+    s = *(u8 *)&lbl_1_bss_38460_fill_38464;
+    s = *(u8 *)&lbl_1_bss_38460_1C;
+    s = *(u8 *)&lbl_1_bss_38460_fill_3847D;
+    s = *(u8 *)&lbl_1_bss_38460_fill_3847E;
+    s = *(u8 *)&lbl_1_bss_38460_fill_38480;
+    s = *(u8 *)&lbl_1_bss_38460_38;
+    s = *(u8 *)&lbl_1_bss_38460_fill_38499;
+    s = *(u8 *)&lbl_1_bss_38460_fill_3849A;
+    s = *(u8 *)&lbl_1_bss_38460_fill_3849C;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_384B4;
+}
+#pragma section code_type ".text"
+
+void fn_1_411D4(u32 index, char *value) {
+    char second_buffer[128];
+    char buffer[128];
+    int key;
+    u32 *flags;
+    struct { u32 value; } off;
+
+    
+    sprintf(buffer, (char *)&lbl_1_data_6708, value);
+    key = fn_80016DF8(buffer);
+    off.value = index * 4;
+    flags = (u32 *)&fzgx_obj_lbl_1_bss_38460;
+
+    if (*(u32 *)((u8 *)flags + off.value) == 0 ||
+        *(int *)((u8 *)&lbl_1_bss_38460_1C + off.value) != key) {
+        fn_1_412A0(index);
+        *(int *)((u8 *)&lbl_1_bss_38460_1C + off.value) = key;
+        sprintf(second_buffer, (char *)&lbl_1_data_6700, value);
+        *(char **)((u8 *)&lbl_1_bss_38460_38 + off.value) = fn_1_D3884(second_buffer);
+        *(u32 *)((u8 *)flags + off.value) =
+            fn_1_D358C(buffer, *(char **)((u8 *)&lbl_1_bss_38460_38 + off.value));
+    }
+}
+/* fzgx:end fn_1_411D4 */
+
+/* fzgx:begin fn_1_412A0 */
+typedef struct BssState {
+    u8 pad_10[0x10];
+    u32 second[7];
+    s32 third[7];
+    u32 first[7];
+} BssState;
+
+
+/* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
+u32 fzgx_obj_lbl_1_bss_38450;
+u32 fzgx_obj_lbl_1_bss_38454;
+u32 fzgx_obj_lbl_1_bss_38458;
+u32 fzgx_obj_lbl_1_bss_3845C;
+u32 fzgx_obj_lbl_1_bss_38460[7];
+s32 lbl_1_bss_38460__fzgx_offset_1C[7];
+u32 lbl_1_bss_38460__fzgx_offset_38[7];
+u32 fzgx_obj_lbl_1_bss_384B4;
+
+#pragma section code_type ".fzgxpool"
+static void fzgx_bss_layout(void) {
+    volatile u8 s;  /* fzgx-allow: S2 layout primer sink: MWCC emits .bss objects in first-access order */
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38450;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38454;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38458;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_3845C;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_38460;
+    s = *(u8 *)&lbl_1_bss_38460__fzgx_offset_1C;
+    s = *(u8 *)&lbl_1_bss_38460__fzgx_offset_38;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_384B4;
+}
+#pragma section code_type ".text"
+
+void fn_1_412A0(u32 index) {
+    
+
+    if (lbl_1_bss_38460__fzgx_offset_38[index] != 0) {
+        fn_80071718( (u32)((void *)lbl_1_bss_38460__fzgx_offset_38[index]));
+    }
+
+    if (fzgx_obj_lbl_1_bss_38460[index] != 0) {
+        fn_800711A8( (Obj_1_bss_38458_Target *)((void *)fzgx_obj_lbl_1_bss_38460[index]));
+    }
+
+    lbl_1_bss_38460__fzgx_offset_38[index] = 0;
+    fzgx_obj_lbl_1_bss_38460[index] = 0;
+    lbl_1_bss_38460__fzgx_offset_1C[index] = -1;
+}
+/* fzgx:end fn_1_412A0 */
+
+/* fzgx:begin fn_1_41328 */
+typedef struct RelocData {
+    u32 count;
+    u32 values[1];
+} RelocData;
+
+void fn_1_41328(RelocData *data) {
+    u32 *values = data->values;
+    u32 count = data->count;
+    u32 i = 0;
+
+    if (count & ((u32)1 << 31)) {
+        return;
+    }
+
+    for (i = 0; i <= count; i++) {
+        values[i] += (u32)data;
+    }
+
+    data->count |= ((u32)1 << 31);
+}
+/* fzgx:end fn_1_41328 */
+
+/* fzgx:begin fn_1_41418 */
+typedef struct Fn41418Data {
+    u32 count;
+    char *strings;
+} Fn41418Data;
+
+static inline u32 add_lengths(u32 length, u32 address) {
+    return length + address;
+}
+
+char *fn_1_41418(Fn41418Data *data, u32 index) {
+    u32 count = data->count & 0x7fffffff;
+    u32 str = (u32)data->strings;
+
+    if (index >= count) {
+        return 0;
+    }
+
+    while (index != 0) {
+        str = add_lengths((u32)strlen((char *)str), str);
+        index -= 1;
+        str += 1;
+    }
+
+    return (char *)str;
+}
+/* fzgx:end fn_1_41418 */
+
+/* fzgx:begin fn_1_41488 */
+typedef struct Fn41488Data {
+    u32 count;
+    char *strings;
+} Fn41488Data;
+
+static inline u32 add_lengths(u32 length, u32 address) {
+    return length + address;
+}
+
+int fn_1_41488(Fn41488Data *data, const char *value) {
+    u32 count = data->count & 0x7fffffff;
+    u32 str = (u32)data->strings;
+    u32 index = 0;
+
+    while (index < count) {
+        if (fn_80083BCC(value, (const char *)str) == 0) {
+            return index;
+        }
+        str = add_lengths((u32)strlen((const char *)str), str);
+        index += 1;
+        str += 1;
+    }
+
+    return -1;
+}
+/* fzgx:end fn_1_41488 */
