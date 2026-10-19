@@ -6671,3 +6671,6 @@ rel/main_rel/alloc/fn_1_627C.c:
 
 rel/main_rel/relocation.c:
 	.text       start:0x000A5C98 end:0x000A6870 align:4
+
+rel/main_rel/alloc/fn_1_4E60.c:
+	.text       start:0x00004E60 end:0x00004FEC align:4
