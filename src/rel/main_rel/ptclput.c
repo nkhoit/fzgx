@@ -109,3 +109,156 @@ s32 fn_1_9F9A4(u32 arg0) {
     return 1;
 }
 /* fzgx:end fn_1_9F9A4 */
+
+/* fzgx:begin fn_1_9FA18 noprologue */
+#include "types.h"
+#include "dolphin/hw_regs.h"
+#include "psvec.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/ptclput.h"
+
+struct fn_1_9FA18_State {
+    u8 *unk_0;
+    u8 *unk_4;
+    u8 *unk_8;
+    u16 unk_C;
+    u16 unk_E;
+};
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} fn_1_9FA18_Vec;
+typedef struct {
+    fn_1_9FA18_Vec pos;
+    f32 radius;
+    u32 unk_10;
+    u32 unk_14;
+} fn_1_9FA18_Sphere;
+typedef struct {
+    u8 pad_0[0x8];
+    fn_1_9FA18_Vec pos;
+} fn_1_9FA18_Obj;
+typedef struct {
+    u8 pad_0[0xa0];
+    fn_1_9FA18_Obj *obj;
+} fn_1_9FA18_Inner;
+extern u32 lbl_801A6D00;
+extern void fn_1_9F164(void *);
+extern void fn_1_9F4B4(void *);
+extern void fn_800720B0(u32);
+extern void fn_8007245C(u32);
+extern void fn_800724C8(void);
+extern void fn_80072864(u32);
+extern void fn_800728A8(s32, s32, s32, s32);
+extern void fn_80072AB0(s32, s32, s32);
+extern void fn_80072C24(s32, s32, s32, s32, s32);
+extern void fn_80072CC4(s32, s32, s32, s32, s32);
+extern void fn_80072D64(s32, s32, s32, s32, u8, s32);
+extern void fn_80072E20(s32, s32, s32, s32, u8, s32);
+extern void fn_800734A8(u32, s32, s32, s32);
+extern void fn_800735C8(s32, s32);
+extern void fn_80073620(s32, s32);
+extern void fn_80073678(u32);
+extern void fn_80073778(u32, s32);
+extern void fn_80073C6C(s32);
+extern void fn_800745A4(u32, s32, s32, u32, u32, u32);
+extern void fn_80074660(u32);
+extern void fn_80074788(u32);
+extern void fn_80074918(u8, s32, u8);
+extern void GXLoadPosMtxImm(u32, u32);
+extern void lbl_8006D758(void);
+extern void lbl_8006D9D8(void *);
+extern void lbl_8006D7B0(void);
+extern f32 lbl_8006D0B4(f32);
+extern void lbl_8006DB74(void *);
+extern void lbl_8006D848(f32);
+extern void lbl_8006DFC4(void *);
+
+void fn_1_9FA18(void) {
+    struct fn_1_9FA18_State *state;
+    s32 i;
+    s32 off;
+    fn_1_9FA18_Obj *obj;
+    fn_1_9FA18_Vec v;
+    fn_1_9FA18_Sphere sphere;
+    u8 mtx[0x30];
+    f32 radius;
+    f32 len;
+
+    state = (struct fn_1_9FA18_State *)&lbl_1_bss_6EA88;
+    fn_80074788(0);
+    fn_80072864(0);
+    fn_800745A4(0, 1, 4, 60, 0, 125);
+    fn_800734A8(0, 0, 0, 255);
+    fn_80072AB0(0, 0, 0);
+    fn_800735C8(0, 12);
+    fn_80073620(0, 28);
+    fn_80073C6C(0);
+    fn_80072C24(0, 15, 14, 8, 15);
+    fn_80072D64(0, 0, 0, 0, 1, 0);
+    fn_80072CC4(0, 7, 6, 4, 7);
+    fn_80072E20(0, 0, 0, 0, 1, 0);
+    fn_80073678(1);
+    fn_80074660(1);
+    fn_80074918(1, 3, 0);
+    fn_800720B0(0);
+    fn_800728A8(1, 1, 1, 0);
+    lbl_8006D758();
+    GXLoadPosMtxImm(lbl_801A6D00, 0);
+    fn_800724C8();
+    fn_8007245C(0x2200);
+    for (i = 0, off = 0; i < state->unk_C; off += 0x40, i++) {
+        fn_80073778(*(u32 *)(state->unk_4 + off + 0x24), 0);
+        fn_1_9F164(state->unk_0 + off);
+    }
+    state->unk_C = 0;
+    fn_80074788(0);
+    fn_80072864(0);
+    fn_800745A4(0, 1, 4, 60, 0, 125);
+    fn_800734A8(0, 0, 0, 255);
+    fn_80072AB0(0, 0, 0);
+    fn_800735C8(0, 12);
+    fn_80073620(0, 28);
+    fn_80073C6C(0);
+    fn_80072C24(0, 15, 15, 15, 14);
+    fn_80072D64(0, 0, 0, 0, 1, 0);
+    fn_80072CC4(0, 7, 6, 4, 7);
+    fn_80072E20(0, 0, 0, 0, 1, 0);
+    fn_80073678(1);
+    fn_80074660(1);
+    fn_80074918(1, 3, 0);
+    fn_800720B0(0);
+    fn_800728A8(1, 4, 1, 0);
+    if (state->unk_E != 0) {
+        obj = ((fn_1_9FA18_Inner *)lbl_1_bss_38458->unk_8)->obj;
+        fn_80073778(*(u32 *)((u8 *)obj + 0x24), 0);
+    }
+    for (i = 0, off = 0; i < state->unk_E; off += 0x18, i++) {
+        sphere = *(fn_1_9FA18_Sphere *)(state->unk_8 + off);
+        radius = sphere.radius;
+        lbl_8006D9D8(&sphere);
+        lbl_8006D7B0();
+        psvec_set(&v, *(const f32 *)(LC_BASE + 0x2C), *(const f32 *)(LC_BASE + 0x1C), *(const f32 *)(LC_BASE + 0xC));
+        {
+            f32 x = v.x;
+            f32 y = v.y;
+            f32 z = v.z;
+            f32 sum = x * x;
+
+            sum = sum + y * y;
+            sum = sum + z * z;
+            len = lbl_8006D0B4(sum);
+        }
+        if (len > 0.1f + radius) {
+            lbl_8006DB74(mtx);
+            lbl_8006D848((len - radius) / len);
+            lbl_8006DFC4(mtx);
+        }
+        sphere.pos = obj->pos;
+        sphere.radius = 0.70710677f * radius;
+        fn_1_9F4B4(&sphere);
+    }
+    state->unk_E = 0;
+}
+/* fzgx:end fn_1_9FA18 */

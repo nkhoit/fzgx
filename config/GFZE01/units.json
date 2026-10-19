@@ -44171,6 +44171,21 @@
   },
   {
     "module": "main_rel",
+    "source": "rel/main_rel/ptclput/fn_1_9FA18.c",
+    "symbols": [
+      "fn_1_9FA18"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/ptclput.c",
+    "pool": {
+      "@48": "lbl_1_rodata_42D8",
+      "@49": "lbl_1_rodata_42DC"
+    }
+  },
+  {
+    "module": "main_rel",
     "source": "rel/main_rel/ranking/fn_1_1554D0.c",
     "symbols": [
       "fn_1_1554D0"
