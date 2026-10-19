@@ -29430,18 +29430,6 @@
   },
   {
     "module": "main_rel",
-    "source": "rel/main_rel/bg_tow/fn_1_154798.c",
-    "symbols": [
-      "fn_1_154798"
-    ],
-    "status": "nonmatching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/bg_tow.c",
-    "pool": true
-  },
-  {
-    "module": "main_rel",
     "source": "rel/main_rel/bg_tow/fn_1_1547FC.c",
     "symbols": [
       "fn_1_1547FC"

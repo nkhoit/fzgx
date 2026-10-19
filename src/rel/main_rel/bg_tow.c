@@ -189,44 +189,6 @@ void fn_1_154708(u32 arg0) {
 }
 /* fzgx:end fn_1_154708 */
 
-/* fzgx:begin fn_1_154798 pool */
-#include "types.h"
-
-extern void fn_1_1548A8(void);
-extern void fn_1_154930(void);
-extern void fn_1_1549B8(void);
-extern void fn_1_154A08(void);
-extern void fn_1_154BE4(void);
-
-static void (*fzgx_pool_rep_handlers[5])(void) = {
-    fn_1_1548A8, fn_1_154930, fn_1_1549B8, fn_1_154A08, fn_1_154BE4,
-};
-static char fzgx_pool_rep_str_init[] = "REP_MEMCARD_INIT";
-static char fzgx_pool_rep_str_wait[] = "REP_MEMCARD_WAIT";
-static char fzgx_pool_rep_str_action_init[] = "REP_MEMCARD_ACTION_INIT";
-static char fzgx_pool_rep_str_action[] = "REP_MEMCARD_ACTION";
-static char fzgx_pool_rep_str_finish[] = "REP_MEMCARD_FINISH";
-static char *fzgx_pool_rep_names[5] = {
-    fzgx_pool_rep_str_init, fzgx_pool_rep_str_wait, fzgx_pool_rep_str_action_init,
-    fzgx_pool_rep_str_action, fzgx_pool_rep_str_finish,
-};
-static s32 fzgx_pool_rep_unk_90 = -1;
-static s32 fzgx_pool_rep_prev = -1;
-static s32 fzgx_pool_rep_cur = -1;
-static s32 fzgx_pool_rep_next = -1;
-
-void fn_1_154798(void) {
-    if (fzgx_pool_rep_next >= 0) {
-        fzgx_pool_rep_prev = fzgx_pool_rep_cur;
-        fzgx_pool_rep_cur = fzgx_pool_rep_next;
-        fzgx_pool_rep_next = -1;
-    }
-    if (fzgx_pool_rep_cur >= 0) {
-        fzgx_pool_rep_handlers[fzgx_pool_rep_cur]();
-    }
-}
-/* fzgx:end fn_1_154798 */
-
 /* fzgx:begin fn_1_1547FC */
 #include "types.h"
 
