@@ -327,6 +327,95 @@ void fn_1_4DE0(Obj_1_data_2CDC *obj, u32 arg1) {
 #pragma opt_dead_assignments reset
 /* fzgx:end fn_1_4DE0 */
 
+/* fzgx:begin fn_1_4E60 noprologue */
+#include "types.h"
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 65535.0f;
+    s = 1.0f;
+    s = -1.0f;
+    s = 0.0f;
+    d = 4503599627370496.0;
+}
+#pragma section code_type ".text"
+
+typedef struct {
+    u32 value;
+} FadeColor;
+
+typedef struct {
+    u8 b0;
+    u8 b1;
+    u8 b2;
+    u8 flags;
+    u16 h4;
+    s16 h6;
+    FadeColor color;
+    void *pc;
+} AllocCtl;
+
+extern FadeColor lbl_1_data_2CD8;
+extern AllocCtl lbl_1_data_2CDC;
+
+extern void fn_1_4060(void);
+extern void fn_8006CDFC(FadeColor *arg);
+extern void fn_8006CE1C(f32 level);
+
+static inline f32 fade_level(AllocCtl *data) {
+    f32 value3;
+    u8 value;
+    f32 value1;
+    f32 temp;
+
+    value3 = ((f32)data->h4) / 65535.0f;
+    value = (data->b0 == 0x3c) ? 0x0f : data->b0;
+    if (data->b1 > value) {
+        value1 = 1.0f;
+    } else {
+        value1 = ((f32)data->b1) / (f32)value;
+    }
+
+    if (data->flags & 2) {
+        value1 = value3 * (1.0f - value1);
+    } else {
+        temp = 1.0f - value3;
+        temp = temp * value1;
+        value1 = value3 + temp;
+    }
+    return value1;
+}
+
+static inline void fade_finish(void) {
+    fn_8006CE1C(0.0f);
+    lbl_1_data_2CDC.color = lbl_1_data_2CD8;
+}
+
+void fn_1_4E60(AllocCtl *ctl) {
+    f32 level;
+    FadeColor color;
+
+    level = fade_level(ctl);
+    if (0.0f == level) {
+        fade_finish();
+    } else {
+        color = ctl->color;
+        fn_8006CDFC(&color);
+        fn_8006CE1C(level);
+    }
+    ctl->b1 += ctl->b2;
+    if (ctl->b1 > ctl->b0) {
+        ctl->flags &= ~1;
+    }
+    if (!(ctl->flags & 1)) {
+        ctl->h6 = -1;
+        ctl->h4 = (u16)(65535.0f * level);
+        fn_1_4060();
+    }
+}
+/* fzgx:end fn_1_4E60 */
+
 /* fzgx:begin fn_1_4FEC */
 void fn_1_4FEC(void) {
     lbl_1_bss_F58 = 0;
