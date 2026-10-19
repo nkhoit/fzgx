@@ -45033,274 +45033,44 @@
   },
   {
     "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154708.c",
+    "source": "rel/main_rel/rep_memcard.c",
     "symbols": [
-      "fn_1_154708"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_1547FC.c",
-    "symbols": [
-      "fn_1_1547FC"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_1548A8.c",
-    "symbols": [
-      "fn_1_1548A8"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154930.c",
-    "symbols": [
-      "fn_1_154930"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_1549B8.c",
-    "symbols": [
-      "fn_1_1549B8"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154A08.c",
-    "symbols": [
-      "fn_1_154A08"
-    ],
-    "status": "nonmatching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c",
-    "pool": true
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154BE4.c",
-    "symbols": [
-      "fn_1_154BE4"
-    ],
-    "status": "nonmatching",
-    "mw_version": "GC/1.3.2",
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c",
-    "pool": true
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154C84.c",
-    "symbols": [
-      "fn_1_154C84"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154CC4.c",
-    "symbols": [
-      "fn_1_154CC4"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154CD0.c",
-    "symbols": [
-      "fn_1_154CD0"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154D84.c",
-    "symbols": [
-      "fn_1_154D84"
-    ],
-    "status": "matching",
-    "mw_version": "GC/1.3.2",
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154E24.c",
-    "symbols": [
-      "fn_1_154E24"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154E34.c",
-    "symbols": [
-      "fn_1_154E34"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154E4C.c",
-    "symbols": [
-      "fn_1_154E4C"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154ED0.c",
-    "symbols": [
-      "fn_1_154ED0"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154F1C.c",
-    "symbols": [
-      "fn_1_154F1C"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154F74.c",
-    "symbols": [
-      "fn_1_154F74"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154F88.c",
-    "symbols": [
-      "fn_1_154F88"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154F98.c",
-    "symbols": [
-      "fn_1_154F98"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154FA8.c",
-    "symbols": [
-      "fn_1_154FA8"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154FC0.c",
-    "symbols": [
-      "fn_1_154FC0"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_154FD8.c",
-    "symbols": [
-      "fn_1_154FD8"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c",
-    "pool": {
-      "@17": "lbl_1_rodata_D5A8"
-    }
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_155120.c",
-    "symbols": [
-      "fn_1_155120"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/rep_memcard/fn_1_15530C.c",
-    "symbols": [
+      "fn_1_154708",
+      "fn_1_154798",
+      "fn_1_1547FC",
+      "fn_1_1548A8",
+      "fn_1_154930",
+      "fn_1_1549B8",
+      "fn_1_154A08",
+      "fn_1_154BE4",
+      "fn_1_154C84",
+      "fn_1_154CC4",
+      "fn_1_154CD0",
+      "fn_1_154D84",
+      "fn_1_154E24",
+      "fn_1_154E34",
+      "fn_1_154E4C",
+      "fn_1_154ED0",
+      "fn_1_154F1C",
+      "fn_1_154F74",
+      "fn_1_154F88",
+      "fn_1_154F98",
+      "fn_1_154FA8",
+      "fn_1_154FC0",
+      "fn_1_154FD8",
+      "fn_1_155120",
       "fn_1_15530C"
     ],
     "status": "matching",
     "mw_version": "GC/1.3.2",
     "extra_cflags": [],
-    "tu": "rel/main_rel/rep_memcard.c",
+    "collapsed": true,
     "pool": {
-      "@45": "jumptable_1_data_49AD8"
+      "@129": "lbl_1_rodata_D598",
+      "@130": "lbl_1_rodata_D59C",
+      "@177": "lbl_1_rodata_D5A8",
+      "@175": "lbl_1_rodata_D5A0",
+      "@253": "lbl_1_rodata_D5B0"
     }
   },
   {
