@@ -24,10 +24,105 @@ extern void fn_1_49614(void);
 extern const f64 lbl_1_rodata_D5B0;
 extern f64 fn_80083E84(u8 *text);
 extern s32 atoi(u8 *text);
+extern u8 fn_1_B7C00(void);
+extern void fn_1_B9C0C(void);
+extern struct fn_1_154BE4_lbl_1_data_49A18 lbl_1_data_49A18;
+extern void fn_1_1596DC(s32);
+extern void fn_1_484CC(s32);
+extern u8 *fn_1_15530C(u8 *text);
+extern void fn_1_A8EB0(s32 arg0, s32 arg1);
+extern f32 lbl_1_rodata_D598;
+extern f32 lbl_1_rodata_D59C;
+extern void fn_1_154FA8(void);
 
-/* fzgx:begin fn_1_154BE4 pool noprologue */
-#include "types.h"
+/* fzgx:begin fn_1_154A08 pool */
+typedef struct {
+    u8 pad_0[0x8];
+    u32 unk_8;
+    u32 unk_C;
+    u8 pad_10[0x4];
+    s8 unk_14;
+} fn_1_154A08_Replay;
 
+extern void fn_1_BC29C(fn_1_154A08_Replay *arg0);
+extern void fn_1_C1394(fn_1_154A08_Replay *arg0);
+
+/* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
+u32 fzgx_obj_lbl_1_bss_8ED90;
+u32 fzgx_obj_lbl_1_bss_8ED94;
+u32 lbl_1_bss_8ED94_fill_8ED98[2];
+u8 lbl_1_bss_8EDA0;
+u8 lbl_1_bss_8ED90_gap_8EDA1;
+u16 lbl_1_bss_8ED90_gap_8EDA1_fill_8EDA2;
+u8 fzgx_obj_lbl_1_bss_8EDA4;
+u8 lbl_1_bss_8EDA4_fill_8EDA5;
+u16 lbl_1_bss_8EDA4_fill_8EDA6;
+u32 lbl_1_bss_8EDA4_fill_8EDA8[18];
+u32 fzgx_obj_lbl_1_bss_8EDF0[76];
+
+#pragma section code_type ".fzgxpool"
+static void fzgx_bss_layout_154A08(void) {
+    volatile u8 s;  /* fzgx-allow: S2 layout primer sink: MWCC emits .bss objects in first-access order */
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_8ED90;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_8ED94;
+    s = *(u8 *)&lbl_1_bss_8ED94_fill_8ED98;
+    s = *(u8 *)&lbl_1_bss_8EDA0;
+    s = *(u8 *)&lbl_1_bss_8ED90_gap_8EDA1;
+    s = *(u8 *)&lbl_1_bss_8ED90_gap_8EDA1_fill_8EDA2;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_8EDA4;
+    s = *(u8 *)&lbl_1_bss_8EDA4_fill_8EDA5;
+    s = *(u8 *)&lbl_1_bss_8EDA4_fill_8EDA6;
+    s = *(u8 *)&lbl_1_bss_8EDA4_fill_8EDA8;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_8EDF0;
+}
+#pragma section code_type ".text"
+
+void fn_1_154A08(void) {
+    fn_1_154A08_Replay *replay;
+    u32 buf;
+    fn_1_154A08_Replay *saved;
+    s32 state;
+
+    if (fn_1_B7C00()) {
+        return;
+    }
+    if (lbl_1_bss_8ED94_fill_8ED98[0] != 0) {
+        fn_1_46B4(lbl_801A6410, lbl_1_bss_8ED94_fill_8ED98[0], lbl_1_data_49AC8, 0xcd);
+    }
+    state = ((fn_1_154A08_Replay *)&fzgx_obj_lbl_1_bss_8EDA4)->unk_14;
+    if (state == 1) {
+        fn_1_B9C0C();
+        fn_1_BC29C((fn_1_154A08_Replay *)&fzgx_obj_lbl_1_bss_8EDA4);
+        lbl_1_data_49AB4.unk_0 = 4;
+    } else if (state == 2) {
+        if (fzgx_obj_lbl_1_bss_8ED90 != 0) {
+            fn_1_46B4(lbl_801A6410, fzgx_obj_lbl_1_bss_8ED90, lbl_1_data_49AC8, 0xda);
+        }
+        replay = (fn_1_154A08_Replay *)&fzgx_obj_lbl_1_bss_8EDA4;
+        if ((s32)replay->unk_C != 0) {
+            buf = fn_1_4630(lbl_801A6410, replay->unk_C, lbl_1_data_49AC8, 0xdf);
+            fn_80008BA8(buf, (saved = (fn_1_154A08_Replay *)&fzgx_obj_lbl_1_bss_8EDA4)->unk_8, replay->unk_C);
+            fn_1_B9C0C();
+            if (saved->unk_8 != 0) {
+                fn_1_46B4(lbl_801A6410, saved->unk_8, lbl_1_data_49AC8, 0xe9);
+                saved->unk_8 = 0;
+            }
+            fzgx_obj_lbl_1_bss_8ED90 = fn_1_4630(lbl_801A6410, replay->unk_C, lbl_1_data_49AC8, 0xee);
+            fzgx_obj_lbl_1_bss_8ED94 = replay->unk_C;
+            replay->unk_C = 0;
+            fn_80008BA8(fzgx_obj_lbl_1_bss_8ED90, buf, fzgx_obj_lbl_1_bss_8ED94);
+            fn_1_46B4(lbl_801A6410, buf, lbl_1_data_49AC8, 0xf9);
+        }
+        lbl_1_data_49AB4.unk_0 = 4;
+        fn_1_BC29C((fn_1_154A08_Replay *)&fzgx_obj_lbl_1_bss_8EDA4);
+    } else if (state == 8) {
+        fn_1_C1394((fn_1_154A08_Replay *)&fzgx_obj_lbl_1_bss_8EDA4);
+        lbl_1_data_49AB4.unk_0 = 1;
+    }
+}
+/* fzgx:end fn_1_154A08 */
+
+/* fzgx:begin fn_1_154BE4 pool */
 struct fn_1_154BE4_lbl_1_bss_8ED90 {
     u32 unk_0;
     u32 unk_4;
@@ -41,13 +136,6 @@ struct fn_1_154BE4_lbl_1_data_49A18 {
     u32 unk_98;
     u32 unk_9C;
 };
-
-extern struct fn_1_154BE4_lbl_1_data_49A18 lbl_1_data_49A18;
-extern u32 lbl_801A6410;
-extern void fn_1_46B4(u32, u32, const char *, int);
-extern void fn_1_B9C0C(void);
-extern void fn_1_1596DC(s32);
-extern void fn_1_484CC(s32);
 
 #pragma opt_common_subs off
 /* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
@@ -88,7 +176,7 @@ void fn_1_154BE4(void) {
     p_state = (u8 *)&fzgx_obj_lbl_1_bss_8EDA4;
     if ((s32)(*((p_state) + (0x14))) != 2 && fzgx_obj_lbl_1_bss_8ED90 != 0) {
         fn_1_46B4(lbl_801A6410, fzgx_obj_lbl_1_bss_8ED90,
-            (const char *)((u8 *)p_lbl_1_data_49A18 + 0xb0), 0x10d);
+            (u8 *)p_lbl_1_data_49A18 + 0xb0, 0x10d);
         fzgx_obj_lbl_1_bss_8ED90 = 0;
         fzgx_obj_lbl_1_bss_8ED94 = 0;
     }
@@ -153,40 +241,19 @@ u32 fn_1_154E34(u32 *arg0) {
 }
 /* fzgx:end fn_1_154E34 */
 
-/* fzgx:begin fn_1_154E4C noprologue */
-#include "types.h"
-
-struct fn_1_154E4C_lbl_1_bss_8EDF0 {
-    u8 pad_0[0x8];
-    u32 unk_8;
-    u32 unk_C;
-    u32 unk_10;
-    u8 pad_14[0xC];
-    u32 unk_20;
-    u32 unk_24;
-    f32 unk_28;
-    f32 unk_2C;
-    u32 unk_30;
-};
-
-extern f32 lbl_1_rodata_D598;
-extern f32 lbl_1_rodata_D59C;
-extern struct fn_1_154E4C_lbl_1_bss_8EDF0 lbl_1_bss_8EDF0;
-extern u32 fn_1_154FA8(f32);
-extern u32 memset(u32, u32, u32);
-
+/* fzgx:begin fn_1_154E4C */
+// Clear the replay memory-card message state and set its default layout.
 void fn_1_154E4C(void) {
-    u32 v0;
-    memset((u32)&lbl_1_bss_8EDF0, 0, 304);
+    memset(&lbl_1_bss_8EDF0, 0, sizeof(lbl_1_bss_8EDF0));
     lbl_1_bss_8EDF0.unk_C = 0;
     lbl_1_bss_8EDF0.unk_28 = lbl_1_rodata_D598;
     lbl_1_bss_8EDF0.unk_30 = 2;
-    lbl_1_bss_8EDF0.unk_8 = ((lbl_1_bss_8EDF0.unk_8 & 0xFFFFFFFD));
+    lbl_1_bss_8EDF0.unk_8 &= ~2;
     lbl_1_bss_8EDF0.unk_10 = 0;
     lbl_1_bss_8EDF0.unk_20 = 80;
     lbl_1_bss_8EDF0.unk_24 = 385;
     lbl_1_bss_8EDF0.unk_2C = lbl_1_rodata_D59C;
-    fn_1_154FA8(lbl_1_rodata_D598);
+    fn_1_154FA8();
 }
 /* fzgx:end fn_1_154E4C */
 
@@ -286,15 +353,76 @@ void fn_1_154FD8(void) {
 }
 /* fzgx:end fn_1_154FD8 */
 
-/* fzgx:begin fn_1_15530C noprologue */
-#include "types.h"
-#include "rel/main_rel/rep_memcard.h"
+/* fzgx:begin fn_1_155120 */
+#define TEXT(obj) ((u8 *)(obj)->unk_10)
+#define SET_TEXT(obj, p) ((obj)->unk_10 = (Obj_1_bss_8EDF0_At10 *)(p))
 
-extern const f64 lbl_1_rodata_D5B0;
-extern f64 fn_80083E84(u8 *text);
-extern s32 atoi(u8 *text);
-extern void *memset(void *dest, s32 value, u32 size);
+// Emit the next character (or bracketed group, or escape command) of the replay
+// memory-card message into the text buffer.
+void fn_1_155120(void) {
+    Obj_1_bss_8EDF0 *obj = &lbl_1_bss_8EDF0;
+    u8 *text = TEXT(obj);
+    u8 c = *text;
+    u8 next;
 
+    if (c == 0) {
+        return;
+    }
+    switch (c) {
+    case '\\':
+        SET_TEXT(obj, fn_1_15530C(text + 1));
+        break;
+    case '[':
+        fn_1_A8EB0(20, 20);
+        while (*TEXT(obj) != ']') {
+            /* read through the global, not obj: retail reloads the cursor here */
+            u8 *p = (u8 *)lbl_1_bss_8EDF0.unk_10;
+            u8 ch = *p;
+            if ((ch & 0x80) == 0) {
+                SET_TEXT(obj, p + 1);
+                obj->unk_14++;
+                (&obj->unk_34)[obj->unk_1C] = ch;
+            } else {
+                next = TEXT(obj)[1];
+                SET_TEXT(obj, p + 2);
+                obj->unk_14 += 2;
+                (&obj->unk_34)[obj->unk_1C] = ch;
+                (&obj->unk_34)[obj->unk_1C + 1] = next;
+            }
+            obj->unk_1C = obj->unk_14 + obj->unk_18 * 30;
+        }
+        c = *TEXT(obj);
+        SET_TEXT(obj, TEXT(obj) + 1);
+        obj->unk_14++;
+        (&obj->unk_34)[obj->unk_1C] = c;
+        obj->unk_1C = obj->unk_14 + obj->unk_18 * 30;
+        break;
+    case '\n':
+        obj->unk_14++;
+        SET_TEXT(obj, text + 1);
+        (&obj->unk_34)[obj->unk_1C] = '\n';
+        break;
+    case '\0':
+        break;
+    default:
+        if ((c & 0x80) == 0) {
+            SET_TEXT(obj, TEXT(obj) + 1);
+            obj->unk_14++;
+            (&obj->unk_34)[obj->unk_1C] = c;
+        } else {
+            next = TEXT(obj)[1];
+            SET_TEXT(obj, TEXT(obj) + 2);
+            obj->unk_14 += 2;
+            (&obj->unk_34)[obj->unk_1C] = c;
+            (&obj->unk_34)[obj->unk_1C + 1] = next;
+        }
+        break;
+    }
+    obj->unk_1C = obj->unk_14 + obj->unk_18 * 30;
+}
+/* fzgx:end fn_1_155120 */
+
+/* fzgx:begin fn_1_15530C */
 u8 *fn_1_15530C(u8 *text) {
     Obj_1_bss_8EDF0 *obj = &lbl_1_bss_8EDF0;
 
