@@ -4185,36 +4185,6 @@ rel/main_rel/bg_aur/fn_1_151E74.c:
 rel/main_rel/bg_aur/fn_1_152840.c:
 	.text       start:0x00152840 end:0x001528D0
 
-rel/main_rel/bg_tow/fn_1_153988.c:
-	.text       start:0x00153988 end:0x0015398C
-
-rel/main_rel/bg_tow/fn_1_15398C.c:
-	.text       start:0x0015398C end:0x001539D0
-
-rel/main_rel/bg_tow/fn_1_1539D0.c:
-	.text       start:0x001539D0 end:0x00153A28
-
-rel/main_rel/bg_tow/fn_1_153A28.c:
-	.text       start:0x00153A28 end:0x00153AAC
-
-rel/main_rel/bg_tow/fn_1_153AAC.c:
-	.text       start:0x00153AAC end:0x00153AB0
-
-rel/main_rel/bg_tow/fn_1_153AB0.c:
-	.text       start:0x00153AB0 end:0x00153AF4
-
-rel/main_rel/bg_tow/fn_1_153AF4.c:
-	.text       start:0x00153AF4 end:0x00153AF8
-
-rel/main_rel/bg_tow/fn_1_153AF8.c:
-	.text       start:0x00153AF8 end:0x00153B24
-
-rel/main_rel/bg_tow/fn_1_153D48.c:
-	.text       start:0x00153D48 end:0x00153D74
-
-rel/main_rel/bg_tow/fn_1_1543E8.c:
-	.text       start:0x001543E8 end:0x00154410
-
 rel/main_rel/ranking/fn_1_1554D0.c:
 	.text       start:0x001554D0 end:0x0015555C
 
@@ -5043,9 +5013,6 @@ rel/main_rel/game/fn_1_3FF90.c:
 rel/main_rel/game/fn_1_40710.c:
 	.text       start:0x00040710 end:0x000408E8 align:4
 
-rel/main_rel/bg_tow/fn_1_1540B0.c:
-	.text       start:0x001540B0 end:0x00154164 align:4
-
 rel/main_rel/memcard/fn_1_B9CCC.c:
 	.text       start:0x000B9CCC end:0x000B9DE8 align:4
 
@@ -5147,9 +5114,6 @@ rel/main_rel/sel_static_disp/fn_1_133BD8.c:
 
 rel/main_rel/motasglist/fn_1_42E74.c:
 	.text       start:0x00042E74 end:0x0004300C align:4
-
-rel/main_rel/bg_tow/fn_1_153C60.c:
-	.text       start:0x00153C60 end:0x00153D48 align:4
 
 rel/main_rel/game/fn_1_3A2C4.c:
 	.text       start:0x0003A2C4 end:0x0003A330 align:4
@@ -5756,9 +5720,6 @@ rel/main_rel/spline/fn_1_F9028.c:
 
 rel/main_rel/archive/fn_1_12CB04.c:
 	.text       start:0x0012CB04 end:0x0012CCB0 align:4
-
-rel/main_rel/bg_tow/fn_1_153B24.c:
-	.text       start:0x00153B24 end:0x00153C60 align:4
 
 rel/main_rel/car/fn_1_8658C.c:
 	.text       start:0x0008658C end:0x00086624 align:4
@@ -6609,10 +6570,10 @@ rel/main_rel/relocation.c:
 rel/main_rel/alloc/fn_1_4E60.c:
 	.text       start:0x00004E60 end:0x00004FEC align:4
 
-rel/main_rel/bg_tow/fn_1_154410.c:
-	.text       start:0x00154410 end:0x00154708 align:4
-
 rel/main_rel/rep_memcard.c:
 	.text       start:0x00154708 end:0x001554D0 align:4
 	.data       start:0x00049A18 end:0x00049B08 align:8
 	.bss        start:0x0008ED90 end:0x0008EF20 align:8
+
+rel/main_rel/bg_tow.c:
+	.text       start:0x00153988 end:0x00154708 align:4
