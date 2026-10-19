@@ -1449,7 +1449,7 @@ rel/main_rel/screen_effect/fn_1_7B4C0.c:
 rel/main_rel/light/fn_1_7BE94.c:
 	.text       start:0x0007BE94 end:0x0007BEAC
 
-rel/main_rel/light/fn_1_7BF9C.c:
+rel/main_rel/car_test/fn_1_7BF9C.c:
 	.text       start:0x0007BF9C end:0x0007C13C
 
 rel/main_rel/car_test/fn_1_7D694.c:
@@ -6507,7 +6507,7 @@ rel/main_rel/font/fn_1_4E060.c:
 rel/main_rel/screen_effect/fn_1_769FC.c:
 	.text       start:0x000769FC end:0x00076A94 align:4
 
-rel/main_rel/screen_effect/fn_1_7BA08.c:
+rel/main_rel/light/fn_1_7BA08.c:
 	.text       start:0x0007BA08 end:0x0007BA48 align:4
 
 rel/main_rel/car/fn_1_8421C.c:
@@ -6645,10 +6645,10 @@ rel/main_rel/bitmap/fn_1_48214.c:
 rel/main_rel/light/fn_1_7BEAC.c:
 	.text       start:0x0007BEAC end:0x0007BF9C align:4
 
-rel/main_rel/screen_effect/fn_1_7BB80.c:
+rel/main_rel/light/fn_1_7BB80.c:
 	.text       start:0x0007BB80 end:0x0007BCCC align:4
 
-rel/main_rel/screen_effect/fn_1_7BD6C.c:
+rel/main_rel/light/fn_1_7BD6C.c:
 	.text       start:0x0007BD6C end:0x0007BE94 align:4
 
 rel/main_rel/_prolog/fn_1_3C18.c:
