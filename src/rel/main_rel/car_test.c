@@ -29,7 +29,7 @@ extern void fn_800720B0(s32 arg0);
 /* fzgx:begin fn_1_7BF9C noprologue */
 #include "types.h"
 #include "rel/main_rel/globals.h"
-#include "rel/main_rel/light.h"
+#include "rel/main_rel/car_test.h"
 
 extern u16 lbl_1_bss_6D7C0[20];
 

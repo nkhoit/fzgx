@@ -1,5 +1,6 @@
 #include "types.h"
 #include "rel/main_rel/globals.h"
+#include "rel/main_rel/light.h"
 
 // Scene lights: a pool of light objects, the slots made active from it, and staged
 // requests that pick a slot and a set of up to eight channels (one bit per channel).
@@ -26,10 +27,8 @@ extern void fn_80074D28(LightSlot *slot);
 extern int fn_80074D08(int frame);
 extern void fn_800793D4(void *dst, int value, int size);
 
-// "light.c" and the assertion messages; the TU's .data starts with the light descriptors.
-extern u8 lbl_1_data_1E558[];
-extern char lbl_1_data_1EE44[];
-extern char lbl_1_data_1EE70[];
+// lbl_1_data_1E558 starts the TU's .data (the light descriptors); "light.c" and the
+// assertion messages sit at +0x8EC onward, lbl_1_data_1EE44/1EE70 in light.h.
 
 /* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
 u16 fzgx_obj_lbl_1_bss_6D7A8;          /* pool capacity */
@@ -187,7 +186,7 @@ void fn_1_7BB80(LightObj *src, int mask) {
 // Appends a slot and makes it current.
 void fn_1_7BCCC(LightSlot *src) {
     if (sSlotCount >= sSlotMax)
-        OSPanic(lbl_1_data_1EE44, 143, lbl_1_data_1EE70);
+        OSPanic((char *)lbl_1_data_1EE44, 143, (char *)lbl_1_data_1EE70);
     sSlots[sSlotCount] = *src;
     fn_80074D28(src);
     sSlotCount++;

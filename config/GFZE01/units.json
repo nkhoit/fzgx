@@ -40692,7 +40692,6 @@
     "extra_cflags": [],
     "tu": "rel/main_rel/light.c",
     "pool": {
-      "...bss.0": "lbl_1_bss_6D7A8",
       "fzgx_obj_lbl_1_bss_6D7A8": "lbl_1_bss_6D7A8",
       "lbl_1_bss_6D7A8__fzgx_offset_2": "lbl_1_bss_6D7A8+0x2",
       "lbl_1_bss_6D7A8__fzgx_offset_4": "lbl_1_bss_6D7A8+0x4",
@@ -40706,7 +40705,8 @@
       "lbl_1_bss_6D7C0__fzgx_offset_8": "lbl_1_bss_6D7C0+0x8",
       "lbl_1_bss_6D7C0__fzgx_offset_C": "lbl_1_bss_6D7C0+0xC",
       "lbl_1_bss_6D7C0__fzgx_offset_10": "lbl_1_bss_6D7C0+0x10",
-      "lbl_1_bss_6D7C0__fzgx_offset_20": "lbl_1_bss_6D7C0+0x20"
+      "lbl_1_bss_6D7C0__fzgx_offset_20": "lbl_1_bss_6D7C0+0x20",
+      "...bss.0": "lbl_1_bss_6D7A8"
     }
   },
   {
@@ -40748,7 +40748,6 @@
     "extra_cflags": [],
     "tu": "rel/main_rel/light.c",
     "pool": {
-      "...bss.0": "lbl_1_bss_6D7A8",
       "fzgx_obj_lbl_1_bss_6D7A8": "lbl_1_bss_6D7A8",
       "lbl_1_bss_6D7A8__fzgx_offset_2": "lbl_1_bss_6D7A8+0x2",
       "lbl_1_bss_6D7A8__fzgx_offset_4": "lbl_1_bss_6D7A8+0x4",
@@ -40762,7 +40761,8 @@
       "lbl_1_bss_6D7C0__fzgx_offset_8": "lbl_1_bss_6D7C0+0x8",
       "lbl_1_bss_6D7C0__fzgx_offset_C": "lbl_1_bss_6D7C0+0xC",
       "lbl_1_bss_6D7C0__fzgx_offset_10": "lbl_1_bss_6D7C0+0x10",
-      "lbl_1_bss_6D7C0__fzgx_offset_20": "lbl_1_bss_6D7C0+0x20"
+      "lbl_1_bss_6D7C0__fzgx_offset_20": "lbl_1_bss_6D7C0+0x20",
+      "...bss.0": "lbl_1_bss_6D7A8"
     }
   },
   {
@@ -40776,7 +40776,6 @@
     "extra_cflags": [],
     "tu": "rel/main_rel/light.c",
     "pool": {
-      "...bss.0": "lbl_1_bss_6D7A8",
       "fzgx_obj_lbl_1_bss_6D7C0": "lbl_1_bss_6D7C0",
       "fzgx_obj_lbl_1_bss_6D7A8": "lbl_1_bss_6D7A8",
       "lbl_1_bss_6D7A8__fzgx_offset_2": "lbl_1_bss_6D7A8+0x2",
@@ -40790,7 +40789,8 @@
       "lbl_1_bss_6D7C0__fzgx_offset_8": "lbl_1_bss_6D7C0+0x8",
       "lbl_1_bss_6D7C0__fzgx_offset_C": "lbl_1_bss_6D7C0+0xC",
       "lbl_1_bss_6D7C0__fzgx_offset_10": "lbl_1_bss_6D7C0+0x10",
-      "lbl_1_bss_6D7C0__fzgx_offset_20": "lbl_1_bss_6D7C0+0x20"
+      "lbl_1_bss_6D7C0__fzgx_offset_20": "lbl_1_bss_6D7C0+0x20",
+      "...bss.0": "lbl_1_bss_6D7A8"
     }
   },
   {
