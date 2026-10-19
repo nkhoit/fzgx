@@ -5,7 +5,7 @@
 extern u8 *lbl_801A6CF4;
 extern u32 lbl_1_bss_6F5F4;
 extern u8 lbl_801A66B0[];
-extern s32 OSGetResetCode(void);
+extern u32 OSGetResetCode(void);
 extern u32 OSGetProgressiveMode(void);
 extern void OSSetProgressiveMode(s32);
 extern void fn_1_A6870(u32 *);
