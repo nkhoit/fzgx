@@ -1086,25 +1086,13 @@ rel/main_rel/shadowmap/fn_1_57720.c:
 rel/main_rel/shadowmap/fn_1_57DC0.c:
 	.text       start:0x00057DC0 end:0x00057E84
 
-rel/main_rel/avline/fn_1_58114.c:
-	.text       start:0x00058114 end:0x00058158
-
-rel/main_rel/avline/fn_1_58158.c:
-	.text       start:0x00058158 end:0x0005819C
-
-rel/main_rel/avline/fn_1_5819C.c:
-	.text       start:0x0005819C end:0x000581AC
-
-rel/main_rel/avline/fn_1_584AC.c:
-	.text       start:0x000584AC end:0x000584D4
-
-rel/main_rel/avline/fn_1_58854.c:
+rel/main_rel/effect/fn_1_58854.c:
 	.text       start:0x00058854 end:0x00058994
 
 rel/main_rel/effect/fn_1_58D38.c:
 	.text       start:0x00058D38 end:0x00058E3C
 
-rel/main_rel/avline/fn_1_591A0.c:
+rel/main_rel/effect/fn_1_591A0.c:
 	.text       start:0x000591A0 end:0x00059290
 
 rel/main_rel/effect/fn_1_59290.c:
@@ -5271,7 +5259,7 @@ rel/main_rel/effect/fn_1_632D4.c:
 rel/main_rel/screen_effect/fn_1_79810.c:
 	.text       start:0x00079810 end:0x00079948 align:4
 
-rel/main_rel/avline/fn_1_58694.c:
+rel/main_rel/effect/fn_1_58694.c:
 	.text       start:0x00058694 end:0x00058854 align:4
 
 rel/main_rel/load/fn_1_45CD8.c:
@@ -6399,9 +6387,6 @@ rel/main_rel/live_camera/fn_1_FB50.c:
 rel/main_rel/car/fn_1_8CED0.c:
 	.text       start:0x0008CED0 end:0x0008D0A4 align:4
 
-rel/main_rel/avline/fn_1_581AC.c:
-	.text       start:0x000581AC end:0x00058248 align:4
-
 rel/main_rel/archive/fn_1_12AC28.c:
 	.text       start:0x0012AC28 end:0x0012ADA0 align:4
 
@@ -6683,3 +6668,6 @@ rel/main_rel/rep_memcard/fn_1_154A08.c:
 
 rel/main_rel/rep_memcard/fn_1_155120.c:
 	.text       start:0x00155120 end:0x0015530C align:4
+
+rel/main_rel/avline.c:
+	.text       start:0x00058114 end:0x000584D4 align:4

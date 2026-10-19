@@ -27305,91 +27305,19 @@
   },
   {
     "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_58114.c",
+    "source": "rel/main_rel/avline.c",
     "symbols": [
-      "fn_1_58114"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_58158.c",
-    "symbols": [
-      "fn_1_58158"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_5819C.c",
-    "symbols": [
-      "fn_1_5819C"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_581AC.c",
-    "symbols": [
-      "fn_1_581AC"
+      "fn_1_58114",
+      "fn_1_58158",
+      "fn_1_5819C",
+      "fn_1_581AC",
+      "fn_1_58248",
+      "fn_1_584AC"
     ],
     "status": "matching",
     "mw_version": "GC/1.3.2",
     "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_584AC.c",
-    "symbols": [
-      "fn_1_584AC"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_58694.c",
-    "symbols": [
-      "fn_1_58694"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_58854.c",
-    "symbols": [
-      "fn_1_58854"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
-  },
-  {
-    "module": "main_rel",
-    "source": "rel/main_rel/avline/fn_1_591A0.c",
-    "symbols": [
-      "fn_1_591A0"
-    ],
-    "status": "matching",
-    "mw_version": null,
-    "extra_cflags": [],
-    "tu": "rel/main_rel/avline.c"
+    "collapsed": true
   },
   {
     "module": "main_rel",
@@ -34549,6 +34477,28 @@
   },
   {
     "module": "main_rel",
+    "source": "rel/main_rel/effect/fn_1_58694.c",
+    "symbols": [
+      "fn_1_58694"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/effect.c"
+  },
+  {
+    "module": "main_rel",
+    "source": "rel/main_rel/effect/fn_1_58854.c",
+    "symbols": [
+      "fn_1_58854"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/effect.c"
+  },
+  {
+    "module": "main_rel",
     "source": "rel/main_rel/effect/fn_1_58C6C.c",
     "symbols": [
       "fn_1_58C6C"
@@ -34596,6 +34546,17 @@
     "source": "rel/main_rel/effect/fn_1_59078.c",
     "symbols": [
       "fn_1_59078"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/effect.c"
+  },
+  {
+    "module": "main_rel",
+    "source": "rel/main_rel/effect/fn_1_591A0.c",
+    "symbols": [
+      "fn_1_591A0"
     ],
     "status": "matching",
     "mw_version": null,
