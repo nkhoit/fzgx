@@ -8,6 +8,37 @@ extern u32 fn_1_46B4(u32, u32, void *, u32);
 extern u32 fn_1_45D0(u32, u32, void *, u32);
 extern void fn_80008BA8(void *, const void *, u32);
 extern u32 lbl_1_bss_6EA90;
+extern u32 lbl_801A6D00;
+extern void fn_1_9F164(void *);
+extern void fn_1_9F4B4(void *);
+extern void fn_800720B0(u32);
+extern void fn_8007245C(u32);
+extern void fn_800724C8(void);
+extern void fn_80072864(u32);
+extern void fn_800728A8(s32, s32, s32, s32);
+extern void fn_80072AB0(s32, s32, s32);
+extern void fn_80072C24(s32, s32, s32, s32, s32);
+extern void fn_80072CC4(s32, s32, s32, s32, s32);
+extern void fn_80072D64(s32, s32, s32, s32, u8, s32);
+extern void fn_80072E20(s32, s32, s32, s32, u8, s32);
+extern void fn_800734A8(u32, s32, s32, s32);
+extern void fn_800735C8(s32, s32);
+extern void fn_80073620(s32, s32);
+extern void fn_80073678(u32);
+extern void fn_80073778(u32, s32);
+extern void fn_80073C6C(s32);
+extern void fn_800745A4(u32, s32, s32, u32, u32, u32);
+extern void fn_80074660(u32);
+extern void fn_80074788(u32);
+extern void fn_80074918(u8, s32, u8);
+extern void GXLoadPosMtxImm(u32, u32);
+extern void lbl_8006D758(void);
+extern void lbl_8006D9D8(void *);
+extern void lbl_8006D7B0(void);
+extern f32 lbl_8006D0B4(f32);
+extern void lbl_8006DB74(void *);
+extern void lbl_8006D848(f32);
+extern void lbl_8006DFC4(void *);
 
 /* fzgx:begin fn_1_9F7DC */
 #include "types.h"
@@ -110,7 +141,7 @@ s32 fn_1_9F9A4(u32 arg0) {
 }
 /* fzgx:end fn_1_9F9A4 */
 
-/* fzgx:begin fn_1_9FA18 noprologue */
+/* fzgx:begin fn_1_9FA18 */
 #include "types.h"
 #include "dolphin/hw_regs.h"
 #include "psvec.h"
@@ -143,37 +174,6 @@ typedef struct {
     u8 pad_0[0xa0];
     fn_1_9FA18_Obj *obj;
 } fn_1_9FA18_Inner;
-extern u32 lbl_801A6D00;
-extern void fn_1_9F164(void *);
-extern void fn_1_9F4B4(void *);
-extern void fn_800720B0(u32);
-extern void fn_8007245C(u32);
-extern void fn_800724C8(void);
-extern void fn_80072864(u32);
-extern void fn_800728A8(s32, s32, s32, s32);
-extern void fn_80072AB0(s32, s32, s32);
-extern void fn_80072C24(s32, s32, s32, s32, s32);
-extern void fn_80072CC4(s32, s32, s32, s32, s32);
-extern void fn_80072D64(s32, s32, s32, s32, u8, s32);
-extern void fn_80072E20(s32, s32, s32, s32, u8, s32);
-extern void fn_800734A8(u32, s32, s32, s32);
-extern void fn_800735C8(s32, s32);
-extern void fn_80073620(s32, s32);
-extern void fn_80073678(u32);
-extern void fn_80073778(u32, s32);
-extern void fn_80073C6C(s32);
-extern void fn_800745A4(u32, s32, s32, u32, u32, u32);
-extern void fn_80074660(u32);
-extern void fn_80074788(u32);
-extern void fn_80074918(u8, s32, u8);
-extern void GXLoadPosMtxImm(u32, u32);
-extern void lbl_8006D758(void);
-extern void lbl_8006D9D8(void *);
-extern void lbl_8006D7B0(void);
-extern f32 lbl_8006D0B4(f32);
-extern void lbl_8006DB74(void *);
-extern void lbl_8006D848(f32);
-extern void lbl_8006DFC4(void *);
 
 void fn_1_9FA18(void) {
     struct fn_1_9FA18_State *state;
