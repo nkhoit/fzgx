@@ -11,6 +11,11 @@ extern void OSSetProgressiveMode(s32);
 extern void fn_1_A6870(u32 *);
 extern void fn_1_A5F44(void);
 extern s32 fn_1_A6480(void);
+extern f32 lbl_1_rodata_49D8;
+extern struct fn_1_A6480_d58 lbl_1_bss_D58;
+extern void fn_8006CE1C(f32);
+extern void fn_80070620(s32);
+extern s32 fn_1_4C10(void);
 
 /* fzgx:begin fn_1_A5C98 */
 #include "types.h"
@@ -228,7 +233,7 @@ void fn_1_A5F44(void) {
 }
 /* fzgx:end fn_1_A5F44 */
 
-/* fzgx:begin fn_1_A6480 noprologue */
+/* fzgx:begin fn_1_A6480 */
 #include "types.h"
 #include "rel/main_rel/globals.h"
 #include "rel/main_rel/relocation.h"
@@ -239,13 +244,8 @@ struct fn_1_A6480_d58 {
     u16 unk_A;
 };
 
-extern f32 lbl_1_rodata_49D8;
-extern struct fn_1_A6480_d58 lbl_1_bss_D58;
-extern void fn_8006CE1C(f32);
 extern u32 OSGetResetCode(void);
 extern void OSSetProgressiveMode(s32);
-extern void fn_80070620(s32);
-extern s32 fn_1_4C10(void);
 
 s32 fn_1_A6480(void) {
     s32 var_r31;
