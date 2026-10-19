@@ -6689,3 +6689,6 @@ rel/main_rel/face/fn_1_D2110.c:
 
 rel/main_rel/face/fn_1_D27B8.c:
 	.text       start:0x000D27B8 end:0x000D2D24 align:4
+
+rel/main_rel/face/fn_1_D1848.c:
+	.text       start:0x000D1848 end:0x000D19B8 align:4

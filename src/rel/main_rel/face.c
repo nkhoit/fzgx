@@ -47,6 +47,106 @@ void fn_1_D17E8(void) {
 }
 /* fzgx:end fn_1_D17E8 */
 
+/* fzgx:begin fn_1_D1848 pool noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/face.h"
+
+extern u32 lbl_801A6410;
+extern u32 fn_1_45D0(u32, u32, void*, u32);
+extern u32 fn_1_4630(u32, u32, void*, u32);
+extern u8 fn_1_86624(void);
+extern void fn_1_D2F50(void);
+extern void fn_1_D2F84(void);
+extern u32 GXGetTexBufferSize(u16, u16, u32, u8, u8);
+extern void *memset(void *, int, u32);
+
+typedef struct {
+    f32 x, y, z;
+} Vec3_60A0;
+
+typedef struct {
+    u32 unk_0;
+    u32 unk_4;
+    u32 unk_8;
+    u8 unk_C;
+    u8 unk_D;
+    u8 pad_E[0x2];
+    s32 unk_10;
+} State_7ACD8;
+
+typedef struct {
+    u32 unk_0;
+    u32 unk_4;
+    u32 unk_8;
+    u8 pad_C[0x10];
+    u32 unk_1C;
+    u8 pad_20[0xC];
+    Vec3_60A0 unk_2C;
+    u8 pad_38[0x28];
+    u32 unk_60;
+} Ent;
+
+/* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
+u32 fzgx_obj_lbl_1_bss_7ACD8;
+u32 lbl_1_bss_7ACDC;
+u32 lbl_1_bss_7ACE0;
+u8 lbl_1_bss_7ACE0_4;
+u8 fzgx_obj_lbl_1_bss_7ACE5;
+u16 lbl_1_bss_7ACD8_gap_7ACE6;
+s32 fzgx_obj_lbl_1_bss_7ACE8;
+
+#pragma section code_type ".fzgxpool"
+static void fzgx_bss_layout(void) {
+    volatile u8 s;  /* fzgx-allow: S2 layout primer sink: MWCC emits .bss objects in first-access order */
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_7ACD8;
+    s = *(u8 *)&lbl_1_bss_7ACDC;
+    s = *(u8 *)&lbl_1_bss_7ACE0;
+    s = *(u8 *)&lbl_1_bss_7ACE0_4;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_7ACE5;
+    s = *(u8 *)&lbl_1_bss_7ACD8_gap_7ACE6;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_7ACE8;
+}
+#pragma section code_type ".text"
+
+extern void OSReport(const char *, ...);
+#pragma section code_type ".fzgxpool"
+static void fzgx_string_layout(void) {
+    /* fzgx-allow: S2 layout primer: MWCC emits string literals in first-use order; the section is dropped at integration */
+    OSReport("face.c");
+}
+#pragma section code_type ".text"
+
+void fn_1_D1848(void) {
+    u32 size;
+    s32 i;
+    Ent *obj;
+    u8 c;
+
+    
+    fn_1_D2F50();
+    fzgx_obj_lbl_1_bss_7ACD8 = fn_1_4630(lbl_801A6410, 600, "face.c", 0x15f);
+    fzgx_obj_lbl_1_bss_7ACE8 = 0;
+    c = fn_1_86624();
+    lbl_1_bss_7ACE0_4 = c;
+    lbl_1_bss_7ACDC = fn_1_4630(lbl_801A6410, c << 2, "face.c", 0x173);
+    lbl_1_bss_7ACE0 = fn_1_4630(lbl_801A6410, lbl_1_bss_7ACE0_4 << 2, "face.c", 0x174);
+    size = GXGetTexBufferSize(64, 64, 5, 0, 0);
+    obj = (Ent *)fzgx_obj_lbl_1_bss_7ACD8;
+    for (i = 0; i < 6; i++, obj++) {
+        Vec3_60A0 v = {0.0f, 0.0f, 1.8f};
+        obj->unk_2C = v;
+        obj->unk_1C = 0;
+        obj->unk_4 = 0xff;
+        obj->unk_0 &= 0x7FFFFFFF;
+        obj->unk_0 &= 0xBFFFFFFF;
+        obj->unk_60 = fn_1_45D0(lbl_801A6410, size, "face.c", 0x18a);
+        memset((void *)obj->unk_60, 0, 4);
+    }
+    fn_1_D2F84();
+}
+/* fzgx:end fn_1_D1848 */
+
 /* fzgx:begin fn_1_D1C94 noprologue */
 #include "types.h"
 
