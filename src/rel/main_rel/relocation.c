@@ -5,12 +5,17 @@
 extern u8 *lbl_801A6CF4;
 extern u32 lbl_1_bss_6F5F4;
 extern u8 lbl_801A66B0[];
-extern s32 OSGetResetCode(void);
+extern u32 OSGetResetCode(void);
 extern u32 OSGetProgressiveMode(void);
 extern void OSSetProgressiveMode(s32);
 extern void fn_1_A6870(u32 *);
 extern void fn_1_A5F44(void);
 extern s32 fn_1_A6480(void);
+extern f32 lbl_1_rodata_49D8;
+extern struct fn_1_A6480_d58 lbl_1_bss_D58;
+extern void fn_8006CE1C(f32);
+extern void fn_80070620(s32);
+extern s32 fn_1_4C10(void);
 
 /* fzgx:begin fn_1_A5C98 */
 #include "types.h"
@@ -133,7 +138,102 @@ void fn_1_A5EFC(void) {
 }
 /* fzgx:end fn_1_A5EFC */
 
-/* fzgx:begin fn_1_A6480 noprologue */
+/* fzgx:begin fn_1_A5F44 */
+extern u32 lbl_801A66B4;
+extern char lbl_1_data_341BC[];
+extern char lbl_1_data_341DC[];
+extern char lbl_1_data_341E0[];
+extern char lbl_1_data_341F8[];
+extern char lbl_1_data_34210[];
+extern char lbl_1_data_3422C[];
+extern char lbl_1_data_34230[];
+extern char lbl_1_data_34238[];
+extern char lbl_1_data_3423C[];
+extern char lbl_1_data_34244[];
+extern char lbl_1_data_3424C[];
+extern char lbl_1_data_34254[];
+extern char lbl_1_data_3425C[];
+extern char lbl_1_data_34268[];
+extern char lbl_1_data_34288[];
+extern char lbl_1_data_342B0[];
+extern char lbl_1_data_342C8[];
+extern char lbl_1_data_342E0[];
+extern char lbl_1_data_342F0[];
+extern char lbl_1_data_34308[];
+extern void fn_1_49410(void);
+extern void fn_1_494DC(s16);
+extern void fn_1_49514(u32 *);
+extern void fn_1_4954C(f32);
+extern void fn_1_495B0(u32);
+extern void fn_1_495C8(u8);
+extern void fn_1_4965C(u8);
+extern void fn_1_496FC(f32, f32);
+extern void fn_1_4A0D8(char *);
+extern void fn_1_4AF10(char *);
+
+void fn_1_A5F44(void) {
+    char *t0[6] = { lbl_1_data_341BC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341E0 };
+    char *t1[6] = { lbl_1_data_341F8, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_34210 };
+    char *t2[6] = { lbl_1_data_3422C, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_34230 };
+    char *t3[6] = { lbl_1_data_34238, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_3423C };
+    char *t4[6] = { lbl_1_data_34244, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_3424C };
+    char *t5[6] = { lbl_1_data_34254, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_3425C };
+    char *t6[6] = { lbl_1_data_34268, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_34288 };
+    char *t7[6] = { lbl_1_data_342B0, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_342C8 };
+    char *t8[6] = { lbl_1_data_342E0, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_342F0 };
+    char *t9[6] = { lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_341DC, lbl_1_data_34308 };
+
+    fn_1_49410();
+    fn_1_494DC(42);
+    fn_1_495B0(0x80000000);
+    fn_1_4965C(0);
+    {
+        struct { u8 r, g, b, a; } color = { 0xFF, 0xFF, 0xFF, 0x00 };
+        fn_1_49514((u32 *)&color);
+    }
+    fn_1_4954C(0.1f);
+    fn_1_495C8(9);
+    switch ((s8)lbl_1_data_341B8->unk_4) {
+    case 0:
+    case 5:
+        fn_1_496FC(320.0f, 184.0f);
+        fn_1_4AF10(t0[lbl_801A66B4]);
+        fn_1_496FC(320.0f, 221.0f);
+        fn_1_4AF10(t1[lbl_801A66B4]);
+        fn_1_496FC(256.0f, 258.0f);
+        fn_1_4AF10(t2[lbl_801A66B4]);
+        if ((s32)lbl_1_data_341B8->unk_5 == 1 && (s32)lbl_1_data_341B8->unk_4 != 5) {
+            fn_1_496FC(256.0f, 258.0f);
+            fn_1_4A0D8(t4[lbl_801A66B4]);
+        }
+        fn_1_496FC(384.0f, 258.0f);
+        fn_1_4AF10(t3[lbl_801A66B4]);
+        if ((s32)lbl_1_data_341B8->unk_5 != 1 && (s32)lbl_1_data_341B8->unk_4 != 5) {
+            fn_1_496FC(384.0f, 258.0f);
+            fn_1_4A0D8(t5[lbl_801A66B4]);
+        }
+        break;
+    case 1:
+        break;
+    case 4:
+        fn_1_496FC(320.0f, 184.0f);
+        fn_1_4AF10(t6[lbl_801A66B4]);
+        fn_1_496FC(320.0f, 221.0f);
+        if ((s32)lbl_1_data_341B8->unk_5 == 1) {
+            fn_1_4AF10(t7[lbl_801A66B4]);
+        } else {
+            fn_1_4AF10(t8[lbl_801A66B4]);
+        }
+        if ((s32)lbl_801A66B4 != 5) {
+            fn_1_496FC(320.0f, 258.0f);
+            fn_1_4AF10(t9[lbl_801A66B4]);
+        }
+        break;
+    }
+}
+/* fzgx:end fn_1_A5F44 */
+
+/* fzgx:begin fn_1_A6480 */
 #include "types.h"
 #include "rel/main_rel/globals.h"
 #include "rel/main_rel/relocation.h"
@@ -144,13 +244,8 @@ struct fn_1_A6480_d58 {
     u16 unk_A;
 };
 
-extern f32 lbl_1_rodata_49D8;
-extern struct fn_1_A6480_d58 lbl_1_bss_D58;
-extern void fn_8006CE1C(f32);
 extern u32 OSGetResetCode(void);
 extern void OSSetProgressiveMode(s32);
-extern void fn_80070620(s32);
-extern s32 fn_1_4C10(void);
 
 s32 fn_1_A6480(void) {
     s32 var_r31;

@@ -2184,27 +2184,6 @@ rel/main_rel/sound/fn_1_A5864.c:
 rel/main_rel/sound/fn_1_A59AC.c:
 	.text       start:0x000A59AC end:0x000A5AA0
 
-rel/main_rel/relocation/fn_1_A5D88.c:
-	.text       start:0x000A5D88 end:0x000A5D9C
-
-rel/main_rel/relocation/fn_1_A5D9C.c:
-	.text       start:0x000A5D9C end:0x000A5DB0
-
-rel/main_rel/relocation/fn_1_A5DB0.c:
-	.text       start:0x000A5DB0 end:0x000A5DC4
-
-rel/main_rel/relocation/fn_1_A5DC4.c:
-	.text       start:0x000A5DC4 end:0x000A5DEC
-
-rel/main_rel/relocation/fn_1_A5EFC.c:
-	.text       start:0x000A5EFC end:0x000A5F44
-
-rel/main_rel/relocation/fn_1_A66FC.c:
-	.text       start:0x000A66FC end:0x000A67E8
-
-rel/main_rel/relocation/fn_1_A6840.c:
-	.text       start:0x000A6840 end:0x000A6870
-
 rel/main_rel/prog/fn_1_A6F10.c:
 	.text       start:0x000A6F10 end:0x000A6F1C
 
@@ -5058,9 +5037,6 @@ rel/main_rel/font/fn_1_54448.c:
 rel/main_rel/bg_lig/fn_1_D66F8.c:
 	.text       start:0x000D66F8 end:0x000D6740 align:4
 
-rel/main_rel/relocation/fn_1_A67E8.c:
-	.text       start:0x000A67E8 end:0x000A6840 align:4
-
 rel/main_rel/bg_lig/fn_1_D75CC.c:
 	.text       start:0x000D75CC end:0x000D7688 align:4
 
@@ -5174,9 +5150,6 @@ rel/main_rel/car/fn_1_8F494.c:
 
 rel/main_rel/spline/fn_1_FA0BC.c:
 	.text       start:0x000FA0BC end:0x000FA154 align:4
-
-rel/main_rel/relocation/fn_1_A5C98.c:
-	.text       start:0x000A5C98 end:0x000A5D88 align:4
 
 rel/main_rel/spline/fn_1_F7338.c:
 	.text       start:0x000F7338 end:0x000F73A8 align:4
@@ -5772,9 +5745,6 @@ rel/main_rel/car/fn_1_95120.c:
 rel/main_rel/spline/fn_1_F7EDC.c:
 	.text       start:0x000F7EDC end:0x000F7F48 align:4
 
-rel/main_rel/relocation/fn_1_A5DEC.c:
-	.text       start:0x000A5DEC end:0x000A5EFC align:4
-
 rel/main_rel/game/fn_1_402D4.c:
 	.text       start:0x000402D4 end:0x00040354 align:4
 
@@ -6333,9 +6303,6 @@ rel/main_rel/effect/fn_1_65424.c:
 rel/main_rel/effect/fn_1_5ABCC.c:
 	.text       start:0x0005ABCC end:0x0005AC48 align:4
 
-rel/main_rel/relocation/fn_1_A6480.c:
-	.text       start:0x000A6480 end:0x000A66FC align:4
-
 rel/main_rel/effect/fn_1_5C784.c:
 	.text       start:0x0005C784 end:0x0005C83C align:4
 
@@ -6701,6 +6668,9 @@ rel/main_rel/prog/fn_1_A7024.c:
 
 rel/main_rel/alloc/fn_1_627C.c:
 	.text       start:0x0000627C end:0x00006394 align:4
+
+rel/main_rel/relocation.c:
+	.text       start:0x000A5C98 end:0x000A6870 align:4
 
 rel/main_rel/alloc/fn_1_4E60.c:
 	.text       start:0x00004E60 end:0x00004FEC align:4

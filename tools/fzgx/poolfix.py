@@ -250,6 +250,13 @@ class Elf:
         ro["addralign"] = 1
         ro["flags"] = 0
         self._write_shdr(ro)
+        # initializer tables of pointers carry their own relocations; the retail
+        # data unit that owns the range already has them (mwld aborts on relocations
+        # into an emptied section)
+        for rs in self.sections:
+            if rs["type"] == SHT_RELA and rs["info"] == ro["index"]:
+                rs["size"] = 0
+                self._write_shdr(rs)
         return True
 
 
