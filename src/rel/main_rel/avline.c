@@ -5,9 +5,24 @@
 extern u32 lbl_801A6410;
 extern u32 fn_1_45D0(u32, u32, unsigned char *, u32);
 extern void fn_1_46B4(u32, u32, void *, u32);
-extern u8 lbl_1_data_1D62C[148];
-extern void fn_1_9F870(void);
-extern void fn_1_58158(void);
+extern void fn_80008BA8(void*, void*, u32);
+extern void *lbl_801A6D00;
+extern void lbl_8006DCA4(void);
+extern void fn_80074918(u32, u32, u32);
+extern void fn_800746A8(u8, u32);
+extern void fn_8007245C(u32);
+extern void fn_800728A8(s32, s32, s32, s32);
+extern void fn_800720B0(u32);
+extern void fn_800747D0(u32, u32, u32, u32, u32, u32, u32);
+extern void fn_800734A8(u32, u32, u32, u32);
+extern void fn_80072EDC(u32, u32);
+extern void fn_80073C6C(u32);
+extern void fn_80073678(u32);
+extern void fn_80074660(u32);
+extern void fn_80073898(u32);
+extern void fn_80074788(u32);
+extern void GXLoadPosMtxImm(void *, u32);
+extern void fn_8003462C(u32, u32, u32);
 
 /* fzgx:begin fn_1_58114 */
 void fn_1_58114(void) {
@@ -31,16 +46,11 @@ void fn_1_5819C(void) {
 /* fzgx:end fn_1_5819C */
 
 /* fzgx:begin fn_1_581AC */
-extern u16 lbl_1_bss_6C844;
-extern u32 lbl_1_bss_6C840;
-
 typedef struct AvLineEntry {
     u16 unk_00;
     u16 unk_02;
     u8 unk_04[0x100];
 } AvLineEntry;
-
-extern void fn_80008BA8(void*, void*, u32);
 
 #pragma opt_propagation off
 s32 fn_1_581AC(u16 value, u16 type, void* data) {
@@ -62,6 +72,102 @@ s32 fn_1_581AC(u16 value, u16 type, void* data) {
 #pragma opt_propagation reset
 /* fzgx:end fn_1_581AC */
 
+/* fzgx:begin fn_1_58248 */
+#include "dolphin/hw_regs.h"
+
+typedef struct AvLineVtx {
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 a;
+} AvLineVtx;
+
+typedef struct AvLineList {
+    u16 unk_00;
+    u16 count;
+    AvLineVtx vtx[16];
+} AvLineList;
+
+typedef struct AvLineState {
+    u8 unk_00;
+    u8 pad_01[3];
+    s32 unk_04;
+    s32 unk_08;
+    s32 unk_0C;
+    s32 unk_10;
+    u32 unk_14;
+    u8 pad_18[4];
+} AvLineState;
+
+extern AvLineState lbl_1_data_1C670;
+
+/* fzgx-allow: A1 GX FIFO write port; retail materialises it as lis 0xcc01/stfs -0x8000 */
+#define GX_WG_F32(v) (*(volatile f32 *)GX_FIFO_BASE = (v)) /* Hardware access must remain ordered. */
+#define GX_WG_U8(v) (*(volatile u8 *)GX_FIFO_BASE = (v)) /* Hardware access must remain ordered. */
+
+static inline void avline_pos3f32(const f32 x, const f32 y, const f32 z) {
+    GX_WG_F32(x);
+    GX_WG_F32(y);
+    GX_WG_F32(z);
+}
+
+static inline void avline_clr4u8(const u8 r, const u8 g, const u8 b, const u8 a) {
+    GX_WG_U8(r);
+    GX_WG_U8(g);
+    GX_WG_U8(b);
+    GX_WG_U8(a);
+}
+
+void fn_1_58248(void) {
+    AvLineState *state;
+    AvLineList *list;
+    AvLineVtx *v;
+    u16 count;
+    s32 j;
+    s32 off;
+    s32 i;
+
+    state = &lbl_1_data_1C670;
+    state->unk_04 = 1;
+    state->unk_08 = 1;
+    state->unk_0C = 1;
+    state->unk_10 = 0;
+    lbl_8006DCA4();
+    fn_80074918(1, 3, 1);
+    fn_800746A8(lbl_1_data_1C670.unk_00, lbl_1_data_1C670.unk_14);
+    fn_8007245C(0xa00);
+    fn_800728A8(state->unk_04, state->unk_08, state->unk_0C, state->unk_10);
+    fn_800720B0(0);
+    fn_800747D0(4, 0, 1, 1, 0, 2, 1);
+    fn_800734A8(0, 0xff, 0xff, 4);
+    fn_80072EDC(0, 4);
+    fn_80073C6C(0);
+    fn_80073678(1);
+    fn_80074660(0);
+    fn_80073898(0);
+    fn_80074788(1);
+    GXLoadPosMtxImm(lbl_801A6D00, 0);
+
+    for (i = 0, off = 0; i < lbl_1_bss_6C844; off += sizeof(AvLineList), i++) {
+        list = (AvLineList *)(lbl_1_bss_6C840 + off);
+        v = list->vtx;
+        lbl_1_data_1C670.unk_00 = list->unk_00;
+        if (list->count >= 2) {
+            fn_8003462C(0xb0, 0, count = list->count);
+            for (j = 0; j < count; j++) {
+                avline_pos3f32(v->x, v->y, v->z);
+                avline_clr4u8(v->r, v->g, v->b, v->a);
+                v++;
+            }
+        }
+    }
+    lbl_1_bss_6C844 = 0;
+}
+/* fzgx:end fn_1_58248 */
+
 /* fzgx:begin fn_1_584AC */
 // fn_1_584AC: linear congruential generator.
 u32 fn_1_584AC(void) {
@@ -71,191 +177,3 @@ u32 fn_1_584AC(void) {
     return (next >> 16) & 0x7FFFu;
 }
 /* fzgx:end fn_1_584AC */
-
-/* fzgx:begin fn_1_58694 noprologue */
-#include "types.h"
-
-typedef struct AvlineVec3 {
-    u32 unk_00;
-    u32 unk_04;
-    u32 unk_08;
-} AvlineVec3;
-
-typedef struct AvlineEntry {
-    s8 unk_00;
-    u8 _pad01[0x0b];
-    s16 unk_0c;
-    u8 _pad0e[0x02];
-    s32 unk_10;
-    u8 _pad14[0x28];
-    AvlineVec3 unk_3c;
-    u8 _pad48[0x18];
-    AvlineVec3 unk_60;
-    u8 _pad6c[0x7c];
-} AvlineEntry;
-
-typedef struct AvlineState {
-    AvlineEntry *unk_00;
-    AvlineEntry *unk_04;
-    u8 _pad08[0x0c];
-    s32 unk_14;
-    s32 unk_18;
-    s32 unk_1c;
-    s32 unk_20;
-} AvlineState;
-
-typedef void (*AvlineHandler)(AvlineEntry *);
-
-extern AvlineState lbl_1_bss_6C848;
-extern AvlineHandler lbl_1_data_1D514[];
-extern AvlineHandler lbl_1_data_1D2EC[];
-extern s16 fn_1_3F0C8(void);
-extern void fn_1_3BDC(s32);
-extern void fn_1_3C18(s32);
-
-void fn_1_58694(void) {
-    AvlineState *state = &lbl_1_bss_6C848;
-    s32 count;
-    AvlineEntry *entry;
-
-    if (fn_1_3F0C8() != 0x28) {
-        entry = state->unk_00;
-        state->unk_14 = 0;
-        state->unk_18 = 0;
-        state->unk_1c = 0;
-        state->unk_20 = 0;
-        fn_1_3BDC(9);
-        for (count = 0xbe; count > 0; count--) {
-            if (entry->unk_00 != 0) {
-                entry->unk_10 -= 1;
-                if (entry->unk_10 == 0 || entry->unk_00 == 3) {
-                    lbl_1_data_1D514[entry->unk_0c](entry);
-                    entry->unk_00 = 0;
-                } else {
-                    entry->unk_60 = entry->unk_3c;
-                    lbl_1_data_1D2EC[entry->unk_0c](entry);
-                }
-            }
-            entry++;
-        }
-        entry = state->unk_04;
-        for (count = 0xc8; count > 0; count--) {
-            if (entry->unk_00 != 0) {
-                entry->unk_10 -= 1;
-                if (entry->unk_10 == 0 || entry->unk_00 == 3) {
-                    lbl_1_data_1D514[entry->unk_0c](entry);
-                    entry->unk_00 = 0;
-                } else {
-                    entry->unk_60 = entry->unk_3c;
-                    lbl_1_data_1D2EC[entry->unk_0c](entry);
-                }
-            }
-            entry++;
-        }
-        fn_1_3C18(9);
-    }
-}
-/* fzgx:end fn_1_58694 */
-
-/* fzgx:begin fn_1_58854 */
-typedef struct {
-    s8 unk_0;
-    u8 pad_1[0xb];
-    s16 unk_C;
-} AvlineObj;
-
-typedef void (*AvlineCallback)(void *);
-
-void fn_1_58854(void) {
-    s32 count;
-    AvlineObj *obj;
-    s32 index;
-    AvlineCallback callback;
-
-    fn_1_9F870();
-    fn_1_58158();
-
-    obj = *(AvlineObj **)&lbl_1_bss_6C848;
-    count = 0xbe;
-    index = 0;
-    while (count > 0) {
-        if (obj->unk_0 != 0) {
-            callback = ((AvlineCallback *)lbl_1_data_1D514)[obj->unk_C];
-            callback(obj);
-            obj->unk_0 = index;
-        }
-        count--;
-        obj = (AvlineObj *)((u8 *)obj + 0xe8);
-    }
-
-    obj = (AvlineObj *)lbl_1_bss_6C84C;
-    count = 0xc8;
-    index = 0;
-    while (count > 0) {
-        if (obj->unk_0 != 0) {
-            callback = ((AvlineCallback *)lbl_1_data_1D514)[obj->unk_C];
-            callback(obj);
-            obj->unk_0 = index;
-        }
-        count--;
-        obj = (AvlineObj *)((u8 *)obj + 0xe8);
-    }
-
-    fn_1_46B4(lbl_801A6410, *(u32 *)&lbl_1_bss_6C848,
-              lbl_1_data_1D62C, 0x156);
-    fn_1_46B4(lbl_801A6410, *(u32 *)&lbl_1_bss_6C84C,
-              lbl_1_data_1D62C, 0x157);
-
-    *(u32 *)&lbl_1_bss_6C848 = 0;
-    lbl_1_bss_6C84C = 0;
-}
-/* fzgx:end fn_1_58854 */
-
-/* fzgx:begin fn_1_591A0 */
-typedef struct {
-    s8 unk_0;
-    u8 pad_1[0x7];
-    u32 unk_8;
-    s16 unk_C;
-    u8 pad_E[0xDA];
-} Fn591A0Obj;
-
-void fn_1_591A0(s32 id) {
-    {
-        Fn591A0Obj *obj;
-        void (**table)(void *);
-        s32 count;
-        s32 zero;
-
-        obj = *(Fn591A0Obj **)&lbl_1_bss_6C848;
-        table = (void (**)(void *))lbl_1_data_1D514;
-        zero = 0;
-        for (count = 0xbe; count > 0; count--) {
-            if (obj->unk_0 && obj->unk_C == id) {
-                table[obj->unk_C](obj);
-                obj->unk_8 |= (u32)0x8000 << 16;
-                obj->unk_0 = zero;
-            }
-            obj++;
-        }
-    }
-    {
-        s32 count;
-        Fn591A0Obj *obj;
-        void (**table)(void *);
-        s32 zero;
-
-        obj = (Fn591A0Obj *)lbl_1_bss_6C84C;
-        table = (void (**)(void *))lbl_1_data_1D514;
-        zero = 0;
-        for (count = 0xc8; count > 0; count--) {
-            if (obj->unk_0 && obj->unk_C == id) {
-                table[obj->unk_C](obj);
-                obj->unk_8 |= (u32)0x8000 << 16;
-                obj->unk_0 = zero;
-            }
-            obj++;
-        }
-    }
-}
-/* fzgx:end fn_1_591A0 */
