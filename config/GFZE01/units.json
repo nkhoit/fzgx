@@ -45186,6 +45186,18 @@
   },
   {
     "module": "main_rel",
+    "source": "rel/main_rel/rep_memcard/fn_1_154A08.c",
+    "symbols": [
+      "fn_1_154A08"
+    ],
+    "status": "nonmatching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/rep_memcard.c",
+    "pool": true
+  },
+  {
+    "module": "main_rel",
     "source": "rel/main_rel/rep_memcard/fn_1_154BE4.c",
     "symbols": [
       "fn_1_154BE4"
@@ -45352,6 +45364,17 @@
     "pool": {
       "@17": "lbl_1_rodata_D5A8"
     }
+  },
+  {
+    "module": "main_rel",
+    "source": "rel/main_rel/rep_memcard/fn_1_155120.c",
+    "symbols": [
+      "fn_1_155120"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/rep_memcard.c"
   },
   {
     "module": "main_rel",
