@@ -6701,3 +6701,9 @@ rel/main_rel/prog/fn_1_A7024.c:
 
 rel/main_rel/alloc/fn_1_627C.c:
 	.text       start:0x0000627C end:0x00006394 align:4
+
+rel/main_rel/bg_tow/fn_1_154410.c:
+	.text       start:0x00154410 end:0x00154708 align:4
+
+rel/main_rel/bg_tow/fn_1_154798.c:
+	.text       start:0x00154798 end:0x001547FC align:4

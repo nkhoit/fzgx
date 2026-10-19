@@ -29377,6 +29377,30 @@
   },
   {
     "module": "main_rel",
+    "source": "rel/main_rel/bg_tow/fn_1_154410.c",
+    "symbols": [
+      "fn_1_154410"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/bg_tow.c",
+    "pool": {
+      "...rodata.0": "lbl_1_rodata_D508",
+      "...data.0": "lbl_1_data_46408",
+      "@13": "lbl_1_rodata_D508+0x20",
+      "@6": "lbl_1_rodata_D508+0x4",
+      "@8": "lbl_1_rodata_D508+0xC",
+      "@9": "lbl_1_rodata_D508+0x10",
+      "@12": "lbl_1_rodata_D508+0x1C",
+      "@49": "lbl_1_data_46408",
+      "@50": "lbl_1_data_46408+0xC",
+      "@51": "lbl_1_data_46408+0x20",
+      "@52": "lbl_1_data_46408+0x40"
+    }
+  },
+  {
+    "module": "main_rel",
     "source": "rel/main_rel/bg_tow/fn_1_154708.c",
     "symbols": [
       "fn_1_154708"
@@ -29385,6 +29409,18 @@
     "mw_version": null,
     "extra_cflags": [],
     "tu": "rel/main_rel/bg_tow.c"
+  },
+  {
+    "module": "main_rel",
+    "source": "rel/main_rel/bg_tow/fn_1_154798.c",
+    "symbols": [
+      "fn_1_154798"
+    ],
+    "status": "nonmatching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/bg_tow.c",
+    "pool": true
   },
   {
     "module": "main_rel",
