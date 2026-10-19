@@ -504,6 +504,33 @@ u8 fn_1_5910(void) {
 }
 /* fzgx:end fn_1_5910 */
 
+/* fzgx:begin fn_1_627C */
+extern u16 fn_1_A5D88(void);
+extern u16 fn_1_A5DB0(void);
+extern const f32 lbl_1_rodata_188;
+extern const f32 lbl_1_rodata_194;
+extern void fn_80038EEC(f32, f32, f32, f32, f32, f32);
+extern void fn_80074188(u32, u32, u32, u32);
+
+// Resets the viewport and scissor to the full screen for the active camera mode.
+void fn_1_627C(void) {
+    Obj_1_bss_F68_Target *target = lbl_1_bss_F68;
+    f32 width;
+    f32 height;
+    u32 lab_v;
+
+    lab_v = target->unk_48;
+    if ((s8)lab_v == 11 || (target->unk_0 & 0x80000000) || (s8)lab_v == 0 || (s8)lab_v == 9) {
+        return;
+    }
+
+    width = fn_1_A5D88();
+    height = fn_1_A5DB0();
+    fn_80038EEC(lbl_1_rodata_188, lbl_1_rodata_188, width, height, lbl_1_rodata_188, lbl_1_rodata_194);
+    fn_80074188(0, 0, width, height);
+}
+/* fzgx:end fn_1_627C */
+
 /* fzgx:begin fn_1_6394 */
 void fn_1_6394(void) {
     fn_1_DA6C(live_camera);

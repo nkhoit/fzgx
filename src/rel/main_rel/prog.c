@@ -313,6 +313,38 @@ f32 fn_1_A6FE8(void) {
 }
 /* fzgx:end fn_1_A6FE8 */
 
+/* fzgx:begin fn_1_A7024 */
+extern void fn_800721FC(f32, f32, f32, f32);
+extern f32 lbl_8006D21C(s32);
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 1.7777777910232544f;
+    s = 1.3333333730697632f;
+}
+#pragma section code_type ".text"
+
+static inline s32 prog_is_inf_or_nan(f32 value) {
+    return (*(u32 *)&value & 0x7F800000) == 0x7F800000;
+}
+
+// Clamps the field of view, applies the projection and caches its parameters.
+void fn_1_A7024(f32 fov, f32 aspect, f32 near, f32 far) {
+    fov = (fov < 0.5) ? 0.5 : ((fov > 135.0) ? 135.0 : fov);
+    if (prog_is_inf_or_nan(fov)) {
+        fov = 55.0f;
+    }
+    fn_800721FC(fov, aspect, near, far);
+    *(f32 *)&lbl_1_bss_6F608.unk_0 = fov;
+    *(f32 *)&lbl_1_bss_6F608.unk_8 = near;
+    *(f32 *)&lbl_1_bss_6F608.unk_C = far;
+    *(f32 *)&lbl_1_bss_6F608.unk_4 = aspect;
+    *(f32 *)&lbl_1_bss_6F608.unk_10 = lbl_8006D21C(182.04444885253906 * (0.5 * fov));
+    *(f32 *)&lbl_1_bss_6F608.unk_14 = 1.0 / *(f32 *)&lbl_1_bss_6F608.unk_10;
+}
+/* fzgx:end fn_1_A7024 */
+
 /* fzgx:begin fn_1_A714C */
 void fn_1_A714C(f32 *a, f32 *b, f32 *c, f32 *d) {
     if (a != 0) {
