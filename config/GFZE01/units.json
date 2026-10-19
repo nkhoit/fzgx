@@ -26612,6 +26612,20 @@
   },
   {
     "module": "main_rel",
+    "source": "rel/main_rel/alloc/fn_1_627C.c",
+    "symbols": [
+      "fn_1_627C"
+    ],
+    "status": "matching",
+    "mw_version": "GC/1.3",
+    "extra_cflags": [],
+    "tu": "rel/main_rel/alloc.c",
+    "pool": {
+      "@13": "lbl_1_rodata_1E0"
+    }
+  },
+  {
+    "module": "main_rel",
     "source": "rel/main_rel/alloc/fn_1_6394.c",
     "symbols": [
       "fn_1_6394"
@@ -43977,6 +43991,20 @@
     "mw_version": null,
     "extra_cflags": [],
     "tu": "rel/main_rel/prog.c"
+  },
+  {
+    "module": "main_rel",
+    "source": "rel/main_rel/prog/fn_1_A7024.c",
+    "symbols": [
+      "fn_1_A7024"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/prog.c",
+    "pool": {
+      "...rodata.0": "lbl_1_rodata_49F8"
+    }
   },
   {
     "module": "main_rel",
