@@ -2,6 +2,7 @@
 #define MTXA_H
 
 #include "types.h"
+#include "dolphin/hw_regs.h"
 
 /* Locked-cache matrix kernels recovered from retail code (2026-10-19).
  *
@@ -14,7 +15,7 @@
 
 /* mtxA[i][3] += mtxA[i][2] * z */
 static inline void mtxa_translate_z(register f32 z) {
-    register f32 *m = (f32 *)0xE0000000;
+    register f32 *m = (f32 *)LC_BASE;
     register f32 m02, m03, m12, m22, m13, m23;
     asm {
         lfs m02, 0x8(m)
