@@ -27,6 +27,17 @@ flags (wibo + mwcceppc, no ninja) and prints the same diff, without a claim, led
 or build lock. `verify --trailer "Co-Authored-By: ..."` (or `FZGX_COMMIT_TRAILERS`, one
 trailer per line, which `tu-finish` and `trivial` also use) adds trailers to the auto-commit.
 
+For a body that is down to register or scheduling differences, run decomp-permuter on it:
+
+```sh
+python3 tools/permute.py setup fn_1_XXXX --body body.c   # writes build/permuter/fn_1_XXXX/
+python3 tools/permute.py run fn_1_XXXX -j4 --best-only --stop-on-zero
+```
+
+`run` fetches the permuter into `build/tools/` and installs a PowerPC objdump if none is
+found. Better candidates land in `build/permuter/fn_1_XXXX/output-<score>-<n>/source.c`;
+a score of 0 is a match, then `check` it as usual.
+
 ## Rules (enforced by `fzgx lint` and `submit`)
 
 - No integer literal in `0x80000000..0x817FFFFF`, `0xC0000000..0xC17FFFFF` or
