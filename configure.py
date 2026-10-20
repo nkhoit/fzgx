@@ -415,8 +415,11 @@ def add_pool_rules() -> None:
             j = text.index("  mw_version = ", i)
             text = text[:j] + f"  poolmap = {poolmap}\n" + text[j:]
             n += 1
-        elif compiles:
+        elif compiles and f"/{stem}.o" in text:
+            # the unit's object is part of the build but no edge could be rewritten
             sys.exit(f"build.ninja: no mwcc edge for pooled unit {source}")
+        # otherwise the unit is new and dtk has not split its object yet: ninja reruns
+        # configure after the split, and that run gives it a compile edge to rewrite
     ninja_path.write_text(text)
     if n:
         print(f"build.ninja: {n} units compile through mwcc_pool (literal-pool retargeting)")
