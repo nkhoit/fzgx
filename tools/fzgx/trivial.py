@@ -93,7 +93,7 @@ def apply(p: Project, modules: Optional[List[str]] = None, limit: Optional[int] 
             cfg += [str(d / "splits.txt"), str(d / "symbols.txt")]
         subprocess.run(["git", "add", *files, *cfg], cwd=ROOT, capture_output=True)
         msg = f"match: {len(cands)} trivial functions (blr / li r3,N) across {len({m for m, _, _ in cands})} modules"
-        subprocess.run(["git", "commit", "-q", "-m", msg], cwd=ROOT, capture_output=True)
+        subprocess.run(["git", "commit", "-q", "-m", msg, *oracle.commit_trailers()], cwd=ROOT, capture_output=True)
         commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True,
                                 capture_output=True).stdout.strip()
         for _, symbol, _ in cands:

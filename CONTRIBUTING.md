@@ -22,6 +22,11 @@ every CodeWarrior version we ship, which is how per-unit compiler versions are r
 (`--mw-version` on submit). If you give up, `release --reason "..."` keeps your best body
 for the next attempt.
 
+`quick fn_1_XXXX scratch.c` is the scratch loop: it compiles any C file with the module's
+flags (wibo + mwcceppc, no ninja) and prints the same diff, without a claim, ledger entry
+or build lock. `verify --trailer "Co-Authored-By: ..."` (or `FZGX_COMMIT_TRAILERS`, one
+trailer per line, which `tu-finish` and `trivial` also use) adds trailers to the auto-commit.
+
 For a body that is down to register or scheduling differences, run decomp-permuter on it:
 
 ```sh

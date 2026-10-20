@@ -1387,19 +1387,19 @@ u32 fzgx_obj_lbl_1_bss_6D820;
 u32 fzgx_obj_lbl_1_bss_6D824;
 void *lbl_1_bss_6D828;
 void *fzgx_obj_lbl_1_bss_6D82C;
-u32 lbl_1_bss_6D82C_fill_6D830[2];
+u32 lbl_1_bss_6D82C__fzgx_offset_4[2];
 u32 fzgx_obj_lbl_1_bss_6D838;
 CarEntry *fzgx_obj_lbl_1_bss_6D83C;
-void *lbl_1_bss_6D83C_4;
-void *lbl_1_bss_6D83C_8;
-s16 lbl_1_bss_6D83C_C;
+void *lbl_1_bss_6D83C__fzgx_offset_4;
+void *lbl_1_bss_6D83C__fzgx_offset_8;
+s16 lbl_1_bss_6D83C__fzgx_offset_C;
 s8 fzgx_obj_lbl_1_bss_6D84A;
-u8 lbl_1_bss_6D84A_fill_6D84B;
-u32 lbl_1_bss_6D84A_fill_6D84C;
+u8 lbl_1_bss_6D84A__fzgx_offset_1;
+u32 lbl_1_bss_6D84A__fzgx_offset_2;
 u32 lbl_1_bss_6D850;
-u32 lbl_1_bss_6D854_fill_6D854;
-s32 lbl_1_bss_6D854_4;
-CarSub lbl_1_bss_6D854_8;
+u32 fzgx_obj_lbl_1_bss_6D854;
+s32 lbl_1_bss_6D854__fzgx_offset_4;
+CarSub lbl_1_bss_6D854__fzgx_offset_8;
 
 #pragma section code_type ".fzgxpool"
 static void fzgx_bss_layout(void) {
@@ -1408,19 +1408,19 @@ static void fzgx_bss_layout(void) {
     s = *(u8 *)&fzgx_obj_lbl_1_bss_6D824;
     s = *(u8 *)&lbl_1_bss_6D828;
     s = *(u8 *)&fzgx_obj_lbl_1_bss_6D82C;
-    s = *(u8 *)&lbl_1_bss_6D82C_fill_6D830;
+    s = *(u8 *)&lbl_1_bss_6D82C__fzgx_offset_4;
     s = *(u8 *)&fzgx_obj_lbl_1_bss_6D838;
     s = *(u8 *)&fzgx_obj_lbl_1_bss_6D83C;
-    s = *(u8 *)&lbl_1_bss_6D83C_4;
-    s = *(u8 *)&lbl_1_bss_6D83C_8;
-    s = *(u8 *)&lbl_1_bss_6D83C_C;
+    s = *(u8 *)&lbl_1_bss_6D83C__fzgx_offset_4;
+    s = *(u8 *)&lbl_1_bss_6D83C__fzgx_offset_8;
+    s = *(u8 *)&lbl_1_bss_6D83C__fzgx_offset_C;
     s = *(u8 *)&fzgx_obj_lbl_1_bss_6D84A;
-    s = *(u8 *)&lbl_1_bss_6D84A_fill_6D84B;
-    s = *(u8 *)&lbl_1_bss_6D84A_fill_6D84C;
+    s = *(u8 *)&lbl_1_bss_6D84A__fzgx_offset_1;
+    s = *(u8 *)&lbl_1_bss_6D84A__fzgx_offset_2;
     s = *(u8 *)&lbl_1_bss_6D850;
-    s = *(u8 *)&lbl_1_bss_6D854_fill_6D854;
-    s = *(u8 *)&lbl_1_bss_6D854_4;
-    s = *(u8 *)&lbl_1_bss_6D854_8;
+    s = *(u8 *)&fzgx_obj_lbl_1_bss_6D854;
+    s = *(u8 *)&lbl_1_bss_6D854__fzgx_offset_4;
+    s = *(u8 *)&lbl_1_bss_6D854__fzgx_offset_8;
 }
 #pragma section code_type ".text"
 
@@ -1435,8 +1435,8 @@ void fn_1_85688(void) {
     CarEntry *cars;
     u8 *ptr;
     
-    fn_1_56858(lbl_1_bss_6D83C_8, fzgx_obj_lbl_1_bss_6D84A);
-    fn_1_46B4(lbl_801A6410, lbl_1_bss_6D83C_8, lbl_1_data_1FFF0, 0xDFA);
+    fn_1_56858(lbl_1_bss_6D83C__fzgx_offset_8, fzgx_obj_lbl_1_bss_6D84A);
+    fn_1_46B4(lbl_801A6410, lbl_1_bss_6D83C__fzgx_offset_8, lbl_1_data_1FFF0, 0xDFA);
     i = 0; offset = 0; sentinel = -1;
     while ((s16)i < (s8)fzgx_obj_lbl_1_bss_6D84A) {
         if (*(s32 *)((u8 *)fzgx_obj_lbl_1_bss_6D83C + offset + 0x324) != -1) {
@@ -1449,13 +1449,13 @@ void fn_1_85688(void) {
     while ((s8)i < count) { fn_1_7F658(ptr); ptr += 0x440; i++; }
     fn_1_46B4(lbl_801A6410, cars, lbl_1_data_1FFF0, 0x2B3);
     if (fzgx_obj_lbl_1_bss_6D82C != 0) { fn_80071718(fzgx_obj_lbl_1_bss_6D82C); fzgx_obj_lbl_1_bss_6D82C = 0; }
-    if (lbl_1_bss_6D83C_4 != 0) { fn_1_46B4(lbl_801A6410, lbl_1_bss_6D83C_4, lbl_1_data_1FFF0, 0xDFF); lbl_1_bss_6D83C_4 = 0; }
-    lbl_1_bss_6D83C_C = 0; fn_1_591A0(1);
-    sub = &lbl_1_bss_6D854_8;
+    if (lbl_1_bss_6D83C__fzgx_offset_4 != 0) { fn_1_46B4(lbl_801A6410, lbl_1_bss_6D83C__fzgx_offset_4, lbl_1_data_1FFF0, 0xDFF); lbl_1_bss_6D83C__fzgx_offset_4 = 0; }
+    lbl_1_bss_6D83C__fzgx_offset_C = 0; fn_1_591A0(1);
+    sub = &lbl_1_bss_6D854__fzgx_offset_8;
     v = sub->unk_004;
-    lbl_1_bss_6D83C_8 = 0; fzgx_obj_lbl_1_bss_6D83C = 0;
-    if (v != 0) { fn_80071718(v); fn_800711A8(lbl_1_bss_6D854_8.unk_000); sub->unk_004 = 0; lbl_1_bss_6D854_8.unk_000 = 0; }
-    if (lbl_1_bss_6D854_4 != 0) fn_1_8E1E8();
+    lbl_1_bss_6D83C__fzgx_offset_8 = 0; fzgx_obj_lbl_1_bss_6D83C = 0;
+    if (v != 0) { fn_80071718(v); fn_800711A8(lbl_1_bss_6D854__fzgx_offset_8.unk_000); sub->unk_004 = 0; lbl_1_bss_6D854__fzgx_offset_8.unk_000 = 0; }
+    if (lbl_1_bss_6D854__fzgx_offset_4 != 0) fn_1_8E1E8();
     if (*(s16 *)&lbl_1_bss_960 == 0xE || *(s16 *)&lbl_1_bss_960 == 2 || *(s16 *)&lbl_1_bss_960 == 0xC) {
         fn_1_FDFF4();
         if (lbl_1_bss_6D828 != 0) { fn_1_46B4(lbl_801A6410, lbl_1_bss_6D828, lbl_1_data_1FFF0, 0xE1B); lbl_1_bss_6D828 = 0; }
