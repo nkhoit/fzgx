@@ -323,20 +323,3 @@ void *fn_1_7F254(void *arg0, void *arg1) {
     return result;
 }
 /* fzgx:end fn_1_7F254 */
-
-/* fzgx:begin fn_1_7F518 */
-// Initializes the car test entry and optionally performs its follow-up setup.
-void* fn_1_7F518(s16 car_type, void* car, s32 initialize) {
-    fn_80083DB0(car, ((u32 *)lbl_1_data_1F4FC)[car_type]);
-    if (initialize == 1) {
-        fn_1_801F8(car_type, car);
-    }
-    return car;
-}
-/* fzgx:end fn_1_7F518 */
-
-/* fzgx:begin fn_1_8CA00 */
-u32 *fn_1_8CA00(void) {
-    return &lbl_1_data_1FFDC;
-}
-/* fzgx:end fn_1_8CA00 */

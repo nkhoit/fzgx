@@ -337,6 +337,137 @@ extern u8 lbl_1_A9011300;
 extern u8 lbl_1_A9011100;
 extern u8 lbl_1_A9011000;
 
+/* fzgx:begin fn_1_2C768 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/stcoli.h"
+#include "dolphin/hw_regs.h"
+#include "psvec.h"
+
+extern s16 lbl_1_bss_3C2A[3];
+
+void fn_1_2C768(u32 *arg0) {
+    if (lbl_1_bss_3C2A[0] != 0x29 || (lbl_1_bss_3C30.unk_0 & 0x800)) {
+        return;
+    }
+    if (lbl_1_bss_3C30.unk_5 == 2 && *arg0 != lbl_1_bss_3C30.unk_1474) {
+        lbl_1_bss_3C30.unk_5 = 6;
+    }
+    *arg0 += 1;
+}
+/* fzgx:end fn_1_2C768 */
+
+/* fzgx:begin fn_1_2C7C4 */
+void fn_1_2C7C4(u8 *value, const u8 *target, int step) {
+    if (value[0] != target[0]) {
+        if (value[0] > target[0]) {
+            if (value[0] > target[0] + step) {
+                value[0] -= step;
+            } else {
+                value[0] = target[0];
+            }
+        } else {
+            if (value[0] < target[0] - step) {
+                value[0] += step;
+            } else {
+                value[0] = target[0];
+            }
+        }
+    }
+    if (value[1] != target[1]) {
+        if (value[1] > target[1]) {
+            if (value[1] > target[1] + step) {
+                value[1] -= step;
+            } else {
+                value[1] = target[1];
+            }
+        } else {
+            if (value[1] < target[1] - step) {
+                value[1] += step;
+            } else {
+                value[1] = target[1];
+            }
+        }
+    }
+    if (value[2] != target[2]) {
+        if (value[2] > target[2]) {
+            if (value[2] > target[2] + step) {
+                value[2] -= step;
+            } else {
+                value[2] = target[2];
+            }
+        } else {
+            if (value[2] < target[2] - step) {
+                value[2] += step;
+            } else {
+                value[2] = target[2];
+            }
+        }
+    }
+    if (value[3] != target[3]) {
+        if (value[3] > target[3]) {
+            if (value[3] > target[3] + step) {
+                value[3] -= step;
+            } else {
+                value[3] = target[3];
+            }
+        } else {
+            if (value[3] < target[3] - step) {
+                value[3] += step;
+            } else {
+                value[3] = target[3];
+            }
+        }
+    }
+}
+/* fzgx:end fn_1_2C7C4 */
+
+/* fzgx:begin fn_1_2C908 noprologue */
+#include "types.h"
+
+struct fn_1_2C908_lbl_1_bss_3C00 {
+    u8 pad_0[0x30];
+    u32 unk_30;
+    u8 pad_34[0x14B4];
+    u16 unk_14E8;
+    u8 pad_14EA[0x2];
+    u16 unk_14EC;
+    u8 pad_14EE[0x6];
+    u8 unk_14F4;
+    u8 pad_14F5[0x3];
+    u32 unk_14F8;
+    u16 unk_14FC;
+};
+
+extern int fn_1_4C10(void);
+extern struct fn_1_2C908_lbl_1_bss_3C00 lbl_1_bss_3C00;
+extern u32 fn_1_4060(void);
+extern void fn_1_EB080(int);
+
+#pragma opt_lifetimes off
+u32 fn_1_2C908(void) {
+    struct fn_1_2C908_lbl_1_bss_3C00 *p_lbl_1_bss_3C00;
+    u32 v0;
+    u32 v1;
+    p_lbl_1_bss_3C00 = (struct fn_1_2C908_lbl_1_bss_3C00 *)&lbl_1_bss_3C00;
+    v0 = fn_1_4C10();
+    if ((s32)v0 == 0) {
+    v0 = p_lbl_1_bss_3C00->unk_30;
+    v1 = (v0 | 4096);
+    p_lbl_1_bss_3C00->unk_14E8 = 42;
+    p_lbl_1_bss_3C00->unk_30 = v1;
+    p_lbl_1_bss_3C00->unk_14EC = 0;
+    p_lbl_1_bss_3C00->unk_14F4 = (p_lbl_1_bss_3C00->unk_14F4 | 1);
+    p_lbl_1_bss_3C00->unk_14F8 = 0;
+    p_lbl_1_bss_3C00->unk_14FC = 0;
+    fn_1_EB080(4);
+    v0 = fn_1_4060();
+    }
+    return v0;
+}
+#pragma opt_lifetimes reset
+/* fzgx:end fn_1_2C908 */
+
 /* fzgx:begin fn_1_327F8 */
 struct fn_1_327F8_Arg0 {
     u32 unk_0;
@@ -1954,6 +2085,22 @@ void fn_1_3FCB0(s32 value) {
 #pragma opt_propagation reset
 /* fzgx:end fn_1_3FCB0 */
 
+/* fzgx:begin fn_1_3FCD4 */
+#include "dolphin/hw_regs.h"
+#include "psvec.h"
+
+// lbl_1_data_5B80: .data size 0x4, 1 refs from stcoli.c (own data block)
+extern u32 lbl_1_data_5B80;
+
+void fn_1_3FCD4(u32 mask) {
+    if (mask == 0) {
+        lbl_1_data_5B80 = 0xffffffff;
+    } else {
+        lbl_1_data_5B80 &= ~mask;
+    }
+}
+/* fzgx:end fn_1_3FCD4 */
+
 /* fzgx:begin fn_1_3FCF8 */
 struct fn_1_3FCF8_lbl_1_bss_3C30 {
     u8 pad_0[0x1478];
@@ -2182,6 +2329,30 @@ int fn_1_40224(void) {
     return result != 0;
 }
 /* fzgx:end fn_1_40224 */
+
+/* fzgx:begin fn_1_402A4 */
+extern u8 lbl_1_rodata_EB4[124];
+// lbl_1_data_2B0D4: .data size 0x70, 4 refs from burner.c (own data block)
+typedef struct {
+    u8 pad_0[0xA];
+    s16 unk_A;  // 1 loads, 0 stores
+    u8 pad_C[0x64];
+} Obj_1_data_2B0D4;
+extern Obj_1_data_2B0D4 lbl_1_data_2B0D4;
+// lbl_1_data_2B144: .data size 0x18, 2 refs from burner.c (own data block)
+extern u8 lbl_1_data_2B144[0x18];
+
+s16 fn_1_402A4(u32 index) {
+    u8 *table0;
+    u8 *table1;
+    const s16 *table2;
+
+    table0 = (u8 *)&lbl_1_data_2B0D4;
+    table1 = lbl_1_data_2B144;
+    table2 = (const s16 *)lbl_1_rodata_EB4;
+    return table2[table1[table0[index]] - 1];
+}
+/* fzgx:end fn_1_402A4 */
 
 /* fzgx:begin fn_1_402D4 */
 typedef struct {

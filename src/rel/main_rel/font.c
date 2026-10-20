@@ -988,6 +988,21 @@ u32 fn_1_4AEC0(u32 value) {
 }
 /* fzgx:end fn_1_4AEC0 */
 
+/* fzgx:begin fn_1_4AEE8 */
+extern f32 lbl_1_bss_3E05C;
+// lbl_1_data_1BCC4: .data size 0x4, 2 refs from bitmap.c (own data block)
+extern u32 lbl_1_data_1BCC4;
+
+u32 fn_1_4AEE8(u32 value) {
+    u32 previous = lbl_1_data_1BCC4;
+
+    lbl_1_bss_3E05C = lbl_1_rodata_10C0[0];
+    lbl_1_data_1BCC4 = value;
+
+    return previous;
+}
+/* fzgx:end fn_1_4AEE8 */
+
 /* fzgx:begin fn_1_4AF10 */
 struct fn_1_4AF10_lbl_1_bss_3E058 {
     u32 unk_0;

@@ -661,9 +661,3 @@ void fn_1_433A4(Fn1433A4Object *dst, Fn1433A4Object *src) {
     dst->value2 = src->value2;
 }
 /* fzgx:end fn_1_433A4 */
-
-/* fzgx:begin fn_1_451D4 */
-void fn_1_451D4(void) {
-    lbl_1_bss_384CC = 0;
-}
-/* fzgx:end fn_1_451D4 */

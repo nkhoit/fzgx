@@ -49,6 +49,74 @@ extern void *fn_1_5448C(void *);
 extern void fn_1_5489C(void *, void *);
 extern void fn_1_12A0E0(void);
 
+/* fzgx:begin fn_1_107900 */
+extern void fn_80008BEC(void *arg0, int arg1, int arg2);
+
+void fn_1_107900(void) {
+    fn_80008BEC(&lbl_1_bss_86ED0, 0, 0x1c70);
+}
+/* fzgx:end fn_1_107900 */
+
+/* fzgx:begin fn_1_107C4C */
+extern void fn_1_1088B8(void *arg);
+
+void fn_1_107C4C(void *arg) {
+    if (arg != 0) {
+        fn_1_1088B8(arg);
+    }
+}
+/* fzgx:end fn_1_107C4C */
+
+/* fzgx:begin fn_1_107E90 */
+extern void lbl_8006DBAC(void *arg);
+extern void lbl_8006E1B0(void *arg0, void *arg1);
+
+typedef struct {
+    u8 unk_00[0x8];
+    u32 unk_08;
+    u8 *unk_0C;
+    u8 unk_10[0x8];
+    u32 unk_18;
+    u8 unk_1C[0x8];
+    u8 *unk_24;
+} Fn107E90Context;
+
+// Initialize each background entry selected by the context.
+void fn_1_107E90(Fn107E90Context *context) {
+    u32 i;
+    u8 *entries;
+    u8 *background;
+    u8 *entry;
+    u32 *background_indices;
+
+    i = 0;
+    entries = context->unk_24;
+    background_indices = (u32 *)&lbl_1_data_3FFBC;
+    background = *(u8 **)(*(u8 **)(context->unk_0C + 0x150) + 0x8);
+    entry = background + background_indices[context->unk_08] * 0x18c;
+    for (; i < context->unk_18; i++, entries += 0x44) {
+        lbl_8006DBAC(entry + 0x88);
+        lbl_8006E1B0(entries + 0x28, entries + 0x10);
+    }
+}
+/* fzgx:end fn_1_107E90 */
+
+/* fzgx:begin fn_1_107F2C */
+extern void fn_1_107F74(void *arg0, int arg1);
+
+void fn_1_107F2C(void *arg0) {
+    fn_1_107F74(arg0, 0);
+}
+/* fzgx:end fn_1_107F2C */
+
+/* fzgx:begin fn_1_107F50 */
+extern void fn_1_107F74(void *arg0, int arg1);
+
+void fn_1_107F50(void *arg0) {
+    fn_1_107F74(arg0, 1);
+}
+/* fzgx:end fn_1_107F50 */
+
 /* fzgx:begin fn_1_108870 */
 #include "rel/main_rel/accessory.h"
 

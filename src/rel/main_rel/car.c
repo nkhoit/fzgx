@@ -557,6 +557,24 @@ void *fn_1_7F49C(s16 arg0, s16 arg1, void *arg2) {
 }
 /* fzgx:end fn_1_7F49C */
 
+/* fzgx:begin fn_1_7F518 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/car_test.h"
+
+extern void fn_80083DB0(void* arg0, u32 arg1);
+extern void fn_1_801F8(s16 arg0, void* arg1);
+
+// Initializes the car test entry and optionally performs its follow-up setup.
+void* fn_1_7F518(s16 car_type, void* car, s32 initialize) {
+    fn_80083DB0(car, ((u32 *)lbl_1_data_1F4FC)[car_type]);
+    if (initialize == 1) {
+        fn_1_801F8(car_type, car);
+    }
+    return car;
+}
+/* fzgx:end fn_1_7F518 */
+
 /* fzgx:begin fn_1_7F934 */
 // Forwards the caller's context to the common car initialization routine.
 void fn_1_7F934(void *arg0) {
@@ -4514,6 +4532,15 @@ u8 *fn_1_8C9F4(void) {
 }
 /* fzgx:end fn_1_8C9F4 */
 
+/* fzgx:begin fn_1_8CA00 */
+// lbl_1_data_1FFDC: .data size 0x4, 1 refs from car_test.c (own data block)
+extern u32 lbl_1_data_1FFDC;
+
+u32 *fn_1_8CA00(void) {
+    return &lbl_1_data_1FFDC;
+}
+/* fzgx:end fn_1_8CA00 */
+
 /* fzgx:begin fn_1_8CA0C */
 u32 fn_1_8CA0C(void) {
     return lbl_1_bss_6D83C.unk_0 + 0x328;
@@ -6233,341 +6260,3 @@ void fn_1_956B8(Fn1956B8Data *data) {
     }
 }
 /* fzgx:end fn_1_956B8 */
-
-/* fzgx:begin fn_1_96130 */
-void fn_1_96130(void *arg0) {
-    fn_1_12AB38(lbl_1_data_27BA4);
-    fn_1_465D0( (s32)(void *)(arg0), 1);
-    fn_1_12AB38(&lbl_1_data_278AC);
-}
-/* fzgx:end fn_1_96130 */
-
-/* fzgx:begin fn_1_9617C */
-typedef struct CarResourceState CarResourceState;
-
-struct CarResourceState {
-    u8 unk_00[0x08];
-    void *unk_08;
-    void *unk_0C;
-};
-
-// Loads the car resource, updates its model data, and restores shared state.
-void fn_1_9617C(CarResourceState *car, void *resource) {
-    fn_1_12AB38(lbl_1_data_27BA4);
-    if (fn_1_12A8A4( (u32)(void *)(resource), &car->unk_0C) != 0) {
-        fn_1_41328(car->unk_0C);
-        fn_1_426E4(car->unk_08, car->unk_0C);
-    }
-    fn_1_12AB38(&lbl_1_data_278AC);
-}
-/* fzgx:end fn_1_9617C */
-
-/* fzgx:begin fn_1_967A8 noprologue */
-#include "types.h"
-#include "rel/main_rel/globals.h"
-#include "rel/main_rel/car.h"
-
-extern void fn_1_12AB38(void *arg0);
-extern void fn_1_12A8A4(void *arg0, void *arg1);
-extern u32 lbl_1_bss_6E98C;
-extern void fn_1_96AE8(void);
-
-extern void fn_1_12AB38(void *value);
-
-typedef struct Fn1967A8Resource Fn1967A8Resource;
-struct Fn1967A8Resource {
-    u8 unk_00;
-    u8 unk_01[0x07];
-    u32 unk_08;
-    u8 unk_0C[0x10];
-    u32 unk_1C;
-};
-
-typedef struct Fn1967A8Object Fn1967A8Object;
-struct Fn1967A8Object {
-    u8 unk_00[0x1C];
-    Fn1967A8Resource *unk_1C;
-    void *unk_20;
-    u8 unk_24[0x64];
-    u32 unk_88;
-    u8 unk_8C[0xC0];
-    u32 unk_14C;
-    u32 unk_150;
-    void *unk_154;
-};
-
-extern Fn1967A8Resource *fn_1_41518(void *arg0);
-extern void fn_1_41C18(Fn1967A8Resource *arg0, void *arg1);
-extern void fn_1_41F58(Fn1967A8Resource *arg0, s32 arg1, void (*arg2)(void), void *arg3);
-extern void fn_1_96968(void);
-extern void fn_1_969E8(void);
-extern void fn_1_96BC0(void);
-extern void fn_1_96A68(void);
-
-void fn_1_967A8(Fn1967A8Object *arg0, void *arg1) {
-    u32 i;
-
-    fn_1_12AB38(lbl_1_data_27BA4);
-    fn_1_12A8A4(arg1, &arg0->unk_20);
-    arg0->unk_1C = fn_1_41518(arg0->unk_20);
-    arg0->unk_1C->unk_1C = arg0->unk_14C;
-    arg0->unk_1C->unk_08 = arg0->unk_150;
-    arg0->unk_1C->unk_00 = arg0->unk_88;
-    fn_1_41C18(arg0->unk_1C, arg0->unk_154);
-    fn_1_41F58(arg0->unk_1C, 0, fn_1_96968, arg0);
-    fn_1_41F58(arg0->unk_1C, 1, fn_1_96968, arg0);
-    fn_1_41F58(arg0->unk_1C, 2, fn_1_969E8, arg0);
-    fn_1_41F58(arg0->unk_1C, 3, fn_1_96BC0, arg0);
-    fn_1_41F58(arg0->unk_1C, 4, fn_1_96A68, arg0);
-    for (i = 0; i < 0x14; i++) {
-        lbl_1_bss_6E98C = i;
-        fn_1_41F58(arg0->unk_1C, 5, fn_1_96AE8, arg0);
-    }
-    fn_1_12AB38(&lbl_1_data_278AC);
-}
-/* fzgx:end fn_1_967A8 */
-
-/* fzgx:begin fn_1_96968 */
-// Cache the resource key and return the requested resource sequence number.
-u16 fn_1_96968(Fn196968Object *object, void *arg1) {
-    if (object->unk_170 != 0 && object->unk_174 != 0) {
-        object->unk_28 = fn_1_41488(object->unk_174, lbl_1_data_2785C);
-        return (u16)((u32)fn_1_41488(object->unk_174, arg1) + 1);
-    }
-
-    object->unk_28 = 0;
-    return 0;
-}
-/* fzgx:end fn_1_96968 */
-
-/* fzgx:begin fn_1_969E8 */
-// Resolve the owner's resource values and cache the associated lookup result.
-u16 fn_1_969E8(Fn1969E8Owner *owner, void *arg1) {
-    if (owner->unk_1b0 != 0 && owner->unk_1b4 != 0) {
-        owner->unk_2c = fn_1_41488(owner->unk_1b4, &lbl_1_data_22A24);
-        return (u16)(fn_1_41488(owner->unk_1b4, arg1) + 1);
-    }
-
-    owner->unk_2c = 0;
-    return 0;
-}
-/* fzgx:end fn_1_969E8 */
-
-/* fzgx:begin fn_1_96A68 */
-// Updates the car's resource state and returns the next resource index.
-u16 fn_1_96A68(Fn196A68Object *object, void *arg1) {
-    if (object->unk_1F0 != 0 && object->unk_1F4 != 0) {
-        object->unk_34 = fn_1_41488(object->unk_1F4, &lbl_1_data_27870);
-        return (u16)(fn_1_41488(object->unk_1F4, arg1) + 1);
-    }
-    object->unk_34 = 0;
-    return 0;
-}
-/* fzgx:end fn_1_96A68 */
-
-/* fzgx:begin fn_1_96B14 */
-typedef struct Fn196B14Entry Fn196B14Entry;
-struct Fn196B14Entry {
-    u8 unk_00[0x210];
-    void *unk_210;
-    void *unk_214;
-};
-
-// Computes the indexed entry value when its backing resource is available.
-u16 fn_1_96B14(void *base, void *arg1, s32 index) {
-    Fn196B14Entry *entry = (Fn196B14Entry *)((u8 *)base + (index << 5));
-
-    if (entry->unk_210 != 0 && entry->unk_214 != 0) {
-        ((u32 *)((u8 *)base + 0x38))[index] =
-            (u32)fn_1_41488(entry->unk_214, lbl_1_data_27874);
-        return (u16)(fn_1_41488(entry->unk_214, arg1) + 1);
-    }
-
-    ((u32 *)((u8 *)base + 0x38))[index] = 0;
-    return 0;
-}
-/* fzgx:end fn_1_96B14 */
-
-/* fzgx:begin fn_1_96BC0 */
-// Updates the car's resource-derived value and returns the converted result.
-u16 fn_1_96BC0(Fn196BC0Object *object, void *arg1) {
-    if (object->resource_1D0 != 0 && object->resource_1D4 != 0) {
-        object->value_30 = (void *)fn_1_41488(
-            object->resource_1D4, &lbl_1_data_2786C);
-        return (u16)(fn_1_41488(object->resource_1D4, arg1) + 1);
-    }
-
-    object->value_30 = 0;
-    return 0;
-}
-/* fzgx:end fn_1_96BC0 */
-
-/* fzgx:begin fn_1_96F20 noprologue */
-#include "types.h"
-#include "rel/main_rel/car.h"
-
-typedef struct Vec3f {
-    f32 x, y, z;
-} Vec3f;
-
-typedef struct CarR29 {
-    u8 unk_00[0x14];
-    f32 unk_14;
-} CarR29;
-
-typedef struct CarSub2 {
-    u8 unk_00[0x88];
-    u8 unk_88[1];
-} CarSub2;
-
-typedef struct CarSub {
-    u8 unk_00[0x8];
-    CarSub2 *unk_8;
-} CarSub;
-
-typedef struct CarData {
-    u8 unk_00[0x8c];
-    s32 unk_8c;
-    u8 unk_90[0x10];
-    s16 unk_a0;
-    s16 unk_a2;
-    s16 unk_a4;
-    u8 unk_a6[2];
-    f32 unk_a8;
-    f32 unk_ac;
-    f32 unk_b0;
-    f32 unk_b4;
-    f32 unk_b8;
-    u8 unk_bc[0x28];
-    void *unk_e4[1];
-    u8 unk_e8[0x150 - 0xe8];
-    CarSub *unk_150;
-} CarData;
-
-extern const f32 lbl_1_rodata_3E48[];
-
-extern void *camera_get_state_object(void);
-extern void camera_update_state(void *);
-extern CarR29 *fn_80071268(void *, void *);
-extern void lbl_8006E1F0(Vec3f *, f32, f32, f32);
-extern void fn_1_A714C(f32 *, s32, s32, f32 *);
-extern f32 lbl_8006D21C(s32);
-extern void lbl_8006DAEC(void);
-extern void lbl_8006E0B4(f32, f32, f32);
-extern void mathutil_mtxA_rotate_z(s16);
-extern void mathutil_mtxA_rotate_y(s16);
-extern void mathutil_mtxA_rotate_x(s16);
-extern void lbl_8006E14C(f32);
-extern void lbl_8006DFC4(void *);
-extern f32 (*lbl_801A6D00)[4];
-extern void lbl_8006DB30(void);
-extern void lbl_8006E2C0(Vec3f *, f32, f32, f32);
-extern void fn_8006E250(Vec3f *, Vec3f *);
-extern void fn_1_B81C(Vec3f *, Vec3f *, s32);
-
-void fn_1_96F20(CarData *car) {
-    const f32 *pool = lbl_1_rodata_3E48;
-    Vec3f sp40;
-    Vec3f sp34;
-    Vec3f sp28;
-    Vec3f sp1C;
-    Vec3f sp10;
-    f32 spC;
-    f32 sp8;
-    CarR29 *r29;
-    void *cam;
-    CarSub2 *sub2;
-    f32 f31_val;
-    f32 mtx_x, mtx_y, mtx_z;
-
-    cam = camera_get_state_object();
-    r29 = fn_80071268(car->unk_e4[car->unk_8c], &lbl_1_data_22A1C);
-    if (!r29) {
-        r29 = fn_80071268(car->unk_e4[car->unk_8c], &lbl_1_data_24EF0);
-    }
-    if (!r29) {
-        return;
-    }
-
-    camera_update_state(cam);
-    lbl_8006E1F0(&sp10, pool[0x49], pool[0x4A], pool[0x49]);
-    fn_1_A714C(&spC, 0, 0, &sp8);
-
-    f31_val = lbl_8006D21C((s32)(pool[0x77] * spC * pool[0x66]));
-
-    lbl_8006DAEC();
-    sub2 = car->unk_150->unk_8;
-    lbl_8006E0B4(car->unk_a8, car->unk_ac + car->unk_b4, car->unk_b0);
-    mathutil_mtxA_rotate_z(car->unk_a4);
-    mathutil_mtxA_rotate_y(car->unk_a0);
-    mathutil_mtxA_rotate_x(car->unk_a2);
-    lbl_8006E14C(car->unk_b8);
-    lbl_8006DFC4(&sub2->unk_88);
-
-    mtx_x = lbl_801A6D00[0][3];
-    mtx_y = lbl_801A6D00[1][3];
-    mtx_z = lbl_801A6D00[2][3];
-    lbl_8006DB30();
-
-    sp28.x = mtx_x;
-    sp28.y = mtx_y;
-    sp28.z = mtx_z + (pool[0x8D] * r29->unk_14) / f31_val;
-    sp28.x *= pool[0x8E];
-    sp28.y *= pool[0x8E];
-    sp28.z *= pool[0x8E];
-    if (sp28.z > sp8 + (mtx_z - r29->unk_14)) {
-        sp28.z = sp8 + (mtx_z - r29->unk_14);
-    }
-
-    lbl_8006E2C0(&sp1C, pool[0x49], pool[0x49], mtx_z - sp28.z);
-    fn_8006E250(&sp28, &sp40);
-
-    sp34.x = sp40.x + sp1C.x;
-    sp34.y = sp40.y + sp1C.y;
-    sp34.z = sp40.z + sp1C.z;
-
-    fn_1_B81C(&sp40, &sp34, 0);
-}
-/* fzgx:end fn_1_96F20 */
-
-/* fzgx:begin fn_1_A7E60 */
-typedef struct FnA7E60Object {
-    u8 pad_fc[0xfc];
-    s32 unk_fc;
-    s32 unk_100;
-    s32 unk_104;
-    s32 unk_108;
-} FnA7E60Object;
-
-// Initialize the selected car data and build its localized display values.
-void fn_1_A7E60(void *arg0, s8 arg1, FnA7E60Object *object, s32 arg3, void *arg4) {
-    char buffer[0x80];
-    u8 *data;
-    s32 index;
-    s32 format_value;
-
-    data = lbl_1_data_34348;
-    index = (s32)arg1;
-    object->unk_fc = ((s32 *)lbl_1_data_26B60)[index];
-    object->unk_100 = ((s32 *)lbl_1_data_26C14)[index];
-
-    if (arg3 != -1) {
-        fn_1_12A2B8( (s32)(1));
-        fn_1_12A2C4( (s32)(1));
-        fn_1_12A2D0(arg3);
-    } else {
-        fn_1_12A2B8( (s32)(0));
-    }
-
-    fn_1_12AB38(data + 0x40);
-    format_value = ((s32 *)lbl_1_data_20D1C)[index];
-    sprintf(buffer, (const char *)(data + 0x18), format_value);
-    object->unk_108 = fn_1_12AC00((unsigned char *)buffer);
-    sprintf(buffer, (const char *)(data + 0x48), format_value);
-    object->unk_104 = fn_1_12ADA0((unsigned char *)buffer, object->unk_108);
-    fn_1_12AB38(data + 0x3c);
-    fn_1_12A2B8( (s32)(0));
-    fn_1_12A2C4( (s32)(0));
-    fn_1_A7B5C(object, 0, arg0, arg1, arg4);
-}
-/* fzgx:end fn_1_A7E60 */

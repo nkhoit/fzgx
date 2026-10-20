@@ -260,6 +260,65 @@ void fn_1_A7B30(s32 index, FnA7B30Vector *out) {
 }
 /* fzgx:end fn_1_A7B30 */
 
+/* fzgx:begin fn_1_A7E60 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/car.h"
+#include "dolphin/hw_regs.h"
+#include "psvec.h"
+
+typedef s32 (*fn_1_8D210_callback)(u32);
+extern void fn_1_12AB38(void *arg0);
+extern u32 fn_1_12AC00(unsigned char *value);
+extern void fn_1_12A2B8(u32 value);
+extern void fn_1_12A2D0(s32 value);
+extern u32 fn_1_12ADA0(unsigned char *value, u32 arg);
+extern u8 lbl_1_data_34348[12];
+extern void fn_1_12A2C4(u32 value);
+extern int sprintf(char *s, const char *format, ...);
+extern void fn_1_A7B5C(void *arg0, s32 arg1, void *arg2, s8 arg3, void *arg4);
+
+typedef struct FnA7E60Object {
+    u8 pad_fc[0xfc];
+    s32 unk_fc;
+    s32 unk_100;
+    s32 unk_104;
+    s32 unk_108;
+} FnA7E60Object;
+
+// Initialize the selected car data and build its localized display values.
+void fn_1_A7E60(void *arg0, s8 arg1, FnA7E60Object *object, s32 arg3, void *arg4) {
+    char buffer[0x80];
+    u8 *data;
+    s32 index;
+    s32 format_value;
+
+    data = lbl_1_data_34348;
+    index = (s32)arg1;
+    object->unk_fc = ((s32 *)lbl_1_data_26B60)[index];
+    object->unk_100 = ((s32 *)lbl_1_data_26C14)[index];
+
+    if (arg3 != -1) {
+        fn_1_12A2B8( (s32)(1));
+        fn_1_12A2C4( (s32)(1));
+        fn_1_12A2D0(arg3);
+    } else {
+        fn_1_12A2B8( (s32)(0));
+    }
+
+    fn_1_12AB38(data + 0x40);
+    format_value = ((s32 *)lbl_1_data_20D1C)[index];
+    sprintf(buffer, (const char *)(data + 0x18), format_value);
+    object->unk_108 = fn_1_12AC00((unsigned char *)buffer);
+    sprintf(buffer, (const char *)(data + 0x48), format_value);
+    object->unk_104 = fn_1_12ADA0((unsigned char *)buffer, object->unk_108);
+    fn_1_12AB38(data + 0x3c);
+    fn_1_12A2B8( (s32)(0));
+    fn_1_12A2C4( (s32)(0));
+    fn_1_A7B5C(object, 0, arg0, arg1, arg4);
+}
+/* fzgx:end fn_1_A7E60 */
+
 /* fzgx:begin fn_1_A7F84 noprologue */
 #include "types.h"
 
@@ -839,73 +898,3 @@ void fn_1_AA538(void) {
     state->unk_0 = 1;
 }
 /* fzgx:end fn_1_AA538 */
-
-/* fzgx:begin fn_1_AAEB0 noprologue */
-#include "types.h"
-
-struct fn_1_AAEB0_Arg0 {
-    u8 unk_0;
-    u8 pad_1[0x4];
-    u8 unk_5;
-    u8 pad_6[0x1E];
-    u32 unk_24;
-};
-struct fn_1_AAEB0_lbl_1_data_35AC8 {
-    u8 pad_0[0x6AC4];
-    u32 unk_6AC4[1];
-};
-
-extern struct fn_1_AAEB0_lbl_1_data_35AC8 lbl_1_data_35AC8;
-extern void OSPanic(const char *, int, const char *, ...);
-extern void OSReport(const char *, ...);
-
-static inline u32 *fn_1_AAEB0_array_read(u32 *array) { return array; }
-#pragma opt_propagation off
-void fn_1_AAEB0(struct fn_1_AAEB0_Arg0 *arg0) {
-    struct fn_1_AAEB0_lbl_1_data_35AC8 *p_lbl_1_data_35AC8;
-    p_lbl_1_data_35AC8 = (struct fn_1_AAEB0_lbl_1_data_35AC8 *)&lbl_1_data_35AC8;
-    OSReport((const char *)(u32)((u8 *)(u32)p_lbl_1_data_35AC8 + 28000), arg0->unk_0, *(u32 *)((u8 *)arg0->unk_24 + 4), fn_1_AAEB0_array_read(p_lbl_1_data_35AC8->unk_6AC4)[arg0->unk_5]);
-    OSPanic((const char *)(u32)((u8 *)(u32)p_lbl_1_data_35AC8 + 27888), 1322, (const char *)(u32)((u8 *)(u32)p_lbl_1_data_35AC8 + 28044));
-}
-#pragma opt_propagation reset
-/* fzgx:end fn_1_AAEB0 */
-
-/* fzgx:begin fn_1_AAF18 */
-// fn_1_AAF18: empty in retail (single blr).
-void fn_1_AAF18(void) {
-}
-/* fzgx:end fn_1_AAF18 */
-
-/* fzgx:begin fn_1_AB434 */
-// fn_1_AB434: empty in retail (single blr).
-void fn_1_AB434(void) {
-}
-/* fzgx:end fn_1_AB434 */
-
-/* fzgx:begin fn_1_AB438 */
-typedef struct Fn1AB438Data {
-    u8 pad_00[8];
-    s16 field_08;
-    s16 field_0A;
-    u8 pad_0C[0x1e];
-    u8 field_2A;
-} Fn1AB438Data;
-
-void fn_1_AB438(Fn1AB438Data *data) {
-    data->field_08 = 30;
-    data->field_0A = 14;
-    data->field_2A |= 4;
-}
-/* fzgx:end fn_1_AB438 */
-
-/* fzgx:begin fn_1_AB458 */
-// fn_1_AB458: empty in retail (single blr).
-void fn_1_AB458(void) {
-}
-/* fzgx:end fn_1_AB458 */
-
-/* fzgx:begin fn_1_AB45C */
-void fn_1_AB45C(int index) {
-    lbl_1_bss_716C8[index * 0xa0 + 7] = 1;
-}
-/* fzgx:end fn_1_AB45C */
