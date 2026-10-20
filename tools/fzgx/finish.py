@@ -304,7 +304,7 @@ def finish(p: Project, module: str, workers: int = 12) -> Dict[str, object]:
         subprocess.run(["git", "add", *files], cwd=ROOT, capture_output=True)
         msg = f"tu-finish {module}: {sum(r['hoisted'] for r in results)} declarations hoisted, {sum(r['renamed'] for r in results)} typedefs isolated, " \
               f"{sum(r['contested'] for r in results)} contested, {len(queue)} unresolved" + (f", collapsed {', '.join(Path(t).stem for t in collapsed)}" if collapsed else "")
-        subprocess.run(["git", "commit", "-q", "-m", msg], cwd=ROOT, capture_output=True)
+        subprocess.run(["git", "commit", "-q", "-m", msg, *oracle.commit_trailers()], cwd=ROOT, capture_output=True)
     return {"ok": linked, "module": module, "tus": len(tus), "queue": queue, "collapsed": collapsed,
             "secs": round(time.time() - t0, 1), "cache_hits": v.hits, "cache_misses": v.misses,
             "restored": restored, "diag": diag,
