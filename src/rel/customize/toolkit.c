@@ -314,6 +314,69 @@ void fn_3_1A068(void) {
 }
 /* fzgx:end fn_3_1A068 */
 
+/* fzgx:begin fn_3_1A0F4 noprologue */
+#include "types.h"
+
+typedef struct {
+    u8 unk_0;
+    u8 pad_1[3];
+    u32 unk_4;
+    u32 unk_8;
+    u8 unk_C;
+    u8 unk_D;
+    u8 unk_E;
+    u8 unk_F;
+    u8 unk_10;
+    u8 pad_11[1];
+    s16 unk_12;
+    u8 unk_14;
+    u8 unk_15;
+    s16 unk_16;
+    s16 unk_18;
+    s16 unk_1A;
+} Obj_1A0F4;
+
+/* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
+Obj_1A0F4 fzgx_obj_lbl_3_bss_A2438;
+u32 fzgx_obj_lbl_3_bss_A2454;
+u8 fzgx_obj_lbl_3_bss_A2458;
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_bss_prime(void) {
+    volatile u32 s;  /* fzgx-allow: S2 primer sink */
+    s = fzgx_obj_lbl_3_bss_A2438.unk_0;
+    s = fzgx_obj_lbl_3_bss_A2454;
+    s = fzgx_obj_lbl_3_bss_A2458;
+}
+#pragma section code_type ".text"
+extern s32 lbl_3_bss_A179C;
+extern void fn_3_BE10(void);
+extern void fn_3_BEF0(void);
+extern void fn_3_1445C(void);
+extern void fn_3_BE88(void);
+extern void fn_80008BA8(u32, u32, u32);
+extern s32 fn_8008023C(u32, u32, u32);
+
+void fn_3_1A0F4(u8 *arg0) {
+    if (fzgx_obj_lbl_3_bss_A2458 != 0) {
+        fn_80008BA8(fzgx_obj_lbl_3_bss_A2454, *(u32 *)(arg0 + 0x20), 0x2000);
+        fn_3_BE10();
+        fzgx_obj_lbl_3_bss_A2458 = 0;
+    } else if (lbl_3_bss_A179C != 0) {
+        fn_3_BEF0();
+        fzgx_obj_lbl_3_bss_A2458 = 1;
+        fzgx_obj_lbl_3_bss_A2438.unk_4 = 0x40000000;
+        fzgx_obj_lbl_3_bss_A2438.unk_E = 0;
+        lbl_3_bss_A179C = 0;
+        if (fn_8008023C(fzgx_obj_lbl_3_bss_A2454, *(u32 *)(arg0 + 0x20), 0x2000) != 0) {
+            fn_3_1445C();
+        }
+    } else {
+        fn_3_BE88();
+    }
+}
+/* fzgx:end fn_3_1A0F4 */
+
 /* fzgx:begin fn_3_1A1B8 */
 void fn_3_1A1B8(void) {
     fn_3_156A8();
@@ -494,6 +557,237 @@ after_disable:
     }
 }
 /* fzgx:end fn_3_1A2EC */
+
+/* fzgx:begin fn_3_1A488 noprologue */
+#include "types.h"
+#include "rel/customize/toolkit.h"
+
+struct fn_3_1A488_lbl_1_bss_9F8_8_E20 {
+    u16 unk_0;
+    u8 pad_2[0x12];
+};
+struct fn_3_1A488_lbl_1_bss_9F8 {
+    u8 pad_0[0x8];
+    struct fn_3_1A488_lbl_1_bss_9F8_8_E20 unk_8[1];
+};
+extern struct fn_3_1A488_lbl_1_bss_9F8 lbl_1_bss_9F8;
+extern u32 fn_3_1401C(void);
+extern void fn_3_1445C(void);
+extern u32 fn_3_152BC(u32, u32, u32, u32, u32, void *);
+extern u32 lbl_3_rodata_744[9];
+extern void fn_1_A2D84(u32);
+
+#pragma opt_pointer_analysis on
+#pragma opt_propagation off
+void fn_3_1A488(void) {
+    struct fn_3_1A488_lbl_1_bss_9F8_8_E20 *entries;
+    s32 v1;
+    u16 v0;
+    u32 v2;
+    u32 v3;
+    struct { u32 a[4]; } loc_8;
+    u32 t3;
+    entries = (struct fn_3_1A488_lbl_1_bss_9F8_8_E20 *)((u8 *)&lbl_1_bss_9F8 + 16);
+    v0 = *(volatile u8 *)&lbl_3_bss_A2438.unk_0; /* Retail reloads this field. */
+    if ((entries[v0].unk_0 & 1) != 0 ||
+        (((1) & (*(u16 *)((u8 *)&lbl_1_bss_9F8 + v0 * 20 + 18)))) != 0) {
+        Obj_3_bss_A2438 *st = &lbl_3_bss_A2438;
+        if (st->unk_10 == 0) {
+            fn_1_A2D84(0xA9010000);
+        }
+        st->unk_10 = 1;
+    }
+    v1 = lbl_3_bss_A2438.unk_0;
+    if (((entries[v1].unk_0 >> 1) & 1) != 0 ||
+        ((*(u16 *)((u8 *)&lbl_1_bss_9F8 + v1 * 20 + 18) >> 1) & 1) != 0) {
+        Obj_3_bss_A2438 *st = &lbl_3_bss_A2438;
+        if (st->unk_10 != 0) {
+            fn_1_A2D84(0xA9010000);
+        }
+        st->unk_10 = 0;
+    }
+    entries = (struct fn_3_1A488_lbl_1_bss_9F8_8_E20 *)((u8 *)&lbl_1_bss_9F8 + 8);
+    {
+        Obj_3_bss_A2438 *st = &lbl_3_bss_A2438;
+        if (((st->unk_0[entries].unk_0 >> 8) & 1) != 0 &&
+            st->unk_10 != 0) {
+            loc_8.a[1] = lbl_3_rodata_744[0];
+            fn_1_A2D84(0xA9150400);
+            lbl_3_bss_A2438.unk_4 = 0x40000000;
+            lbl_3_bss_A2438.unk_E = 0;
+            loc_8.a[0] = loc_8.a[1];
+            t3 = fn_3_1401C();
+            fn_3_152BC(t3, 0, 0, 64, 64, &loc_8);
+            st->unk_10 = 0;
+            fn_3_1445C();
+        }
+    }
+    {
+        Obj_3_bss_A2438 *st = &lbl_3_bss_A2438;
+        v2 = (u16)((*(volatile u8 *)&st->unk_0 /* Retail reloads this field. */)[entries]).unk_0;
+        if (((v2 >> 9) & 1) != 0 ||
+            (st->unk_10 == 0 && ((v2 >> 8) & 1) != 0)) {
+            fn_1_A2D84(0xA9150500);
+            lbl_3_bss_A2438.unk_4 = 0x40000000;
+            lbl_3_bss_A2438.unk_E = 0;
+        }
+    }
+}
+
+#pragma opt_propagation reset
+
+#pragma opt_pointer_analysis reset
+/* fzgx:end fn_3_1A488 */
+
+/* fzgx:begin fn_3_1A648 noprologue */
+#include "types.h"
+#include "rel/customize/toolkit.h"
+
+struct fn_3_1A648_lbl_1_bss_9F8_8_E20 {
+    u16 unk_0;
+    u8 pad_2[0x12];
+};
+
+struct fn_3_1A648_lbl_1_bss_9F8 {
+    u8 pad_0[0x8];
+    struct fn_3_1A648_lbl_1_bss_9F8_8_E20 unk_8[1];
+};
+
+extern struct fn_3_1A648_lbl_1_bss_9F8 lbl_1_bss_9F8;
+extern u8 fn_3_14064(void);
+extern u32 fn_3_1401C(void);
+extern u32 fn_3_1402C(u8);
+extern void fn_3_1445C(void);
+extern void fn_1_A2D84(u32);
+extern void fn_80008BA8(u32, u32, u32);
+extern void fn_80008BEC(void *, int, u32);
+
+#pragma opt_pointer_analysis on
+#pragma opt_propagation off
+void fn_3_1A648(void) {
+    struct fn_3_1A648_lbl_1_bss_9F8_8_E20 *entries;
+    u32 t3;
+    u32 t4;
+    struct fn_3_1A648_lbl_1_bss_9F8_8_E20 *entries_2;
+    u32 t5;
+
+    entries = (struct fn_3_1A648_lbl_1_bss_9F8_8_E20 *)((u8 *)&lbl_1_bss_9F8 + 0x10);
+
+    if ((entries[lbl_3_bss_A2438.unk_0].unk_0 & 1) != 0 ||
+        (*(u16 *)((u8 *)&lbl_1_bss_9F8 + lbl_3_bss_A2438.unk_0 * 0x14 + 0x12) & 1) != 0) {
+        if (__rlwnm(lbl_3_bss_A2438.unk_8, 2, 31, 31)) {
+            if (lbl_3_bss_A2438.unk_10 == 0) {
+                fn_1_A2D84(0xA9010000);
+            }
+            lbl_3_bss_A2438.unk_10 = 1;
+        } else if (lbl_3_bss_A2438.unk_14 != 0) {
+            fn_1_A2D84(0xA9150600);
+            lbl_3_bss_A2438.unk_14--;
+        }
+    }
+
+    if (((entries[lbl_3_bss_A2438.unk_0].unk_0 >> 1) & 1) != 0 ||
+        ((*(u16 *)((u8 *)&lbl_1_bss_9F8 + lbl_3_bss_A2438.unk_0 * 0x14 + 0x12) >> 1) & 1) != 0) {
+        if (__rlwnm(lbl_3_bss_A2438.unk_8, 2, 31, 31)) {
+            if (lbl_3_bss_A2438.unk_10 != 0) {
+                fn_1_A2D84(0xA9010000);
+            }
+            lbl_3_bss_A2438.unk_10 = 0;
+        } else if (lbl_3_bss_A2438.unk_14 < 4) {
+            t3 = fn_3_14064();
+            if (((1) + (((lbl_3_bss_A2438.unk_14) + ((lbl_3_bss_A2438.unk_15 * 5) + (lbl_3_bss_A2438.unk_12))))) < (s32)(t3 & 0xFF)) {
+                fn_1_A2D84(0xA9150600);
+                lbl_3_bss_A2438.unk_14++;
+            }
+        }
+    }
+
+    if (((entries[lbl_3_bss_A2438.unk_0].unk_0 >> 3) & 1) != 0 ||
+        ((*(u16 *)((u8 *)&lbl_1_bss_9F8 + lbl_3_bss_A2438.unk_0 * 0x14 + 0x12) >> 3) & 1) != 0) {
+        if (!__rlwnm(lbl_3_bss_A2438.unk_8, 2, 31, 31)) {
+            if (lbl_3_bss_A2438.unk_15 != 0) {
+                fn_1_A2D84(0xA9150600);
+                lbl_3_bss_A2438.unk_15--;
+            } else if (lbl_3_bss_A2438.unk_12 - 5 >= 0) {
+                fn_1_A2D84(0xA9150600);
+                lbl_3_bss_A2438.unk_1A = 10;
+                lbl_3_bss_A2438.unk_18 = 0;
+                lbl_3_bss_A2438.unk_12 = lbl_3_bss_A2438.unk_12 - 5;
+            }
+        }
+    }
+
+    if (((entries[lbl_3_bss_A2438.unk_0].unk_0 >> 2) & 1) != 0 ||
+        ((*(u16 *)((u8 *)&lbl_1_bss_9F8 + lbl_3_bss_A2438.unk_0 * 0x14 + 0x12) >> 2) & 1) != 0) {
+        if (!__rlwnm(lbl_3_bss_A2438.unk_8, 2, 31, 31)) {
+            t3 = fn_3_14064();
+            if (lbl_3_bss_A2438.unk_12 + 20 < (s32)(t3 & 0xFF)) {
+                if (lbl_3_bss_A2438.unk_15 < 3) {
+                    fn_1_A2D84(0xA9150600);
+                    lbl_3_bss_A2438.unk_15++;
+                } else {
+                    fn_1_A2D84(0xA9150600);
+                    lbl_3_bss_A2438.unk_18 = 10;
+                    lbl_3_bss_A2438.unk_1A = 0;
+                    lbl_3_bss_A2438.unk_12 = lbl_3_bss_A2438.unk_12 + 5;
+                    t3 = fn_3_14064();
+                    if ((((lbl_3_bss_A2438.unk_14) + (lbl_3_bss_A2438.unk_15 * 5)) +
+                            (lbl_3_bss_A2438.unk_12)) >= (s32)(t3 & 0xFF)) {
+                        lbl_3_bss_A2438.unk_15--;
+                    }
+                }
+            } else if (lbl_3_bss_A2438.unk_15 < 3) {
+                t3 = fn_3_14064();
+                if (((lbl_3_bss_A2438.unk_12) + (((lbl_3_bss_A2438.unk_15 + 1) * 5) +
+                        (lbl_3_bss_A2438.unk_14))) < (s32)(t3 & 0xFF)) {
+                    fn_1_A2D84(0xA9150600);
+                    lbl_3_bss_A2438.unk_15++;
+                }
+            }
+        }
+    }
+
+    entries_2 = (struct fn_3_1A648_lbl_1_bss_9F8_8_E20 *)((u8 *)&lbl_1_bss_9F8 + 8);
+
+    if (((entries_2[lbl_3_bss_A2438.unk_0].unk_0 >> 8) & 1) != 0) {
+        t4 = fn_3_1401C();
+        t5 = fn_3_1402C((u8)((((lbl_3_bss_A2438.unk_12) + (lbl_3_bss_A2438.unk_14)) +
+                              (lbl_3_bss_A2438.unk_15 * 5))));
+        if (!__rlwnm(lbl_3_bss_A2438.unk_8, 2, 31, 31)) {
+            lbl_3_bss_A2438.unk_8 = lbl_3_bss_A2438.unk_8 | 0x40000000;
+        } else if (lbl_3_bss_A2438.unk_10 != 0) {
+            if (t5 != 0) {
+                fn_80008BA8(t4, t5, 0x2000);
+            } else {
+                fn_80008BEC((void *)t4, 0, 1);
+            }
+            lbl_3_bss_A2438.unk_8 = lbl_3_bss_A2438.unk_8 & ~0x40000000;
+            lbl_3_bss_A2438.unk_4 = 0x40000000;
+            lbl_3_bss_A2438.unk_E = 0;
+            lbl_3_bss_A2438.unk_10 = 0;
+            fn_3_1445C();
+            fn_1_A2D84(0xA9150400);
+        } else {
+            lbl_3_bss_A2438.unk_8 = lbl_3_bss_A2438.unk_8 & ~0x40000000;
+            lbl_3_bss_A2438.unk_10 = 0;
+        }
+    }
+
+    if (((entries_2[lbl_3_bss_A2438.unk_0].unk_0 >> 9) & 1) != 0) {
+        if (__rlwnm(lbl_3_bss_A2438.unk_8, 2, 31, 31)) {
+            lbl_3_bss_A2438.unk_8 = lbl_3_bss_A2438.unk_8 & ~0x40000000;
+            lbl_3_bss_A2438.unk_10 = 0;
+        } else {
+            lbl_3_bss_A2438.unk_10 = 0;
+            fn_1_A2D84(0xA9150500);
+            lbl_3_bss_A2438.unk_4 = 0x40000000;
+            lbl_3_bss_A2438.unk_E = 0;
+        }
+    }
+}
+#pragma opt_propagation reset
+#pragma opt_pointer_analysis reset
+/* fzgx:end fn_3_1A648 */
 
 /* fzgx:begin fn_3_1AB34 */
 extern void fn_3_146C0(void *, s16, s16, s16, u32 *);

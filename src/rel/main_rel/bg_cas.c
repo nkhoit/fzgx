@@ -289,6 +289,131 @@ void fn_1_FB9DC(int index) {
 }
 /* fzgx:end fn_1_FB9DC */
 
+/* fzgx:begin fn_1_FBC5C noprologue */
+#include "types.h"
+
+typedef struct {
+    f32 v[27];
+} CasPool;
+extern CasPool lbl_1_rodata_7590;
+
+typedef struct {
+    u8 pad_0[0x18];
+    f32 unk_18;
+    f32 unk_1C;
+    f32 unk_20;
+    f32 unk_24;
+    f32 unk_28;
+    f32 unk_2C;
+    f32 unk_30;
+    f32 unk_34;
+    f32 unk_38;
+    u8 pad_3C[0x24];
+} CasSub;
+
+typedef struct {
+    CasSub a[3];
+    CasSub b[3];
+    u8 pad_240[0x14];
+    u8 unk_254[3];
+    u8 pad_257;
+    f32 unk_258[3];
+    f32 unk_264[3];
+} CasEntry;
+
+extern CasEntry lbl_1_bss_84454[];
+
+void fn_1_FBC5C(u8 idx) {
+    CasEntry * p;
+    f32 *k = (f32 *)&lbl_1_rodata_7590;
+    int i;
+    p = &lbl_1_bss_84454[idx];
+
+    for (i = 0; i < 3; i++) {
+        p->a[i].unk_18 = k[2];
+        p->a[i].unk_1C = k[2];
+        p->a[i].unk_20 = k[2];
+        p->a[i].unk_30 = k[9];
+        p->a[i].unk_34 = k[9];
+        p->a[i].unk_38 = k[9];
+        p->b[i].unk_18 = (i == 1) ? k[10] : k[2];
+        p->b[i].unk_1C = k[2];
+        p->b[i].unk_20 = k[2];
+        p->b[i].unk_24 = k[2];
+        p->b[i].unk_28 = k[2];
+        p->b[i].unk_2C = k[2];
+        p->unk_258[i] = k[11];
+        p->unk_264[i] = k[12];
+        p->unk_254[i] = 0;
+    }
+
+    for (i = 0; i < 3; i++) {
+        switch (idx) {
+        case 0:
+            p->a[i].unk_24 = k[13];
+            p->a[i].unk_28 = k[14];
+            p->b[i].unk_30 = k[15];
+            p->b[i].unk_34 = k[15];
+            break;
+        case 1:
+            p->a[i].unk_24 = k[16];
+            p->a[i].unk_28 = k[17];
+            p->b[i].unk_30 = k[18];
+            p->b[i].unk_34 = k[15];
+            break;
+        case 2:
+            p->b[i].unk_30 = k[9];
+            p->b[i].unk_34 = k[9];
+            break;
+        case 3:
+            p->b[i].unk_30 = k[9];
+            p->b[i].unk_34 = k[9];
+            break;
+        case 4:
+            p->b[i].unk_30 = k[9];
+            p->b[i].unk_34 = k[15];
+            p->unk_258[i] = k[19];
+            p->unk_264[i] = k[20];
+            break;
+        }
+        p->b[i].unk_24 = p->a[i].unk_24 / k[21];
+        p->b[i].unk_28 = p->a[i].unk_28 / k[21];
+    }
+
+    switch (idx) {
+    case 0:
+        break;
+    case 1:
+        p->unk_258[0] = k[18];
+        p->unk_264[0] = k[18];
+        p->b[0].unk_24 = k[22];
+        p->b[0].unk_28 = k[22];
+        break;
+    case 2:
+        p->b[0].unk_24 = k[23];
+        p->b[0].unk_28 = k[23];
+        p->unk_258[0] = k[2];
+        p->unk_264[0] = k[18];
+        p->unk_264[2] = k[24];
+        break;
+    case 3:
+        p->b[0].unk_24 = k[25];
+        p->b[0].unk_28 = k[2];
+        p->unk_258[0] = k[11];
+        p->unk_264[0] = k[12];
+        p->b[2].unk_24 = k[26];
+        p->b[2].unk_28 = k[2];
+        p->b[2].unk_30 = k[15];
+        p->b[2].unk_34 = k[15];
+        p->unk_258[2] = k[19];
+        p->unk_264[2] = k[19];
+        break;
+    case 4:
+        break;
+    }
+}
+/* fzgx:end fn_1_FBC5C */
+
 /* fzgx:begin fn_1_FBEA8 */
 extern void lbl_8006DB74(void *);
 
@@ -644,6 +769,139 @@ void fn_1_FD388(void) {
 }
 /* fzgx:end fn_1_FD388 */
 
+/* fzgx:begin fn_1_FD3A8 noprologue */
+#include "types.h"
+#include "rel/main_rel/bg_cas.h"
+
+typedef enum { TF5 = 5 } Sig_GXInitTexObj_GXTexFmt;
+typedef enum { WRAP0 = 0 } Sig_GXInitTexObj_GXTexWrapMode;
+typedef enum { FILTER1 = 1 } Sig_GXInitTexObjLOD_GXTexFilter;
+typedef enum { ANISO0 = 0 } Sig_GXInitTexObjLOD_GXAnisotropy;
+typedef u8 Sig_GXInitTexObjLOD_GXBool;
+typedef struct { u32 dummy[8]; } Sig_GXInitTexObj_GXTexObj;
+typedef struct { u32 texture_filter, texture_lod, texture_size, texture_address, user_data, texture_format, tlut_name; u16 texture_time_count; u8 texture_tile_type, texture_flags; } Sig_GXInitTexObjLOD_GXTexObj;
+extern void GXInitTexObj(Sig_GXInitTexObj_GXTexObj *, void *, u16, u16, Sig_GXInitTexObj_GXTexFmt, Sig_GXInitTexObj_GXTexWrapMode, Sig_GXInitTexObj_GXTexWrapMode, u8);
+extern void GXInitTexObjLOD(Sig_GXInitTexObjLOD_GXTexObj *, Sig_GXInitTexObjLOD_GXTexFilter, Sig_GXInitTexObjLOD_GXTexFilter, f32, f32, f32, Sig_GXInitTexObjLOD_GXBool, Sig_GXInitTexObjLOD_GXBool, Sig_GXInitTexObjLOD_GXAnisotropy);
+extern u32 GXLoadTexMtxImm(u32,u32,u32);
+struct fn_1_FD3A8_lbl_1_rodata_7600 {
+ u8 pad_0[0xC]; f32 unk_C; u8 pad_10[4]; f32 unk_14; u8 pad_18[4]; f32 unk_1C; u8 pad_20[0x28]; u32 unk_48; f32 unk_4C;
+};
+struct fn_1_FD3A8_lbl_801A6D00 { u32 unk_0; };
+extern struct fn_1_FD3A8_lbl_1_rodata_7600 lbl_1_rodata_7600;
+extern struct fn_1_FD3A8_lbl_801A6D00 lbl_801A6D00;
+extern u32 fn_800371F8(u32,void *);
+extern u32 lbl_8006DCA4(void);
+extern void fn_1_57720(u32,u32,u32,u32);
+extern void fn_80015C1C(void *,f32,f32,f32,f32,f32,f32,f32,f32,f32);
+extern void fn_8003462C(u32,u32,u32);
+extern void fn_800720B0(u32);
+extern void fn_8007245C(u32);
+extern void fn_800724C8(void);
+extern void fn_80072558(void);
+extern void fn_80072864(u32);
+extern void fn_800728A8(s32,s32,s32,s32);
+extern void fn_80072AB0(s32,s32,s32);
+extern void fn_80072C24(s32,s32,s32,s32,s32);
+extern void fn_80072CC4(s32,s32,s32,s32,s32);
+extern void fn_80072D64(s32,s32,s32,s32,u8,s32);
+extern void fn_80072E20(s32,s32,s32,s32,u8,s32);
+extern void fn_800734A8(u32,s32,s32,s32);
+extern void fn_80073678(u32);
+extern void fn_80073778(void *,s32);
+extern void fn_80073898(u32);
+extern void fn_80073C6C(s32);
+extern void fn_800745A4(u32,s32,s32,u32,u32,u32);
+extern void fn_80074660(u32);
+extern void fn_80074788(u32);
+extern void fn_800747D0(u32,u32,s32,s32,u32,s32,s32);
+extern void fn_80074918(u8,s32,u8);
+extern void lbl_8006DB74(void *);
+extern void lbl_8006DBAC(void *);
+extern void lbl_8006DD7C(void);
+extern void lbl_8006DFC4(void *);
+#pragma opt_lifetimes off
+void fn_1_FD3A8(void *arg0, f32 arg1) {
+    f32 r2;
+    f32 r1;
+ struct fn_1_FD3A8_lbl_1_rodata_7600 *p_pool;
+ f32 v9;
+ f32 v0;
+ f32 v1;
+ f32 v4;
+ f32 v3;
+ f32 v5;
+ f32 v6;
+ struct {u32 a[12];} loc_78,loc_48,loc_18;
+ u32 loc_10[2]; void *lab_t1;
+ v0=*(f32 *)((u8 *)arg0+64);
+ p_pool=(struct fn_1_FD3A8_lbl_1_rodata_7600 *)&lbl_1_rodata_7600;
+ v1=*(f32 *)((u8 *)arg0+68);
+ v3=v0*arg1; v4=(-v0)*arg1; v5=(-v1)*arg1; v6=v1*arg1;
+ fn_80072558();
+ lbl_8006DB74((void *)(lbl_801A6D00.unk_0+96));
+ lbl_8006DD7C(); lbl_8006DB74(&loc_78); lbl_8006DCA4(); lbl_8006DFC4(&loc_78);
+ fn_80072558(); fn_1_57720(1,1,1,0);
+ {f32 d=lbl_1_bss_850D8-lbl_1_bss_850D4; f32 m=p_pool->unk_C*d; v9=lbl_1_bss_850D4+m;}
+ lbl_8006DBAC(&loc_78);
+ {
+ f32 r0;
+ f32 t;
+
+
+ t=-v9;
+ r0=*(f32 *)((u8 *)0xE0000000+8); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r1=*(f32 *)((u8 *)0xE0000000+0x18); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r2=*(f32 *)((u8 *)0xE0000000+0x28); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r0=((((r0)) * ((t))))+*(f32 *)((u8 *)0xE0000000+0xc); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r1=r1*t+*(f32 *)((u8 *)0xE0000000+0x1c); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r2=((((r2)) * ((t))))+*(f32 *)((u8 *)0xE0000000+0x2c); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ *(f32 *)((u8 *)0xE0000000+0xc)=r0; // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ *(f32 *)((u8 *)0xE0000000+0x1c)=r1; // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ *(f32 *)((u8 *)0xE0000000+0x2c)=r2; // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ }
+ lbl_8006DB74(&loc_48); lbl_8006DCA4(); lbl_8006DFC4(&loc_48); fn_80072558();
+ {f32 h=p_pool->unk_14; fn_80015C1C(&loc_18,v5,v6,v4,v3,lbl_1_bss_850D4,h,h,h,h);}
+ lbl_8006DBAC(&loc_18); lbl_8006DFC4((void *)(lbl_801A6D00.unk_0+96));
+ {
+ f32 r0;
+ f32 t;
+
+
+ t=p_pool->unk_4C-v9;
+ r0=*(f32 *)((u8 *)0xE0000000+8); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r1=*(f32 *)((u8 *)0xE0000000+0x18); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r2=*(f32 *)((u8 *)0xE0000000+0x28); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r0=((((r0)) * ((t))))+*(f32 *)((u8 *)0xE0000000+0xc); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r1=r1*t+*(f32 *)((u8 *)0xE0000000+0x1c); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ r2=((((r2)) * ((t))))+*(f32 *)(((0x2c) + ((u8 *)0xE0000000))); // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ *(f32 *)((u8 *)0xE0000000+0xc)=r0; // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ *(f32 *)((u8 *)0xE0000000+0x1c)=r1; // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ *(f32 *)((u8 *)0xE0000000+0x2c)=r2; // fzgx-allow: A2 literal is a data constant in this table, not a pointer cast
+ }
+ GXInitTexObj((Sig_GXInitTexObj_GXTexObj *)((u8 *)lbl_1_data_3EFA8+0x20),(u8 *)arg0+0x60,64,64,5,0,0,0);
+ {f32 z=p_pool->unk_C; GXInitTexObjLOD((Sig_GXInitTexObjLOD_GXTexObj *)((u8 *)lbl_1_data_3EFA8+0x20),1,1,z,z,z,0,0,0);}
+ fn_800724C8(); fn_8007245C(0x2200); loc_10[0]=p_pool->unk_48;
+ fn_80074788(1); fn_800747D0(4,0,0,0,0,2,2); loc_10[1]=loc_10[0]; lab_t1=&loc_10[1]; fn_800371F8(1,lab_t1);
+ fn_80074918(1,7,0); fn_800728A8(1,4,5,0); fn_800720B0(0); fn_80072864(2);
+ fn_80073778((void *)((u8 *)lbl_1_data_3EFA8+0x20),0);
+ GXLoadTexMtxImm(lbl_801A6D00.unk_0,30,0);
+ fn_80074660(1); fn_800745A4(0,0,0,30,0,125); fn_80073678(1); fn_80073898(0); fn_80073C6C(0);
+ fn_80072AB0(0,0,0); fn_800734A8(0,0,0,4); fn_80072C24(0,2,8,3,15);
+ fn_80072D64(0,0,0,0,1,0); fn_80072CC4(0,7,4,1,7); fn_80072E20(0,0,0,0,1,0);
+ {f32 d=lbl_1_bss_850D8-lbl_1_bss_850D4; f32 m=v9*d; f32 n=lbl_1_bss_850D4+m; v9=n/lbl_1_bss_850D4;}
+ fn_8003462C(128,0,4);
+ {f32 a=v9*v4; f32 c=v9*v6; f32 d=v9*v3; f32 b=v9*v5;
+#define FIFO(x) *(volatile f32 *)((u8 *)0xCC010000-32768) = (x) // fzgx-allow: A2,S2 literal is a data constant in this table, not a pointer cast
+ FIFO(a); FIFO(b); FIFO(p_pool->unk_C); FIFO(p_pool->unk_C); FIFO(p_pool->unk_C);
+ FIFO(a); FIFO(c); FIFO(p_pool->unk_C); FIFO(p_pool->unk_C); FIFO(p_pool->unk_1C);
+ FIFO(d); FIFO(c); FIFO(p_pool->unk_C); FIFO(p_pool->unk_1C); FIFO(p_pool->unk_1C);
+ FIFO(d); FIFO(b); FIFO(p_pool->unk_C); FIFO(p_pool->unk_1C); FIFO(p_pool->unk_C);
+#undef FIFO
+ }
+}
+#pragma opt_lifetimes reset
+/* fzgx:end fn_1_FD3A8 */
+
 /* fzgx:begin fn_1_FDB40 */
 // Checks the state fields and returns whether the object is active.
 
@@ -995,6 +1253,169 @@ void fn_1_FED34(void *arg0) {
     } while (var_r30 < 0x64);
 }
 /* fzgx:end fn_1_FED34 */
+
+/* fzgx:begin fn_1_FFC60 noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/bg_cas.h"
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 0.0f;
+}
+static const u32 fzgx_pool_table2[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep2(void) { const u32 *volatile cp; cp = fzgx_pool_table2; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime3(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 1.0f;
+    s = 6600.0f;
+    s = 110.0f;
+    s = 60.0f;
+    s = 15.0f;
+}
+static const u32 fzgx_pool_table4[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep4(void) { const u32 *volatile cp; cp = fzgx_pool_table4; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime5(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    d = 4503601774854144.0;
+}
+static const u32 fzgx_pool_table6[3] = {0x00000000, 0x00000000, 0xBF800000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep6(void) { const u32 *volatile cp; cp = fzgx_pool_table6; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime7(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 100.0f;
+    s = 300.0f;
+    s = 32767.0f;
+    s = 4.0f;
+    s = 10.0f;
+    s = 2.0f;
+    s = 200.0f;
+    s = 400.0f;
+    s = 2500.0f;
+    s = 1000.0f;
+    s = 1400.0f;
+    d = 0.5;
+    d = 5.0;
+    s = 7.0f;
+    s = 2.5f;
+    s = 768.0f;
+}
+static const u32 fzgx_pool_table8[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep8(void) { const u32 *volatile cp; cp = fzgx_pool_table8; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime9(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    d = 4503599627370496.0;
+    s = 0.10000000149011612f;
+    s = 0.5f;
+    s = 0.25f;
+    s = 0.05000000074505806f;
+    s = -2000.0f;
+    s = 1.0199999809265137f;
+    s = 30.0f;
+    s = 22.0f;
+    d = 0.9;
+    s = 0.6000000238418579f;
+    s = 0.4000000059604645f;
+    s = 255.0f;
+    s = 0.800000011920929f;
+    s = 0.30000001192092896f;
+    s = 1.2999999523162842f;
+    s = 0.7071067690849304f;
+}
+static const u32 fzgx_pool_table10[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep10(void) { const u32 *volatile cp; cp = fzgx_pool_table10; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime11(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    d = 0.1;
+    d = 1280.0;
+    s = 0.8999999761581421f;
+}
+static const u32 fzgx_pool_table12[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep12(void) { const u32 *volatile cp; cp = fzgx_pool_table12; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime13(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    d = 0.98;
+    s = 20.0f;
+    s = 0.20000000298023224f;
+    s = 6.0f;
+    s = 0.019999999552965164f;
+}
+#pragma section code_type ".text"
+
+struct fn_1_FFC60_lbl_1_rodata_76A8 {
+    f32 unk_0;
+    u8 pad_4[0x4];
+    f32 unk_8;
+    u8 pad_C[0xC];
+    f32 unk_18;
+    u8 pad_1C[0x20];
+    f32 unk_3C;
+    u8 pad_40[0x40];
+    f64 unk_80;
+    u8 pad_88[0x70];
+    f32 unk_F8;
+    f32 unk_FC;
+};
+extern u32 fn_1_584AC(void);
+extern u32 fn_1_58C4(void);
+
+void fn_1_FFC60(void *arg0) {
+    s32 v11;
+    void *v2;
+    f32 v3;
+    f32 v4;
+    u32 v5;
+    f32 v6;
+    f32 v7;
+    f32 v8;
+    u32 v9;
+    f32 v0;
+    u32 t2;
+    s32 t3;
+    u32 t4;
+    u32 t5;
+    if (fn_1_58C4() < 2) {
+        *(u32 *)((u8 *)arg0 + 16) = 1;
+    } else {
+        *(u32 *)((u8 *)arg0 + 16) = 0;
+        return;
+    }
+    v0 = 0.0f;
+    *(f32 *)((u8 *)arg0 + 12) = v0;
+    v2 = (u8 *)arg0 + 20;
+    v3 = 32767.0f;
+    v4 = 6.0f;
+    v5 = *(u32 *)((u8 *)lbl_1_bss_38458->unk_8 + 160);
+    v6 = 1.0f;
+    v7 = 0.02f;
+    v8 = 15.0f;
+    *(u32 *)((u8 *)arg0 + 0) = *(u32 *)((u8 *)v5 + 36);
+    *(u32 *)((u8 *)arg0 + 4) = *(u32 *)((u8 *)v5 + 36);
+    v11 = 20;
+    do {
+        *(f32 *)((u8 *)v2 + 0) = v4 * ((f32)(u32)((fn_1_584AC()) & 0xFFFF) / v3);
+        t2 = fn_1_584AC();
+        *(f32 *)((u8 *)v2 + 4) = v4 * ((f32)(u32)(t2 & 0xFFFF) / v3);
+        t3 = fn_1_584AC();
+        *(f32 *)((u8 *)v2 + 8) = v4 * ((f32)(u32)(t3 & 0xFFFF) / v3);
+        {
+            struct Copy3 { u32 x, y, z; };
+            *(struct Copy3 *)((u8 *)v2 + 12) = *(struct Copy3 *)v2;
+        }
+        *(f32 *)((u8 *)v2 + 24) = v0;
+        *(f32 *)((u8 *)v2 + 28) = v0;
+        *(f32 *)((u8 *)v2 + 32) = v0;
+        *(f32 *)((u8 *)v2 + 36) = v0;
+        *(f32 *)((u8 *)v2 + 44) = v7 * (v6 + (f32)((f32)(u32)(fn_1_584AC() & 0xFFFF) / v3));
+        *(f32 *)((u8 *)v2 + 40) = *(f32 *)((u8 *)v2 + 44);
+        t5 = fn_1_584AC();
+        --v11;
+        *(u32 *)((u8 *)v2 + 48) = (s32)(v8 * ((f32)(u32)(t5 & 0xFFFF) / v3));
+        v2 = (u8 *)v2 + 52;
+    } while (v11 > 0);
+}
+/* fzgx:end fn_1_FFC60 */
 
 /* fzgx:begin fn_1_1011CC */
 void fn_1_1011CC(int arg0, int arg1) {
