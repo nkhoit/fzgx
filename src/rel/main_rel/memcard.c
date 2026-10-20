@@ -50,6 +50,82 @@ extern s32 fn_80030338(s32 chan, void *oldName, void *newName);
 extern const f64 lbl_1_rodata_4CB8;
 extern void fn_1_C36EC(void);
 
+/* fzgx:begin fn_1_AAEB0 noprologue */
+#include "types.h"
+
+struct fn_1_AAEB0_Arg0 {
+    u8 unk_0;
+    u8 pad_1[0x4];
+    u8 unk_5;
+    u8 pad_6[0x1E];
+    u32 unk_24;
+};
+struct fn_1_AAEB0_lbl_1_data_35AC8 {
+    u8 pad_0[0x6AC4];
+    u32 unk_6AC4[1];
+};
+
+extern struct fn_1_AAEB0_lbl_1_data_35AC8 lbl_1_data_35AC8;
+extern void OSPanic(const char *, int, const char *, ...);
+extern void OSReport(const char *, ...);
+
+static inline u32 *fn_1_AAEB0_array_read(u32 *array) { return array; }
+#pragma opt_propagation off
+void fn_1_AAEB0(struct fn_1_AAEB0_Arg0 *arg0) {
+    struct fn_1_AAEB0_lbl_1_data_35AC8 *p_lbl_1_data_35AC8;
+    p_lbl_1_data_35AC8 = (struct fn_1_AAEB0_lbl_1_data_35AC8 *)&lbl_1_data_35AC8;
+    OSReport((const char *)(u32)((u8 *)(u32)p_lbl_1_data_35AC8 + 28000), arg0->unk_0, *(u32 *)((u8 *)arg0->unk_24 + 4), fn_1_AAEB0_array_read(p_lbl_1_data_35AC8->unk_6AC4)[arg0->unk_5]);
+    OSPanic((const char *)(u32)((u8 *)(u32)p_lbl_1_data_35AC8 + 27888), 1322, (const char *)(u32)((u8 *)(u32)p_lbl_1_data_35AC8 + 28044));
+}
+#pragma opt_propagation reset
+/* fzgx:end fn_1_AAEB0 */
+
+/* fzgx:begin fn_1_AAF18 */
+// fn_1_AAF18: empty in retail (single blr).
+void fn_1_AAF18(void) {
+}
+/* fzgx:end fn_1_AAF18 */
+
+/* fzgx:begin fn_1_AB434 */
+// fn_1_AB434: empty in retail (single blr).
+void fn_1_AB434(void) {
+}
+/* fzgx:end fn_1_AB434 */
+
+/* fzgx:begin fn_1_AB438 */
+typedef struct Fn1AB438Data {
+    u8 pad_00[8];
+    s16 field_08;
+    s16 field_0A;
+    u8 pad_0C[0x1e];
+    u8 field_2A;
+} Fn1AB438Data;
+
+void fn_1_AB438(Fn1AB438Data *data) {
+    data->field_08 = 30;
+    data->field_0A = 14;
+    data->field_2A |= 4;
+}
+/* fzgx:end fn_1_AB438 */
+
+/* fzgx:begin fn_1_AB458 */
+// fn_1_AB458: empty in retail (single blr).
+void fn_1_AB458(void) {
+}
+/* fzgx:end fn_1_AB458 */
+
+/* fzgx:begin fn_1_AB45C noprologue */
+#include "types.h"
+#include "rel/main_rel/globals.h"
+#include "rel/main_rel/driver.h"
+
+extern u8 lbl_1_bss_716C8[320];
+
+void fn_1_AB45C(int index) {
+    lbl_1_bss_716C8[index * 0xa0 + 7] = 1;
+}
+/* fzgx:end fn_1_AB45C */
+
 /* fzgx:begin fn_1_AB478 */
 #include "rel/main_rel/memcard.h"
 
@@ -9102,9 +9178,3 @@ void fn_1_C37A0(void) {
     lbl_1_bss_772C8[0] = 0;
 }
 /* fzgx:end fn_1_C37A0 */
-
-/* fzgx:begin fn_1_C39FC */
-u32 fn_1_C39FC(void) {
-    return lbl_1_data_3D230;
-}
-/* fzgx:end fn_1_C39FC */

@@ -493,6 +493,33 @@ void fn_1_485C8(u32 arg0) {
 }
 /* fzgx:end fn_1_485C8 */
 
+/* fzgx:begin fn_1_485E8 */
+extern u8 lbl_1_bss_3E024[52];
+extern char lbl_1_data_1A3AC[5];
+extern void fn_80083DB0(void *arg0, void *arg1);
+// lbl_1_data_19FC4: .data size 0x2F0, 1 refs from load.c (own data block)
+extern u8 lbl_1_data_19FC4[0x2F0];
+// lbl_1_data_19098: .data size 0x2F0, 1 refs from load.c (own data block)
+extern u8 lbl_1_data_19098[0x2F0];
+
+// Find the resource matching value, load its data, and return the destination buffer.
+void *fn_1_485E8(s32 index, s32 value) {
+    s32 entry = 0;
+
+    while (((s16 **)lbl_1_data_19FC4)[index][entry] != -1) {
+        if (((s16 **)lbl_1_data_19FC4)[index][entry] == value) {
+            fn_80083DB0(lbl_1_bss_3E024,
+                        ((void ***)lbl_1_data_19098)[index][entry]);
+            return lbl_1_bss_3E024;
+        }
+        entry++;
+    }
+
+    fn_80083DB0(lbl_1_bss_3E024, lbl_1_data_1A3AC);
+    return lbl_1_bss_3E024;
+}
+/* fzgx:end fn_1_485E8 */
+
 /* fzgx:begin fn_1_48690 */
 // Return the current bitmap width, or the default width when no bitmap is active.
 u16 fn_1_48690(u32 unused) {
@@ -565,14 +592,3 @@ void fn_1_48780(void) {
     }
 }
 /* fzgx:end fn_1_48780 */
-
-/* fzgx:begin fn_1_4AEE8 */
-u32 fn_1_4AEE8(u32 value) {
-    u32 previous = lbl_1_data_1BCC4;
-
-    lbl_1_bss_3E05C = lbl_1_rodata_10C0[0];
-    lbl_1_data_1BCC4 = value;
-
-    return previous;
-}
-/* fzgx:end fn_1_4AEE8 */

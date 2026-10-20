@@ -29,6 +29,14 @@ extern void *fn_1_46B4(u32 arg0, void *arg1, u8 *arg2, u32 arg3);
 extern void strcat(void *arg0, void *arg1);
 extern void fn_1_48004(s32 value, s32 arg);
 
+/* fzgx:begin fn_1_451D4 */
+extern u32 lbl_1_bss_384CC;
+
+void fn_1_451D4(void) {
+    lbl_1_bss_384CC = 0;
+}
+/* fzgx:end fn_1_451D4 */
+
 /* fzgx:begin fn_1_45730 noprologue */
 #include "types.h"
 #include "rel/main_rel/load.h"
@@ -682,22 +690,3 @@ void fn_1_47A60(s16 index) {
     }
 }
 /* fzgx:end fn_1_47A60 */
-
-/* fzgx:begin fn_1_485E8 */
-// Find the resource matching value, load its data, and return the destination buffer.
-void *fn_1_485E8(s32 index, s32 value) {
-    s32 entry = 0;
-
-    while (((s16 **)lbl_1_data_19FC4)[index][entry] != -1) {
-        if (((s16 **)lbl_1_data_19FC4)[index][entry] == value) {
-            fn_80083DB0(lbl_1_bss_3E024,
-                        ((void ***)lbl_1_data_19098)[index][entry]);
-            return lbl_1_bss_3E024;
-        }
-        entry++;
-    }
-
-    fn_80083DB0(lbl_1_bss_3E024, lbl_1_data_1A3AC);
-    return lbl_1_bss_3E024;
-}
-/* fzgx:end fn_1_485E8 */

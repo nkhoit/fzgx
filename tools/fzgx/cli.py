@@ -304,6 +304,26 @@ def cmd_tu_check(a, p):
 
 
 
+def cmd_tu_bounds(a, p):
+    from . import oracle, tubounds  # scoped: reads the retail REL; only when asked
+    if a.explain:
+        print("\n".join(tubounds.explain(p, a.module, a.explain))); return 0
+    if a.write:
+        cuts = dict(c.split("=", 1) for c in a.cut)
+        with oracle.build_lock():
+            r = tubounds.repair(p, a.module, cuts)
+            r["ok"] = oracle.configure(p).returncode == 0 and oracle.relink(p).returncode == 0
+        _print(r, a.json); return 0 if r["ok"] else 1
+    r = tubounds.check(p, a.module)
+    if a.json:
+        _print(r, True)
+    else:
+        for f in r["findings"]:
+            print(f"{f['tu']:18s} {f['kind']:10s} {f['detail']}")
+        print(f"{len(r['flagged'])} TUs flagged" + (": " + ", ".join(r["flagged"]) if r["flagged"] else ""))
+    return 1 if r["flagged"] else 0
+
+
 def cmd_tu_finish(a, p):
     from . import finish  # scoped: the whole pass only when asked
     r = finish.finish(p, a.module)
@@ -457,6 +477,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--module", default="main_rel"); s.add_argument("--no-verify", action="store_true")
     s = sub.add_parser("tu-check", help="compile a whole TU file as one unit (the goal state)"); s.set_defaults(fn=cmd_tu_check)
     s.add_argument("tu", help="e.g. rel/main_rel/camera.c"); s.add_argument("-v", "--verbose", action="store_true")
+    s = sub.add_parser("tu-bounds", help="cross-check tus.json against the retail data references (pins, strings, data order, shared pools); --write applies reviewed --cut values, rebuilds the function lists and moves blocks to their TU files"); s.set_defaults(fn=cmd_tu_bounds)
+    s.add_argument("--module", default="main_rel"); s.add_argument("--explain", metavar="TU", help="per-function data co-use around the boundary after TU (e.g. alloc.c)")
+    s.add_argument("--cut", action="append", default=[], metavar="TU=FN", help="with --write: the next TU after TU starts at FN (repeatable)")
+    s.add_argument("--write", action="store_true", help="rewrite tus.json from the (cut) ranges, move blocks, relink-verify")
     s = sub.add_parser("tu-finish", help="one pass over every TU of a module: include, tidy, hoist, reflag, collapse complete TUs; prints the revise queue"); s.set_defaults(fn=cmd_tu_finish)
     s.add_argument("--module", default="main_rel"); s.add_argument("-v", "--verbose", action="store_true")
     s = sub.add_parser("sdkimport", help="import saved SDK C signatures with shared declarations and verified relocation bindings"); s.set_defaults(fn=cmd_sdkimport)
