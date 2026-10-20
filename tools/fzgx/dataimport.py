@@ -708,7 +708,7 @@ def _install(p, records, scratch):
             p.save_units(units)
             provenance.parent.mkdir(parents=True, exist_ok=True)
             provenance.write_text(json.dumps(saved, indent=2, sort_keys=True) + '\n')
-        for command in ([sys.executable, 'configure.py', '--version', p.version], ['ninja'],
+        for command in (oracle.configure_command(p), ['ninja'],
                         ['build/tools/dtk', 'shasum', '-q', '-c', f'config/{p.version}/build.sha1']):
             cp = oracle.run(command, timeout=1800)
             if cp.returncode:

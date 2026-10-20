@@ -128,6 +128,12 @@ def cmd_check(a, p):
     return 0 if r["ok"] and r["matched"] else 1
 
 
+def cmd_quick(a, p):
+    r = api.quick(p, a.symbol, a.file, a.max_diff_lines, a.mw_version, a.extra_cflags)
+    _print(r if a.json else api.format_check(r), a.json)
+    return 2 if not r['ok'] else 0 if r['matched'] or r.get('matched_pool') else 1
+
+
 def cmd_read_evidence(a, p):
     r = api.read_evidence(p, a.symbol, a.section, a.cursor)
     _print(r if a.json else api.format_check(r), a.json)
@@ -218,9 +224,9 @@ def cmd_verify(a, p):
         if a.interval <= 0:
             raise ValueError('--interval must be positive')
         from . import verify
-        verify.watch(p.version, a.interval, a.until_pid, a.stop_file, a.message)
+        verify.watch(p.version, a.interval, a.until_pid, a.stop_file, a.message, a.trailer)
         return 0
-    r = api.verify_links(p, a.message)
+    r = api.verify_links(p, a.message, a.trailer)
     _print(r, a.json); return 0 if r.get("ok") else 1
 
 
@@ -302,6 +308,26 @@ def cmd_tu_check(a, p):
 
 
 
+
+
+def cmd_tu_bounds(a, p):
+    from . import oracle, tubounds  # scoped: reads the retail REL; only when asked
+    if a.explain:
+        print("\n".join(tubounds.explain(p, a.module, a.explain))); return 0
+    if a.write:
+        cuts = dict(c.split("=", 1) for c in a.cut)
+        with oracle.build_lock():
+            r = tubounds.repair(p, a.module, cuts)
+            r["ok"] = oracle.configure(p).returncode == 0 and oracle.relink(p).returncode == 0
+        _print(r, a.json); return 0 if r["ok"] else 1
+    r = tubounds.check(p, a.module)
+    if a.json:
+        _print(r, True)
+    else:
+        for f in r["findings"]:
+            print(f"{f['tu']:18s} {f['kind']:10s} {f['detail']}")
+        print(f"{len(r['flagged'])} TUs flagged" + (": " + ", ".join(r["flagged"]) if r["flagged"] else ""))
+    return 1 if r["flagged"] else 0
 
 
 def cmd_tu_finish(a, p):
@@ -423,6 +449,10 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("check", help="compile + objdiff one function"); s.set_defaults(fn=cmd_check)
     s.add_argument("symbol"); s.add_argument("--max-diff-lines", type=int, default=80)
     s.add_argument("--versions", help="'all' or comma list, e.g. GC/1.2.5n,GC/1.3.2: compile under each compiler and report %%")
+    s = sub.add_parser("quick", help="compile any C file and diff one function against retail; no claim, ledger or build lock"); s.set_defaults(fn=cmd_quick)
+    s.add_argument("symbol"); s.add_argument("file", type=Path); s.add_argument("--max-diff-lines", type=int, default=80)
+    s.add_argument("--mw-version", help="compiler, e.g. GC/1.3.2 (default: the unit's, else every candidate for the module)")
+    s.add_argument("--extra-cflags", help="extra compiler flags, space separated")
     s = sub.add_parser("submit", help="accept a 100%% match: relink, hash, lint, commit"); s.set_defaults(fn=cmd_submit)
     s.add_argument("symbol"); s.add_argument("--name", dest="agent", default="unknown", help="your name, recorded with attempts"); s.add_argument("--names", help="JSON sidecar of name proposals")
     s.add_argument("--message"); s.add_argument("--max-diff-lines", type=int, default=40)
@@ -457,6 +487,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--module", default="main_rel"); s.add_argument("--no-verify", action="store_true")
     s = sub.add_parser("tu-check", help="compile a whole TU file as one unit (the goal state)"); s.set_defaults(fn=cmd_tu_check)
     s.add_argument("tu", help="e.g. rel/main_rel/camera.c"); s.add_argument("-v", "--verbose", action="store_true")
+    s = sub.add_parser("tu-bounds", help="cross-check tus.json against the retail data references (pins, strings, data order, shared pools); --write applies reviewed --cut values, rebuilds the function lists and moves blocks to their TU files"); s.set_defaults(fn=cmd_tu_bounds)
+    s.add_argument("--module", default="main_rel"); s.add_argument("--explain", metavar="TU", help="per-function data co-use around the boundary after TU (e.g. alloc.c)")
+    s.add_argument("--cut", action="append", default=[], metavar="TU=FN", help="with --write: the next TU after TU starts at FN (repeatable)")
+    s.add_argument("--write", action="store_true", help="rewrite tus.json from the (cut) ranges, move blocks, relink-verify")
     s = sub.add_parser("tu-finish", help="one pass over every TU of a module: include, tidy, hoist, reflag, collapse complete TUs; prints the revise queue"); s.set_defaults(fn=cmd_tu_finish)
     s.add_argument("--module", default="main_rel"); s.add_argument("-v", "--verbose", action="store_true")
     s = sub.add_parser("sdkimport", help="import saved SDK C signatures with shared declarations and verified relocation bindings"); s.set_defaults(fn=cmd_sdkimport)
@@ -514,6 +548,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("sources", nargs="*"); s.add_argument("--stubs", action="store_true")
     s = sub.add_parser("verify", help="relink once for all accepted units, verify hashes, commit; bisect on failure"); s.set_defaults(fn=cmd_verify)
     s.add_argument("--message")
+    s.add_argument("--trailer", action="append", help="commit trailer for the auto-commit, e.g. 'Co-Authored-By: Name <mail>'; "
+                   "repeatable, added after the lines of $FZGX_COMMIT_TRAILERS (which tu-finish and trivial commits use too)")
     s.add_argument('--watch', action='store_true', help='verify completed matches periodically, independent of model sessions')
     s.add_argument('--interval', type=float, default=60, help='seconds between pending-work checks in watch mode')
     s.add_argument('--until-pid', type=int, help='watch until this parent exits, then drain once more')

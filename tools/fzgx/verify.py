@@ -57,7 +57,7 @@ def _relink(p: Project) -> bool:
 
 
 @oracle.build_lock('submit.lock', timeout_s=1800)
-def verify(p: Project, message: Optional[str] = None) -> Dict[str, object]:
+def verify(p: Project, message: Optional[str] = None, trailers: Optional[List[str]] = None) -> Dict[str, object]:
     """Relink with every pending unit Matching; commit on success; bisect on failure."""
     l = Ledger()
     keys = pending(l)
@@ -131,7 +131,8 @@ def verify(p: Project, message: Optional[str] = None) -> Dict[str, object]:
             names = ", ".join(p.key(p.resolve(k)) for k in good[:8]) + (" ..." if len(good) > 8 else "")
             changed = subprocess.run(['git', 'diff', '--cached', '--quiet', '--', *files], cwd=ROOT).returncode
             if changed:
-                subprocess.run(["git", "commit", '--only', "-q", "-m", msg + (f" ({names})" if names else ''), '--', *files],
+                subprocess.run(["git", "commit", '--only', "-q", "-m", msg + (f" ({names})" if names else ''),
+                                *oracle.commit_trailers(trailers), '--', *files],
                                cwd=ROOT, capture_output=True, check=True)
             commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True,
                                     capture_output=True).stdout.strip()
@@ -162,7 +163,7 @@ def _bisect(p: Project, keys: List[str], units: Dict[str, str], known_failure=Fa
 
 
 def watch(version: str, interval: float, until_pid: Optional[int] = None,
-          stop_file: Optional[Path] = None, message: Optional[str] = None):
+          stop_file: Optional[Path] = None, message: Optional[str] = None, trailers: Optional[List[str]] = None):
     """Drain completed work periodically; an outlier model cannot delay commits.
 
     Stop signals are observed between transactions, never in the middle of
@@ -179,7 +180,7 @@ def watch(version: str, interval: float, until_pid: Optional[int] = None,
     while True:
         if pending(Ledger()) or (STATE_DIR / 'verify_dependencies.jsonl').exists():
             try:
-                result = verify(Project(version), message)
+                result = verify(Project(version), message, trailers)
             except Exception as error:
                 result = dict(ok=False, error=str(error), verified=[], rejected=[])
             print(json.dumps(dict(timestamp=time.time(), **result)), flush=True)
@@ -194,7 +195,7 @@ def watch(version: str, interval: float, until_pid: Optional[int] = None,
             if stopping:
                 # A submit may have completed during the last sleep.
                 if pending(Ledger()) or (STATE_DIR / 'verify_dependencies.jsonl').exists():
-                    result = verify(Project(version), message)
+                    result = verify(Project(version), message, trailers)
                     print(json.dumps(dict(timestamp=time.time(), **result)), flush=True)
                 return
             remaining = deadline - time.monotonic()
