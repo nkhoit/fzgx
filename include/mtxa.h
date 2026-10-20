@@ -4,33 +4,35 @@
 #include "types.h"
 #include "dolphin/hw_regs.h"
 
-/* Locked-cache matrix kernels recovered from retail code (2026-10-19).
+/* Locked-cache matrix kernels recovered from retail code.
  *
- * mathutil keeps "mtxA" at 0xE0000000 (the locked cache). Retail loads every
- * element a kernel reads before it stores any of them; MWCC treats the constant
- * addresses as possibly aliasing and interleaves loads and stores for plain C,
- * so, as with include/psvec.h, the retail stream only comes from an asm block
- * inlined into the caller. Registers are declared in the order retail assigns
- * them (fn_1_D27B8). */
+ * mathutil keeps "mtxA" at LC_BASE (the locked cache). Retail loads every
+ * element a kernel reads before it stores any of them. This plain C version
+ * gets that instruction order but not retail's FPR assignment, so callers
+ * that use it (fn_1_D27B8) stay non-matching. */
 
 /* mtxA[i][3] += mtxA[i][2] * z */
-static inline void mtxa_translate_z(register f32 z) {
-    register f32 *m = (f32 *)LC_BASE;
-    register f32 m02, m03, m12, m22, m13, m23;
-    asm {
-        lfs m02, 0x8(m)
-        lfs m03, 0xc(m)
-        lfs m12, 0x18(m)
-        lfs m13, 0x1c(m)
-        fmadds m02, m02, z, m03
-        lfs m22, 0x28(m)
-        lfs m23, 0x2c(m)
-        fmadds m12, m12, z, m13
-        stfs m02, 0xc(m)
-        fmadds m22, m22, z, m23
-        stfs m12, 0x1c(m)
-        stfs m22, 0x2c(m)
-    }
+static inline void mtxa_translate_z(f32 z) {
+    f32 *m = (f32 *)LC_BASE;
+    f32 m23;
+    f32 m22;
+    f32 m13;
+    f32 m03;
+    f32 m02;
+    f32 m12;
+
+    m02 = m[2];
+    m03 = m[3];
+    m12 = m[6];
+    m13 = m[7];
+    m22 = m[10];
+    m23 = m[11];
+    m02 = m02 * z + m03;
+    m12 = m12 * z + m13;
+    m22 = m22 * z + m23;
+    m[3] = m02;
+    m[7] = m12;
+    m[11] = m22;
 }
 
 #endif  // MTXA_H
