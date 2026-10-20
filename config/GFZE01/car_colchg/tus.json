@@ -1,26 +1,26 @@
 {
  "module": "car_colchg",
- "unassigned_prefix": [
-  "_prolog",
-  "fn_9_298",
-  "fn_9_2E0"
- ],
+ "unassigned_prefix": [],
  "tus": [
   {
    "file": "car_colchg.c",
    "text": [
-    808,
+    0,
     7344
    ],
    "data_sec": 5,
    "data": [
-    4,
+    0,
     836
    ],
    "anchor_refs": [
+    0,
     808
    ],
    "functions": [
+    "_prolog",
+    "fn_9_298",
+    "fn_9_2E0",
     "_epilog",
     "colchg_menu_init",
     "fn_9_454",
