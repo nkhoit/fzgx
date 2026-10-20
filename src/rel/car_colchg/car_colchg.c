@@ -426,6 +426,8 @@ void colchg_chgcol_init(void) {
     fn_1_4A00(1, 15, sPreviewHeap);
 }
 
+// Channel editor. Reads through `*(ColchgSel **)&sSel` make MWCC reload the selection pointer
+// where retail does (after the pad reads and the color stores); plain `sSel` keeps it cached.
 void fn_9_AF0(void) {
     s16 rgb[3];
     s16 *chan;
@@ -455,7 +457,7 @@ void fn_9_AF0(void) {
             (*(ColchgSel **)&sSel)->channel = value > 2 ? 0 : value < 0 ? 2 : value;
         }
         color = entries[sSel->entry].color;
-        chan = rgb;
+        chan = (0, rgb);  // the comma keeps chan its own pointer; `chan = rgb` is folded into rgb
         rgb[0] = color >> 24;
         rgb[1] = (color >> 16) & 0xFF;
         rgb[2] = (color >> 8) & 0xFF;
@@ -476,8 +478,8 @@ void fn_9_AF0(void) {
             char *names[3] = {"R", "G", "B"};
 
             fn_1_A8EB0(2, 0x14);
-            for (i = 0; i < 3; chan++, i++) {
-                fn_1_A8DD4("%s%s:%d\n", i == sSel->channel ? ">" : " ", names[i], *chan);
+            for (i = 0; i < 3; i++) {
+                fn_1_A8DD4("%s%s:%d\n", i == sSel->channel ? ">" : " ", names[i], chan[i]);
             }
         }
     }
