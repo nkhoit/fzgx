@@ -401,6 +401,26 @@ def check(p: Project, symbol: str, max_diff_lines: int = 80, versions: Optional[
     return _finish_check(p, symbol, out, res)
 
 
+def quick(p: Project, symbol: str, source: Path, max_diff_lines: int = 80, mw_version: Optional[str] = None,
+          extra_cflags: Optional[str] = None) -> Dict[str, Any]:
+    """Compile any C file (wibo + mwcceppc, the module's flags) and diff `symbol` against its retail
+    object. No claim, ledger, work copy or build lock: the scratch loop for trying bodies by hand."""
+    sym = p.resolve(symbol)
+    if sym is None:
+        return dict(ok=False, error='unknown or ambiguous symbol (use module:name)')
+    if not Path(source).is_file():
+        return dict(ok=False, error=f'no such file: {source}')
+    target = p.target_object_for(sym)
+    if target is None or not target.exists():
+        return dict(ok=False, error='no retail object defines this function (run ninja)')
+    unit = p.unit_of(sym)
+    if not (mw_version or extra_cflags) and unit:
+        rec = p.unit_record(unit) or {}
+        mw_version, extra_cflags = rec.get('mw_version'), ' '.join(rec.get('extra_cflags') or []) or None
+    return oracle.check(p, symbol, max_diff_lines, source=Path(source).resolve(),
+                        mw_version=mw_version, extra_cflags=extra_cflags).to_json()
+
+
 def read_evidence(p: Project, symbol: str, section: str = 'diff', cursor: int = 0) -> dict:
     from . import checkview
     if p.resolve(symbol) is None:
@@ -685,9 +705,9 @@ def submit(p: Project, symbol: str, agent: str = "unknown", message: str = "",
             "link": "pool" if res.matched_pool else "pending", "pool": res.pool, "pool_map": res.pool_map}
 
 
-def verify_links(p: Project, message: Optional[str] = None) -> Dict[str, Any]:
+def verify_links(p: Project, message: Optional[str] = None, trailers: Optional[List[str]] = None) -> Dict[str, Any]:
     """Relink once for every accepted-but-unverified unit; commit; bisect on failure."""
-    return verify.verify(p, message)
+    return verify.verify(p, message, trailers)
 
 
 def _set_unit_opts(p: Project, unit_src: str, mw_version: Optional[str], extra_cflags: Optional[str]) -> None:

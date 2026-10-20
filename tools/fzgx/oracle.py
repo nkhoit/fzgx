@@ -93,8 +93,25 @@ def build_lock(name: str = "build.lock", timeout_s: float = 120.0):
             fcntl.flock(f, fcntl.LOCK_UN)
 
 
+def configure_command(project: Project) -> List[str]:
+    """configure.py with the local compilers when build/compilers exists (the cloud setup links
+    it): without --compilers, the regenerated build.ninja downloads them, which a proxy refuses."""
+    cmd = [sys.executable, "configure.py", "--version", project.version]
+    compilers = ROOT / "build" / "compilers"
+    if compilers.is_dir():
+        cmd += ["--compilers", str(compilers.resolve())]
+    return cmd
+
+
 def configure(project: Project) -> subprocess.CompletedProcess:
-    return run([sys.executable, "configure.py", "--version", project.version])
+    return run(configure_command(project))
+
+
+def commit_trailers(extra: Optional[List[str]] = None) -> List[str]:
+    """`git commit --trailer` arguments for the tooling's own commits: each line of
+    FZGX_COMMIT_TRAILERS (e.g. `Co-Authored-By: Name <mail>`), then `extra`."""
+    lines = [l.strip() for l in os.environ.get("FZGX_COMMIT_TRAILERS", "").splitlines()] + list(extra or [])
+    return [arg for line in lines if line.strip() for arg in ("--trailer", line.strip())]
 
 
 def relink(project: Project, keep_going: bool = False) -> subprocess.CompletedProcess:
