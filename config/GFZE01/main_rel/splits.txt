@@ -6634,3 +6634,189 @@ rel/main_rel/sel_static_disp/fn_1_14F6F8.c:
 
 rel/main_rel/sel_static_disp/fn_1_150D3C.c:
 	.text       start:0x00150D3C end:0x00150ED0 align:4
+
+rel/main_rel/accessory/fn_1_10D2F0.c:
+	.text       start:0x0010D2F0 end:0x0010D7D4 align:4
+
+rel/main_rel/effect/fn_1_62C84.c:
+	.text       start:0x00062C84 end:0x00062E9C align:4
+
+rel/main_rel/bg_cas/fn_1_FBC5C.c:
+	.text       start:0x000FBC5C end:0x000FBEA8 align:4
+
+rel/main_rel/bg_cas/fn_1_FD3A8.c:
+	.text       start:0x000FD3A8 end:0x000FD844 align:4
+
+rel/main_rel/bg_cas/fn_1_FFC60.c:
+	.text       start:0x000FFC60 end:0x000FFE7C align:4
+
+rel/main_rel/bg_common/fn_1_10780C.c:
+	.text       start:0x0010780C end:0x00107900 align:4
+
+rel/main_rel/bg_win/fn_1_15C5A4.c:
+	.text       start:0x0015C5A4 end:0x0015C6C0 align:4
+
+rel/main_rel/camera/fn_1_5370.c:
+	.text       start:0x00005370 end:0x000056B8 align:4
+
+rel/main_rel/camera/fn_1_66B8.c:
+	.text       start:0x000066B8 end:0x0000681C align:4
+
+rel/main_rel/camera/fn_1_6D2C.c:
+	.text       start:0x00006D2C end:0x00006DD0 align:4
+
+rel/main_rel/camera/fn_1_B4D4.c:
+	.text       start:0x0000B4D4 end:0x0000B724 align:4
+
+rel/main_rel/car/fn_1_87448.c:
+	.text       start:0x00087448 end:0x000875B4 align:4
+
+rel/main_rel/car_test/fn_1_7E9C4.c:
+	.text       start:0x0007E9C4 end:0x0007EAE8 align:4
+
+rel/main_rel/car/fn_1_83D28.c:
+	.text       start:0x00083D28 end:0x00084038 align:4
+
+rel/main_rel/driver/fn_1_A7294.c:
+	.text       start:0x000A7294 end:0x000A744C align:4
+
+rel/main_rel/driver/fn_1_A8270.c:
+	.text       start:0x000A8270 end:0x000A8528 align:4
+
+rel/main_rel/effect/fn_1_59B90.c:
+	.text       start:0x00059B90 end:0x00059CC4 align:4
+
+rel/main_rel/effect/fn_1_5B450.c:
+	.text       start:0x0005B450 end:0x0005B578 align:4
+
+rel/main_rel/effect/fn_1_5B578.c:
+	.text       start:0x0005B578 end:0x0005B6F0 align:4
+
+rel/main_rel/effect/fn_1_60C88.c:
+	.text       start:0x00060C88 end:0x00060D54 align:4
+
+rel/main_rel/effect/fn_1_620C8.c:
+	.text       start:0x000620C8 end:0x00062360 align:4
+
+rel/main_rel/effect/fn_1_62794.c:
+	.text       start:0x00062794 end:0x00062AF8 align:4
+
+rel/main_rel/effect/fn_1_640A4.c:
+	.text       start:0x000640A4 end:0x000642E8 align:4
+
+rel/main_rel/effect/fn_1_64E1C.c:
+	.text       start:0x00064E1C end:0x00064F2C align:4
+
+rel/main_rel/effect/fn_1_64FB8.c:
+	.text       start:0x00064FB8 end:0x00065268 align:4
+
+rel/main_rel/effect/fn_1_660EC.c:
+	.text       start:0x000660EC end:0x00066254 align:4
+
+rel/main_rel/enemy_ctrl/fn_1_C7874.c:
+	.text       start:0x000C7874 end:0x000C7AA0 align:4
+
+rel/main_rel/enemy_ctrl/fn_1_C7AA0.c:
+	.text       start:0x000C7AA0 end:0x000C7CBC align:4
+
+rel/main_rel/enemy_ctrl/fn_1_CA440.c:
+	.text       start:0x000CA440 end:0x000CA690 align:4
+
+rel/main_rel/enemy_ctrl/fn_1_CB424.c:
+	.text       start:0x000CB424 end:0x000CB6D8 align:4
+
+rel/main_rel/enemy_ctrl/fn_1_CD36C.c:
+	.text       start:0x000CD36C end:0x000CD51C align:4
+
+rel/main_rel/enemy_ctrl/fn_1_CFCA4.c:
+	.text       start:0x000CFCA4 end:0x000CFF94 align:4
+
+rel/main_rel/font/fn_1_4B8DC.c:
+	.text       start:0x0004B8DC end:0x0004BA24 align:4
+
+rel/main_rel/font/fn_1_4BA24.c:
+	.text       start:0x0004BA24 end:0x0004BB5C align:4
+
+rel/main_rel/font/fn_1_4FD64.c:
+	.text       start:0x0004FD64 end:0x00050164 align:4
+
+rel/main_rel/font/fn_1_51E60.c:
+	.text       start:0x00051E60 end:0x00052070 align:4
+
+rel/main_rel/font/fn_1_535A0.c:
+	.text       start:0x000535A0 end:0x00053830 align:4
+
+rel/main_rel/font/fn_1_53B14.c:
+	.text       start:0x00053B14 end:0x00053BD8 align:4
+
+rel/main_rel/font/fn_1_53BD8.c:
+	.text       start:0x00053BD8 end:0x00053C9C align:4
+
+rel/main_rel/font/fn_1_55118.c:
+	.text       start:0x00055118 end:0x00055210 align:4
+
+rel/main_rel/live_camera/fn_1_EBE4.c:
+	.text       start:0x0000EBE4 end:0x0000EE04 align:4
+
+rel/main_rel/motasglist/fn_1_41518.c:
+	.text       start:0x00041518 end:0x00041850 align:4
+
+rel/main_rel/motasglist/fn_1_43264.c:
+	.text       start:0x00043264 end:0x000433A4 align:4
+
+rel/main_rel/phys/fn_1_E2AE8.c:
+	.text       start:0x000E2AE8 end:0x000E2DCC align:4
+
+rel/main_rel/phys/fn_1_E52F8.c:
+	.text       start:0x000E52F8 end:0x000E5430 align:4
+
+rel/main_rel/ranking/fn_1_156218.c:
+	.text       start:0x00156218 end:0x001563E8 align:4
+
+rel/main_rel/ranking/fn_1_156D9C.c:
+	.text       start:0x00156D9C end:0x00156F54 align:4
+
+rel/main_rel/ranking/fn_1_159804.c:
+	.text       start:0x00159804 end:0x001598C4 align:4
+
+rel/main_rel/screen_effect/fn_1_76EB8.c:
+	.text       start:0x00076EB8 end:0x00077200 align:4
+
+rel/main_rel/sel_static_disp/fn_1_138144.c:
+	.text       start:0x00138144 end:0x00138A04 align:4
+
+rel/main_rel/sel_static_disp/fn_1_141360.c:
+	.text       start:0x00141360 end:0x00141614 align:4
+
+rel/main_rel/sel_static_disp/fn_1_142BDC.c:
+	.text       start:0x00142BDC end:0x0014328C align:4
+
+rel/main_rel/sel_static_disp/fn_1_1498B8.c:
+	.text       start:0x001498B8 end:0x00149B24 align:4
+
+rel/main_rel/sel_static_disp/fn_1_14BC40.c:
+	.text       start:0x0014BC40 end:0x0014BCBC align:4
+
+rel/main_rel/sel_static_disp/fn_1_14C6F8.c:
+	.text       start:0x0014C6F8 end:0x0014C7F4 align:4
+
+rel/main_rel/sel_static_disp/fn_1_150654.c:
+	.text       start:0x00150654 end:0x001507C4 align:4
+
+rel/main_rel/shadowmap/fn_1_579A0.c:
+	.text       start:0x000579A0 end:0x00057A70 align:4
+
+rel/main_rel/sound/fn_1_A31E4.c:
+	.text       start:0x000A31E4 end:0x000A33F0 align:4
+
+rel/main_rel/sound/fn_1_A33F0.c:
+	.text       start:0x000A33F0 end:0x000A358C align:4
+
+rel/main_rel/sound/fn_1_A5AA0.c:
+	.text       start:0x000A5AA0 end:0x000A5C98 align:4
+
+rel/main_rel/stcoli/fn_1_18784.c:
+	.text       start:0x00018784 end:0x00018B40 align:4
+
+rel/main_rel/game/fn_1_2E3B4.c:
+	.text       start:0x0002E3B4 end:0x0002E928 align:4

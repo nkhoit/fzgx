@@ -161,3 +161,12 @@ rel/story/story_mode/fn_7_1134.c:
 
 rel/story/story_mode/fn_7_1400.c:
 	.text       start:0x00001400 end:0x00001538 align:4
+
+rel/story/story_mode/fn_7_15BC.c:
+	.text       start:0x000015BC end:0x000016FC align:4
+
+rel/story/story_mode/fn_7_41FC.c:
+	.text       start:0x000041FC end:0x000044DC align:4
+
+rel/story/story_mode/fn_7_44DC.c:
+	.text       start:0x000044DC end:0x00004648 align:4

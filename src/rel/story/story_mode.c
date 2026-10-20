@@ -699,6 +699,55 @@ void fn_7_15B8(void) {
 }
 /* fzgx:end fn_7_15B8 */
 
+/* fzgx:begin fn_7_15BC */
+#include "rel/story/story_mode.h"
+
+typedef struct StoryTime {
+    u8 min;
+    u8 sec;
+    u16 ms;
+} StoryTime;
+
+typedef struct StoryRecords {
+    u8 pad_0[0x6c];
+    StoryTime times[8][12];
+} StoryRecords;
+
+typedef struct StoryClock {
+    u8 pad_0[0x1e0];
+    u8 min;
+    u8 sec;
+    u16 ms;
+} StoryClock;
+
+extern s32 fn_1_8623C(void);
+extern StoryClock *fn_1_3F0D8(u8, u8 *, f32 *);
+extern StoryRecords lbl_1_bss_7F0C0;
+extern u8 lbl_1_bss_9C[];
+
+void fn_7_15BC(void) {
+    f32 scale;
+    u8 name[12];
+    StoryClock *clock;
+    s32 course;
+
+    clock = fn_1_3F0D8(fn_1_8623C(), name, &scale);
+    course = (s8)lbl_7_bss_10->unk_0;
+#define REC lbl_1_bss_7F0C0.times[(s8)lbl_7_bss_10->unk_1][course]
+    if (REC.min || REC.sec || REC.ms) {
+        if (clock->sec * 1000 + clock->min * 60000 + clock->ms >=
+            REC.sec * 1000 + REC.min * 60000 + REC.ms) {
+            return;
+        }
+    }
+    REC.min = clock->min;
+    REC.sec = clock->sec;
+    REC.ms = clock->ms;
+#undef REC
+    lbl_1_bss_9C[3] = 1;
+}
+/* fzgx:end fn_7_15BC */
+
 /* fzgx:begin fn_7_16FC */
 extern u16 lbl_1_bss_96A;
 
@@ -1355,6 +1404,190 @@ u32 fn_7_4094(u32 arg0, u32 arg1, u32 arg2, u32 arg3) {
     return v2;
 }
 /* fzgx:end fn_7_4094 */
+
+/* fzgx:begin fn_7_41FC */
+#include "rel/story/story_mode.h"
+
+typedef struct StoryTrigger {
+    u16 type;
+    u8 pad_2[0x16];
+} StoryTrigger;
+
+extern const f32 lbl_7_rodata_784;
+extern f32 lbl_7_rodata_788[4];
+extern s32 fn_7_4648(u32 *, StoryTrigger *);
+extern u32 fn_7_4FD0(u32 *, StoryTrigger *);
+extern void OSReport(const char *, ...);
+
+static inline f32 clamp_value(f32 x) {
+    if (x < lbl_7_rodata_784) return lbl_7_rodata_784;
+    if (x > lbl_7_rodata_788[0]) return lbl_7_rodata_788[0];
+    return x;
+}
+
+#pragma opt_propagation off
+void fn_7_41FC(u32 *flags) {
+    Obj_7_bss_1960 *g = &lbl_7_bss_1960;
+    StoryTrigger *t;
+    s32 *timer;
+    u32 i;
+    u32 n;
+    s32 ok;
+
+    t = (StoryTrigger *)g->unk_30;
+    timer = (s32 *)(flags + 0x80);
+    for (i = 0; i < 8; i++, timer++) {
+        if (!__rlwnm(g->unk_C, (i + 1) & 31, 31, 31) && *timer >= 0) {
+            (*timer)--;
+        }
+    }
+
+    n = 0;
+    while (t->type != 5) {
+        ok = 1;
+        while (t->type <= 3) {
+            if (n >= 0x1000) {
+                OSReport("Too Many Scenario Trigger\n\n");
+                return;
+            }
+            if (__rlwnm(flags[n >> 5], ((n & 31) + 1) & 31, 31, 31)) {
+                ok = 0;
+                break;
+            }
+            if (t->type == 2 || t->type == 3) {
+                if (fn_7_4648(flags, t)) {
+                    ok = 0;
+                    break;
+                }
+            } else if (!fn_7_4648(flags, t)) {
+                ok = 0;
+                break;
+            }
+            t++;
+            n++;
+        }
+        if (ok) {
+            StoryTrigger *p = t - 1;
+            u32 j = n - 1;
+            while (p->type <= 3 && j != -1) {
+                if (p->type == 0 || p->type == 2) {
+                    flags[j >> 5] |= 0x80000000U >> (j & 31);
+                }
+                p--;
+                j--;
+            }
+            while (t->type == 4) {
+                fn_7_4FD0(flags, t);
+                t++;
+            }
+        } else {
+            while (t->type <= 3) {
+                t++;
+                n++;
+            }
+            while (t->type == 4) {
+                t++;
+            }
+        }
+    }
+
+    {
+        u8 *active = &g->unk_18;
+        f32 *pos;
+        f32 *vel;
+        u8 k;
+        for (k = 0; k < 2; k++) {
+            if (active[k]) {
+                pos = &g->unk_1C;
+                vel = &g->unk_24;
+                pos[k] = pos[k] + vel[k];
+                pos[k] = clamp_value(pos[k]);
+            }
+        }
+    }
+}
+#pragma opt_propagation reset
+/* fzgx:end fn_7_41FC */
+
+/* fzgx:begin fn_7_44DC */
+#include "font.h"
+
+/* file-scope objects of the retail TU, in retail order: MWCC addresses them off one section base */
+u32 fzgx_obj_lbl_7_bss_1960[4];
+u32 lbl_7_bss_1960__fzgx_offset_10[2];
+u8 lbl_7_bss_1960__fzgx_offset_18[2];
+f32 lbl_7_bss_1960__fzgx_offset_1C[2];
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_bss_prime(void) {
+    volatile u32 s;  /* fzgx-allow: S2 primer sink */
+    s = ((0)[fzgx_obj_lbl_7_bss_1960]);
+    s = lbl_7_bss_1960__fzgx_offset_10[0];
+    s = lbl_7_bss_1960__fzgx_offset_18[0];
+    s = lbl_7_bss_1960__fzgx_offset_1C[0];
+}
+#pragma section code_type ".text"
+#pragma section code_type ".fzgxpool"
+static const u32 fzgx_pool_table1[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep1(void) { const u32 *volatile cp; cp = fzgx_pool_table1; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime2(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 0.0f;
+    s = 1.0f;
+    s = 300.0f;
+    s = 640.0f;
+    s = 480.0f;
+    d = 4503599627370496.0;
+}
+#pragma section code_type ".text"
+
+extern u32 lbl_1_rodata_26F8;
+extern u16 fn_1_48690(u32);
+extern int fn_1_4F734(FontDrawPacket *);
+
+#pragma opt_propagation off
+#pragma peephole on
+#pragma opt_common_subs on
+void fn_7_44DC(void) {
+    u16 v1;
+    u8 i;
+
+    i = 0;
+    while (i < 2) {
+        v1 = (u16)(i);
+        if (lbl_7_bss_1960__fzgx_offset_18[v1] != 0) {
+{
+    FontDrawPacket loc_8;
+            loc_8 = *(FontDrawPacket *)&lbl_1_rodata_26F8;
+            loc_8.image = 18;
+            loc_8.x = 0.0f;
+            loc_8.y = 0.0f;
+            loc_8.z = 300.0f - (f32)i;
+            loc_8.flags = 5;
+{
+    s16 t0;
+            loc_8.scale_x = loc_8.scale_x * (640.0f / (f32)(fn_1_48690(18)));
+}
+{
+    u32 t1;
+    f32 r;
+            r = 480.0f / (f32)fn_1_48690(18);
+            loc_8.scale_y = loc_8.scale_y * r;
+            *(u32 *)((u8 *)&loc_8 + 0x38) = lbl_7_bss_1960__fzgx_offset_10[v1];
+            loc_8.alpha = lbl_7_bss_1960__fzgx_offset_1C[v1];
+}
+            fn_1_4F734(&loc_8);
+}
+        }
+        i++;
+    }
+}
+#pragma opt_common_subs reset
+
+#pragma peephole reset
+
+#pragma opt_propagation reset
+/* fzgx:end fn_7_44DC */
 
 /* fzgx:begin fn_7_4E28 */
 extern char lbl_7_data_13FFC[15];

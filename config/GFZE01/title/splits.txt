@@ -242,3 +242,21 @@ rel/title/operation/fn_8_FC5C.c:
 
 rel/title/operation/fn_8_C9A8.c:
 	.text       start:0x0000C9A8 end:0x0000CC2C align:4
+
+rel/title/operation/fn_8_A954.c:
+	.text       start:0x0000A954 end:0x0000ABBC align:4
+
+rel/title/operation/fn_8_B840.c:
+	.text       start:0x0000B840 end:0x0000BAEC align:4
+
+rel/title/title/fn_8_5608.c:
+	.text       start:0x00005608 end:0x00005810 align:4
+
+rel/title/title/fn_8_5C54.c:
+	.text       start:0x00005C54 end:0x00005FD4 align:4
+
+rel/title/title/fn_8_7734.c:
+	.text       start:0x00007734 end:0x000079C0 align:4
+
+rel/title/title/fn_8_81AC.c:
+	.text       start:0x000081AC end:0x00008440 align:4
