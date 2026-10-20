@@ -272,9 +272,12 @@ def apply(obj: Path, mapping: Dict[str, str]) -> Dict[str, object]:
                       and elf.sections[s['shndx']]['name'] in ('.sdata', '.sdata2', '.bss', '.sbss')}
     # both kinds become references to the retail symbol (the data unit that owns the retail
     # range keeps the bytes); our private copies are dropped with their section
+    ro = elf.section('.rodata')
+    rodata_pooled = any(s['name'] in pooled for s in elf.symbols() if ro and s['shndx'] == ro['index'])
     elf.drop_section('.fzgxpool')  # the pool primer (see fixup_evidence.shared_pool_primer)
     done, skipped = elf.retarget(mapping)
-    emptied = (elf.drop_private_rodata(list(pooled)) if pooled else True) and (elf.drop_private_data(data_names) if data_names else True)
+    # a collapsed unit that owns its .rodata and only binds .bss objects keeps that .rodata
+    emptied = (elf.drop_private_rodata(list(pooled)) or not rodata_pooled if pooled else True) and (elf.drop_private_data(data_names) if data_names else True)
     for name in sorted(small_sections):
         if name in ('.bss', '.sbss'):
             section = elf.section(name)
