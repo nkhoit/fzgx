@@ -396,6 +396,8 @@ def add_pool_rules() -> None:
     if "rule mwcc_pool" not in text:
         text = text.replace("\n# MWCC build (with UTF-8 to Shift JIS wrapper)", rule + "\n# MWCC build (with UTF-8 to Shift JIS wrapper)", 1)
     n = 0
+    # before dtk's first split, build.ninja has no compile edges at all (ninja reruns configure)
+    compiles = re.search(r"^build \S+\.o: (?:\$\n +)?mwcc( |\$)", text, re.M) is not None
     for source, mapping in pool.items():
         stem = source.rsplit(".", 1)[0]
         # the edge is `...o: mwcc $` (inputs on the next line, generated units),
@@ -413,7 +415,7 @@ def add_pool_rules() -> None:
             j = text.index("  mw_version = ", i)
             text = text[:j] + f"  poolmap = {poolmap}\n" + text[j:]
             n += 1
-        else:
+        elif compiles:
             sys.exit(f"build.ninja: no mwcc edge for pooled unit {source}")
     ninja_path.write_text(text)
     if n:
