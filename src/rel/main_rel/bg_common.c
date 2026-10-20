@@ -123,6 +123,126 @@ void fn_1_105768(void) {
 }
 /* fzgx:end fn_1_105768 */
 
+/* fzgx:begin fn_1_105AB8 noprologue */
+#include "types.h"
+
+extern u32 fn_1_58C4(void);
+extern u32 lbl_1_rodata_7A0C[1];
+extern u32 lbl_1_rodata_7A10;
+extern void fn_1_105BD8(u32, u32 *, u32 *, u32 *, u32 *);
+extern void fn_1_105CC8(u8 *, u8 *, u32 *, u32 *, u32 *, u32 *, u32 *, u32 *);
+
+typedef struct {
+    u32 word[3];
+} Work;
+
+void fn_1_105AB8(u8 *base, s32 value) {
+    u32 limit;
+    s32 count;
+    u8 *entry;
+    u8 *other;
+    s32 i;
+    Work w1;
+    Work w2;
+    Work w3;
+    Work w4;
+    u32 pool;
+    u32 arg;
+    u32 high;
+
+    fn_1_58C4();
+    limit = 0x400 / fn_1_58C4();
+    if (0x200 / fn_1_58C4() > limit) {
+        limit = 0x400 / fn_1_58C4();
+    } else {
+        limit = 0x200 / fn_1_58C4();
+    }
+
+    *(u32 *)(base + 0xC000) = limit;
+    *(u32 *)(base + 0xC004) = (*((0) + (lbl_1_rodata_7A0C)));
+    *(u32 *)(base + 0xC008) = lbl_1_rodata_7A10;
+
+    i = value * *(s32 *)(base + 0xC000);
+    other = base + i * 32;
+    entry = base + i * 16;
+    while (i < (value + 1) * *(s32 *)(base + 0xC000)) {
+        fn_1_105BD8(value, &w1.word[0], &w2.word[0], &w3.word[0], &w4.word[0]);
+        arg = *(u32 *)(base + 0xC008);
+        pool = *(u32 *)(base + 0xC004);
+        fn_1_105CC8(entry, other + 0x4000, &pool, &arg, &w1.word[0],
+                    &w2.word[0], &w3.word[0], &w4.word[0]);
+        other += 0x20;
+        entry += 0x10;
+        i++;
+    }
+}
+/* fzgx:end fn_1_105AB8 */
+
+/* fzgx:begin fn_1_105BD8 noprologue */
+#include "types.h"
+#include "psvec.h"
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Vec3;
+
+extern void fn_1_681C(u8);
+extern void fn_1_6914(u8, u32 *);
+extern void fn_1_6990(u8, u32 *);
+extern s32 camera_get_state(void);
+extern f32 lbl_1_rodata_78E8[19];
+extern f32 lbl_1_rodata_78E0[2];
+extern f32 lbl_8006D668(u32 *);
+
+#pragma opt_propagation off
+#pragma opt_strength_reduction off
+static inline f32 fn_1_105BD8_operand(f32 right, f32 left) { left *= right; return left; }
+#pragma opt_common_subs off
+void fn_1_105BD8(u32 id, u32 *a, u32 *b, u32 *c, u32 *d) {
+    f64 one;
+    fn_1_681C((u8)id);
+    fn_1_6914((u8)id, c);
+    fn_1_6990((u8)id, b);
+    if ((s8)camera_get_state() == 9) {
+        f32 zero = (*((lbl_1_rodata_78E8) + (0)));
+        one = (*((lbl_1_rodata_78E0) + (0)));
+        ((f32 *)b)[0] = zero;
+        ((f32 *)b)[1] = one;
+        ((f32 *)b)[2] = zero;
+    }
+    psvec_sub(c, a, c);
+    lbl_8006D668(c);
+    {
+        f32 bz;
+        f32 bx;
+        f32 cz;
+        f32 cy;
+        f32 cx;
+        f32 x;
+        f32 y;
+        f32 z;
+        cy = ((Vec3 *)c)->y;
+        bz = ((Vec3 *)b)->z;
+        cz = ((Vec3 *)c)->z;
+        bx = ((Vec3 *)b)->x;
+        cx = ((Vec3 *)c)->x;
+        x = (f32)(fn_1_105BD8_operand((bz), (cy))) - cz * ((Vec3 *)b)->y;
+        y = (f32)(((cz) * (bx))) - cx * bz;
+        z = (f32)(cx * ((Vec3 *)b)->y) - cy * bx;
+        ((Vec3 *)d)->x = x;
+        ((Vec3 *)d)->y = y;
+        ((Vec3 *)d)->z = z;
+    }
+}
+#pragma opt_common_subs reset
+
+#pragma opt_strength_reduction reset
+
+#pragma opt_propagation reset
+/* fzgx:end fn_1_105BD8 */
+
 /* fzgx:begin fn_1_1067A8 */
 void fn_1_1067A8(void *arg0, f32 arg1, f32 arg2) {
     s32 result;

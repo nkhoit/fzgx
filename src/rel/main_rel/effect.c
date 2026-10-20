@@ -345,7 +345,6 @@ void fn_1_58C6C(void) {
 /* fzgx:end fn_1_58C6C */
 
 /* fzgx:begin fn_1_58D38 */
-
 typedef struct fn_1_58D38_EffectState {
     fn_1_58D38_EffectEntry *unk_00;
     fn_1_58D38_EffectEntry *unk_04;
@@ -401,7 +400,6 @@ void fn_1_58D38(void) {
 /* fzgx:end fn_1_58D38 */
 
 /* fzgx:begin fn_1_58E3C */
-
 typedef struct {
     s8 unk_0;
     u8 pad_1;
@@ -761,7 +759,6 @@ void fn_1_59510(void) {
 /* fzgx:end fn_1_59510 */
 
 /* fzgx:begin fn_1_59514 */
-
 void fn_1_59514(void *obj) {
     if (*(s32 *)((u8 *)obj + 0x10) == 0) {
         u32 s = lbl_1_data_1D628 * 0x41c64e6d + 0x3039;
@@ -1165,6 +1162,215 @@ void fn_1_5ABCC(Fn1_5ABCCOutput *out) {
 void fn_1_5B074(void) {
 }
 /* fzgx:end fn_1_5B074 */
+
+/* fzgx:begin fn_1_5B078 noprologue */
+#include "dolphin/types.h"
+#include "rel/main_rel/effect.h"
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 60.0f;
+    s = 0.10000000149011612f;
+    s = 32767.0f;
+    s = 0.05000000074505806f;
+    d = 0.07;
+    s = 20000.0f;
+    s = 0.0f;
+    d = 4503599627370496.0;
+    s = 1.0f;
+    s = -0.029999999329447746f;
+    d = 15.0;
+    d = 4503601774854144.0;
+    d = 1.5;
+    d = 0.5;
+}
+static const u32 fzgx_pool_table2[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep2(void) { const u32 *volatile cp; cp = fzgx_pool_table2; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime3(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 0.5f;
+    s = 8.0f;
+    s = 255.0f;
+    s = 15.0f;
+    s = 0.20000000298023224f;
+    s = 0.07999999821186066f;
+    s = 0.25f;
+    s = 0.9800000190734863f;
+    s = 0.9900000095367432f;
+    s = 40.0f;
+    s = 20.0f;
+    s = 1.5f;
+    s = 0.44999998807907104f;
+    s = -2.0f;
+    s = 0.0833333358168602f;
+    s = 0.15000000596046448f;
+    s = 0.125f;
+    s = -0.4000000059604645f;
+    s = -0.30000001192092896f;
+    s = 2.0f;
+    s = 250.0f;
+    d = 0.6;
+    d = 0.4;
+    s = 0.30000001192092896f;
+    s = -0.004000000189989805f;
+    s = 0.01666666753590107f;
+    s = 65536.0f;
+    s = 4096.0f;
+    s = 0.9599999785423279f;
+}
+#pragma section code_type ".text"
+
+struct fx_5b078_out {
+    u8 pad_00[0x10];
+    s32 field_10;
+    u8 pad_14[0x44];
+    s16 field_58;
+    u8 pad_5a[0x4];
+    s16 field_5e;
+    u8 pad_60[0x54];
+    f32 field_b4;
+};
+
+void fn_1_5B078(struct fx_5b078_out *out)
+{
+    u32 rnd;
+    u32 n;
+    u32 n_2;
+
+    lbl_1_data_1D628 = lbl_1_data_1D628 * 0x41C64E6Du + 0x3039u;
+    rnd = lbl_1_data_1D628;
+    n = (rnd >> 16) & 0x7FFFu;
+    out->field_10 = (s32)(((f32)(n / 32767.0f * 0.1f) + 0.125f) * 60.0f);
+
+    lbl_1_data_1D628 = lbl_1_data_1D628 * 0x41C64E6Du + 0x3039u;
+    rnd = lbl_1_data_1D628;
+    n = (rnd >> 16) & 0x7FFFu;
+    out->field_58 = (s16)((n / 32767.0f - 0.5f) * 65536.0f);
+
+    lbl_1_data_1D628 = lbl_1_data_1D628 * 0x41C64E6Du + 0x3039u;
+    rnd = lbl_1_data_1D628;
+    n_2 = (rnd >> 16) & 0x7FFFu;
+    out->field_5e = (s16)((n_2 / 32767.0f - 0.5f) * 4096.0f);
+
+    out->field_b4 = 0.5f;
+}
+/* fzgx:end fn_1_5B078 */
+
+/* fzgx:begin fn_1_5B188 noprologue */
+#include "dolphin/types.h"
+
+#pragma section code_type ".fzgxpool"
+__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 60.0f;
+    s = 0.10000000149011612f;
+    s = 32767.0f;
+    s = 0.05000000074505806f;
+    d = 0.07;
+    s = 20000.0f;
+    s = 0.0f;
+    d = 4503599627370496.0;
+    s = 1.0f;
+    s = -0.029999999329447746f;
+    d = 15.0;
+    d = 4503601774854144.0;
+    d = 1.5;
+    d = 0.5;
+}
+static const u32 fzgx_pool_table2[1] = {0x00000000};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep2(void) { const u32 *volatile cp; cp = fzgx_pool_table2; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime3(void) {
+    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+    s = 0.5f;
+    s = 8.0f;
+    s = 255.0f;
+    s = 15.0f;
+    s = 0.20000000298023224f;
+    s = 0.07999999821186066f;
+    s = 0.25f;
+    s = 0.9800000190734863f;
+    s = 0.9900000095367432f;
+    s = 40.0f;
+    s = 20.0f;
+    s = 1.5f;
+    s = 0.44999998807907104f;
+    s = -2.0f;
+    s = 0.0833333358168602f;
+    s = 0.15000000596046448f;
+    s = 0.125f;
+    s = -0.4000000059604645f;
+    s = -0.30000001192092896f;
+    s = 2.0f;
+    s = 250.0f;
+    d = 0.6;
+    d = 0.4;
+    s = 0.30000001192092896f;
+    s = -0.004000000189989805f;
+    s = 0.01666666753590107f;
+    s = 65536.0f;
+    s = 4096.0f;
+    s = 0.9599999785423279f;
+    s = 0.4000000059604645f;
+    s = 0.05050000175833702f;
+    s = 0.050999999046325684f;
+    s = 0.949999988079071f;
+}
+#pragma section code_type ".text"
+
+#pragma section code_type ".text"
+
+struct fx_5b188 {
+    u8 pad_00[0x10];
+    s32 field_10;
+    u8 pad_14[0x8];
+    f32 field_1C;
+    f32 field_20;
+    f32 field_24;
+    u8 pad_28[0x4];
+    f32 field_2C;
+    u8 pad_30[0xC];
+    f32 field_3C;
+    f32 field_40;
+    f32 field_44;
+    f32 field_48;
+    f32 field_4C;
+    f32 field_50;
+    u8 pad_54[0x4];
+    s16 field_58;
+    u8 pad_5A[0x4];
+    s16 field_5E;
+    u8 pad_60[0x54];
+    f32 field_B4;
+};
+
+static inline f32 fn_1_5B188_operand(f32 right, f32 left) { return left * right; }
+#pragma opt_common_subs off
+void fn_1_5B188(struct fx_5b188 *p)
+{
+    f32 d;
+
+    d = 1.0f / (f32)(s32)(p->field_10 + 1);
+    p->field_48 = fn_1_5B188_operand((0.96f), (p->field_48));
+    p->field_4C = fn_1_5B188_operand((0.96f), (p->field_4C));
+    p->field_50 = fn_1_5B188_operand((0.96f), (p->field_50));
+    p->field_3C = p->field_3C + p->field_48;
+    p->field_40 = p->field_40 + p->field_4C;
+    p->field_44 = p->field_44 + p->field_50;
+    p->field_5E = (s16)(fn_1_5B188_operand(((f32)p->field_5E), (0.99f)));
+    p->field_58 = p->field_58 + p->field_5E;
+    p->field_1C = p->field_1C + (f32)(fn_1_5B188_operand(((0.4f - p->field_1C)), (0.05f)));
+    p->field_20 = p->field_20 + (f32)(fn_1_5B188_operand(((0.4f - p->field_20)), (0.0505f)));
+    p->field_24 = p->field_24 + (f32)(fn_1_5B188_operand(((0.4f - p->field_24)), (0.051f)));
+    if ((f32)(s32)p->field_10 < 15.0f) {
+        p->field_B4 = fn_1_5B188_operand(((1.0f - d)), (p->field_B4));
+        p->field_2C = fn_1_5B188_operand((0.95f), (p->field_2C));
+    } else {
+        p->field_B4 = p->field_B4 + (f32)(fn_1_5B188_operand(((1.0f - p->field_B4)), (0.2f)));
+    }
+}
+#pragma opt_common_subs reset
+/* fzgx:end fn_1_5B188 */
 
 /* fzgx:begin fn_1_5B30C */
 struct fn_1_5B30C_Arg0 {
@@ -1634,6 +1840,108 @@ void fn_1_5D4FC(void) {
 }
 /* fzgx:end fn_1_5D4FC */
 
+/* fzgx:begin fn_1_5D718 noprologue */
+#include "dolphin/hw_regs.h"
+#include "psvec.h"
+
+typedef unsigned char u8;
+
+typedef unsigned long u32;
+
+typedef float f32;
+typedef double f64;
+
+extern const f32 lbl_1_rodata_2950[];
+extern void lbl_8006D9D8(void *);
+extern void lbl_8006D7B0(void);
+extern f32 lbl_8006D0B4(f32);
+extern void lbl_8006DB74(void *);
+extern void lbl_8006D848(f32);
+extern void lbl_8006DFC4(void *);
+extern void fn_1_9F914(void *, u32);
+extern void *memset(void *, int, u32);
+/* Fixed engine address; three floats at 0xc, 0x1c, 0x2c. */
+struct Fn15D718 {
+	u8 _pad00[0x1c];
+	f32 value1c;
+	f32 value20;
+	f32 value24;
+	f32 value28;
+	u8 _pad2c[0x08];
+	u32 object34;
+	u8 _pad38[0x04];
+	f32 value3c;
+};
+struct Fn15D718Tmp {
+	u8 data[0x30];
+};
+struct Fn15D718Sub {
+	u8 data[0x34];
+};
+struct Fn15D718Work {
+	f32 alpha;
+	f32 alpha2;
+	struct Fn15D718Sub sub;
+	u8 red;
+	u8 green;
+	u8 blue;
+	u8 alphaByte;
+};
+#pragma opt_propagation off
+#pragma opt_common_subs off
+static inline f32 fn_1_64760_array_read(f32 *array, s32 index) { return array[index]; }
+#pragma opt_dead_assignments off
+void fn_1_5D718(struct Fn15D718 *self) {
+struct Fn15D718Work work;
+struct Fn15D718Tmp tmp;
+u32 object;
+f32 radius;
+f32 distance;
+f32 alpha;
+const f32 *pool;
+f32 v[3];
+f32 x;
+f32 y;
+f32 z;
+f32 sum;
+f32 *m;
+object = self->object34;
+pool = lbl_1_rodata_2950;
+radius = self->value28;
+lbl_8006D9D8(&self->value3c);
+lbl_8006D7B0();
+m = (f32 *)(LC_BASE + 0x0);
+x = fn_1_64760_array_read(m, 3);
+y = fn_1_64760_array_read(m, 7);
+z = fn_1_64760_array_read(m, 11);
+psvec_set(v, z, y, x);
+sum = (f32) (fn_1_64760_array_read(v, 0) * fn_1_64760_array_read(v, 0));
+sum = sum + fn_1_64760_array_read(v, 1) * fn_1_64760_array_read(v, 1);
+sum = sum + z * z;
+distance = lbl_8006D0B4(sum);
+if (distance > pool[1] + radius) {
+lbl_8006DB74(&tmp);
+lbl_8006D848((distance - radius) / distance);
+lbl_8006DFC4(&tmp);
+}
+memset(&work, 0, 0x40);
+lbl_8006DB74(&work.sub);
+alpha = pool[0x150 / 4] * self->value28;
+work.alpha = alpha;
+work.red = (u8) (pool[0x5c / 4] * self->value1c);
+work.green = (u8) (pool[0x5c / 4] * self->value20);
+work.blue = (u8) (pool[0x5c / 4] * self->value24);
+work.alphaByte = 0xff;
+work.alpha2 = alpha;
+fn_1_9F914(&work, object);
+}
+#pragma opt_dead_assignments reset
+
+#pragma opt_common_subs reset
+
+#pragma opt_propagation reset
+/* fzgx:end fn_1_5D718 */
+
 /* fzgx:begin fn_1_5D88C */
 struct Fn15D88C {
     u8 _pad08[0x08];
@@ -1877,9 +2185,6 @@ void fn_1_5FE30(fn_1_5FE30_FZeroObject *object) {
 /* fzgx:end fn_1_5FE30 */
 
 /* fzgx:begin fn_1_5FEBC */
-
-
-
 void fn_1_5FEBC(fn_1_5FEBC_EffectObject *object) {
     u8 result[12];
     u8 data[64];
@@ -1970,7 +2275,6 @@ void fn_1_601B4(EffectState *effect) {
 /* fzgx:end fn_1_601B4 */
 
 /* fzgx:begin fn_1_60734 */
-
 typedef struct Fn60734 {
     u8 pad_00[0x0e];
     s16 unk_0e;
@@ -2699,8 +3003,6 @@ void fn_1_61CE8(void) {
 /* fzgx:end fn_1_61CE8 */
 
 /* fzgx:begin fn_1_61D08 */
-
-
 typedef struct {
     u8 pad_0[0x20];
     void *unk_20;
@@ -2935,9 +3237,6 @@ fn_1_61D08_EffectObject *obj;
 /* fzgx:end fn_1_61D08 */
 
 /* fzgx:begin fn_1_61E60 */
-
-
-
 // Releases the effect resources and clears the active effect references.
 int fn_1_61E60(object)
 Fn1_61E60Object *object;
@@ -2979,7 +3278,6 @@ void fn_1_63130(struct fn_1_63130_obj *obj) {
 /* fzgx:end fn_1_63130 */
 
 /* fzgx:begin fn_1_632D4 */
-
 struct fn_1_632D4_obj {
     u8 unk_00[0x1C];
     f32 unk_1C;
@@ -3194,6 +3492,108 @@ void fn_1_645D0(void) {
 }
 /* fzgx:end fn_1_645D0 */
 
+/* fzgx:begin fn_1_64760 noprologue */
+#include "dolphin/hw_regs.h"
+#include "psvec.h"
+
+typedef unsigned char u8;
+
+typedef unsigned long u32;
+
+typedef float f32;
+typedef double f64;
+
+extern const f32 lbl_1_rodata_2950[];
+extern void lbl_8006D9D8(void *);
+extern void lbl_8006D7B0(void);
+extern f32 lbl_8006D0B4(f32);
+extern void lbl_8006DB74(void *);
+extern void lbl_8006D848(f32);
+extern void lbl_8006DFC4(void *);
+extern void fn_1_9F914(void *, u32);
+extern void *memset(void *, int, u32);
+/* Fixed engine address; three floats at 0xc, 0x1c, 0x2c. */
+struct Fn15D718 {
+	u8 _pad00[0x1c];
+	f32 value1c;
+	f32 value20;
+	f32 value24;
+	f32 value28;
+	u8 _pad2c[0x08];
+	u32 object34;
+	u8 _pad38[0x04];
+	f32 value3c;
+};
+struct Fn15D718Tmp {
+	u8 data[0x30];
+};
+struct Fn15D718Sub {
+	u8 data[0x34];
+};
+struct Fn15D718Work {
+	f32 alpha;
+	f32 alpha2;
+	struct Fn15D718Sub sub;
+	u8 red;
+	u8 green;
+	u8 blue;
+	u8 alphaByte;
+};
+#pragma opt_propagation off
+#pragma opt_common_subs off
+static inline f32 fn_1_64760_array_read(f32 *array, s32 index) { return array[index]; }
+#pragma opt_dead_assignments off
+void fn_1_64760(struct Fn15D718 *self) {
+struct Fn15D718Work work;
+struct Fn15D718Tmp tmp;
+u32 object;
+f32 radius;
+f32 distance;
+f32 alpha;
+const f32 *pool;
+f32 v[3];
+f32 x;
+f32 y;
+f32 z;
+f32 sum;
+f32 *m;
+object = self->object34;
+pool = lbl_1_rodata_2950;
+radius = self->value28;
+lbl_8006D9D8(&self->value3c);
+lbl_8006D7B0();
+m = (f32 *)(LC_BASE + 0x0);
+x = fn_1_64760_array_read(m, 3);
+y = fn_1_64760_array_read(m, 7);
+z = fn_1_64760_array_read(m, 11);
+psvec_set(v, z, y, x);
+sum = (f32) (fn_1_64760_array_read(v, 0) * fn_1_64760_array_read(v, 0));
+sum = sum + fn_1_64760_array_read(v, 1) * fn_1_64760_array_read(v, 1);
+sum = sum + z * z;
+distance = lbl_8006D0B4(sum);
+if (distance > pool[1] + radius) {
+lbl_8006DB74(&tmp);
+lbl_8006D848((distance - radius) / distance);
+lbl_8006DFC4(&tmp);
+}
+memset(&work, 0, 0x40);
+lbl_8006DB74(&work.sub);
+alpha = pool[0x150 / 4] * self->value28;
+work.alpha = alpha;
+work.red = (u8) (pool[0x5c / 4] * self->value1c);
+work.green = (u8) (pool[0x5c / 4] * self->value20);
+work.blue = (u8) (pool[0x5c / 4] * self->value24);
+work.alphaByte = 0xff;
+work.alpha2 = alpha;
+fn_1_9F914(&work, object);
+}
+#pragma opt_dead_assignments reset
+
+#pragma opt_common_subs reset
+
+#pragma opt_propagation reset
+/* fzgx:end fn_1_64760 */
+
 /* fzgx:begin fn_1_648D4 */
 // fn_1_648D4: empty in retail (single blr).
 void fn_1_648D4(void) {
@@ -3333,7 +3733,6 @@ void fn_1_65268(Object *object) {
 /* fzgx:end fn_1_65268 */
 
 /* fzgx:begin fn_1_652F4 */
-
 typedef struct {
     u8 pad_00[0x18];
     s16 unk_18;
@@ -3769,6 +4168,115 @@ void fn_1_65B58(void) {
 }
 /* fzgx:end fn_1_65B58 */
 
+/* fzgx:begin fn_1_65CDC noprologue */
+#include "dolphin/hw_regs.h"
+#include "psvec.h"
+
+typedef signed char s8;
+typedef signed short s16;
+typedef signed long s32;
+typedef unsigned char u8;
+typedef unsigned long u32;
+typedef float f32;
+typedef double f64;
+
+extern const f32 lbl_1_rodata_2950[];
+extern void lbl_8006D9D8(void *);
+extern void lbl_8006D7B0(void);
+extern u32 mathutil_mtxA_rotate_z(s32);
+extern f32 lbl_8006D0B4(f32);
+extern void lbl_8006DB74(void *);
+extern void lbl_8006D848(f32);
+extern void lbl_8006DFC4(void *);
+extern void fn_1_9F914(void *, u32);
+extern void *memset(void *, int, u32);
+
+struct Fn1_65CDC {
+	u8 _pad00[0x1c];
+	f32 value1c;
+	f32 value20;
+	f32 value24;
+	f32 value28;
+	u8 _pad2c[0x08];
+	u32 object34;
+	u8 _pad38[0x04];
+	f32 value3c;
+	u8 _pad40[0x18];
+	s16 value58;
+};
+
+struct Fn1_65CDCTmp {
+	u8 data[0x30];
+};
+
+struct Fn1_65CDCSub {
+	u8 data[0x34];
+};
+
+struct Fn1_65CDCWork {
+	f32 alpha;
+	f32 alpha2;
+	struct Fn1_65CDCSub sub;
+	u8 red;
+	u8 green;
+	u8 blue;
+	u8 alphaByte;
+};
+
+#pragma opt_propagation off
+#pragma opt_common_subs off
+static inline f32 fn_1_65CDC_array_read(f32 *array, s32 index) { return array[index]; }
+#pragma opt_dead_assignments off
+void fn_1_65CDC(struct Fn1_65CDC *self) {
+	struct Fn1_65CDCWork work;
+	struct Fn1_65CDCTmp tmp;
+	u32 object;
+	f32 radius;
+	f32 distance;
+	f32 alpha;
+	const f32 *pool;
+	f32 v[3];
+	f32 x;
+	f32 y;
+	f32 z;
+	f32 sum;
+	f32 *m;
+	object = self->object34;
+	pool = lbl_1_rodata_2950;
+	radius = self->value28;
+	lbl_8006D9D8(&self->value3c);
+	lbl_8006D7B0();
+	mathutil_mtxA_rotate_z(self->value58);
+	m = (f32 *)(LC_BASE + 0x0);
+	x = fn_1_65CDC_array_read(m, 3);
+	y = fn_1_65CDC_array_read(m, 7);
+	z = fn_1_65CDC_array_read(m, 11);
+	psvec_set(v, z, y, x);
+	sum = (f32) (fn_1_65CDC_array_read(v, 0) * fn_1_65CDC_array_read(v, 0));
+	sum = sum + fn_1_65CDC_array_read(v, 1) * fn_1_65CDC_array_read(v, 1);
+	sum = sum + z * z;
+	distance = lbl_8006D0B4(sum);
+	if (distance > pool[1] + radius) {
+		lbl_8006DB74(&tmp);
+		lbl_8006D848((distance - radius) / distance);
+		lbl_8006DFC4(&tmp);
+	}
+	memset(&work, 0, 0x40);
+	lbl_8006DB74(&work.sub);
+	alpha = pool[0x150 / 4] * self->value28;
+	work.alpha = alpha;
+	work.red = (u8) (pool[0x5c / 4] * self->value1c);
+	work.green = (u8) (pool[0x5c / 4] * self->value20);
+	work.blue = (u8) (pool[0x5c / 4] * self->value24);
+	work.alphaByte = 0xff;
+	work.alpha2 = alpha;
+	fn_1_9F914(&work, object);
+}
+#pragma opt_dead_assignments reset
+#pragma opt_common_subs reset
+#pragma opt_propagation reset
+/* fzgx:end fn_1_65CDC */
+
 /* fzgx:begin fn_1_65E58 */
 typedef struct fn_1_65E58_Effect {
     u8 _pad_00[0x10];
@@ -4038,7 +4546,6 @@ void fn_1_6742C(void) {
 /* fzgx:end fn_1_6742C */
 
 /* fzgx:begin fn_1_6755C */
-
 typedef struct {
     u8 pad_0[0x18];
     s16 unk_18;

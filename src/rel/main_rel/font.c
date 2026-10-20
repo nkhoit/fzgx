@@ -2109,6 +2109,63 @@ void fn_1_51564(u16 first, u16 second, u16 third, u16 fourth, u16 fifth, u16 six
 }
 /* fzgx:end fn_1_51564 */
 
+/* fzgx:begin fn_1_5158C noprologue */
+#include "dolphin/types.h"
+#include "rel/main_rel/font.h"
+
+typedef struct FontDrawPacket FontDrawPacket;
+
+extern void fn_1_51678(FontDrawPacket *, u32, s16, s16, s16, s16);
+
+static inline int in_range(int value, int lower, int upper)
+{
+    if (value > upper) {
+        return 0;
+    }
+    return value >= lower;
+}
+
+static inline int clamp(int value, int lower, int upper)
+{
+    int result = value;
+    if (value < lower) {
+        result = lower;
+    } else if (result > upper) {
+        result = upper;
+    }
+    return result;
+}
+
+void fn_1_5158C(FontDrawPacket *packet, u32 color, s16 x, s16 y)
+{
+    s16 *state = (s16 *)((u8 *)&lbl_1_bss_4C678 + 0x20000);
+    int max_x = state[-0x7f9c / 2] - 1;
+    int max_y;
+    int coordinate = x;
+    if (!in_range(coordinate, 0, max_x)) {
+        if (x < 0) {
+            coordinate = 0;
+        } else if (coordinate > max_x) {
+            coordinate = max_x;
+        }
+        x = coordinate;
+    }
+    max_y = state[-0x7f9a / 2] - 1;
+    coordinate = y;
+    if (!in_range(coordinate, 0, max_y)) {
+        if (y < 0) {
+            coordinate = 0;
+        } else if (coordinate > max_y) {
+            coordinate = max_y;
+        }
+        y = coordinate;
+    }
+    fn_1_51678(packet, color, state[-0x7fa4 / 2] + x * state[-0x7fa0 / 2],
+        state[-0x7fa2 / 2] + y * state[-0x7f9e / 2],
+        state[-0x7fa0 / 2], state[-0x7f9e / 2]);
+}
+/* fzgx:end fn_1_5158C */
+
 /* fzgx:begin fn_1_51678 */
 void fn_1_51678(FontDrawPacket *p, u32 image, s16 x, s16 y, s16 width, s16 height) {
     f32 inv_height, inv_width;
@@ -2725,6 +2782,117 @@ void fn_1_530C8(void * arg0) {
 }
 #pragma opt_propagation reset
 /* fzgx:end fn_1_530C8 */
+
+/* fzgx:begin fn_1_53E40 noprologue */
+#include "types.h"
+
+extern void fn_1_496FC(f32, f32);
+extern void fn_1_4954C(f32);
+extern void fn_1_4955C(f32, f32);
+extern void fn_1_495C8(u8);
+extern void fn_1_4A0D8(const char *);
+extern f32 fn_1_4B068(const char *);
+extern f32 fn_1_4B090(const char *);
+extern void fn_1_50190(void *, f32, f32, f32, f32, f32, f32);
+
+/* 0x58-byte settings record copied from the constant table. */
+typedef struct {
+	u32 field_0;
+	f32 field_4;
+	f32 field_8;
+	f32 field_c;
+	u8 pad_10[0x1c];
+	f32 field_2c;
+	u32 field_30;
+	u8 pad_34[4];
+	u32 field_38;
+	u8 pad_3c[0x1c];
+} Record;
+
+/* retail .rodata block [lbl_1_rodata_26F8, +0x170): the function reads the 0x58-byte
+   record through the pool base, the share of the TU pool after it is baked below. */
+static const u32 fzgx_pool_table1[22] = {
+	0x00000000, 0x00000000, 0x00000000, 0x3DCCCCCD, 0x3F800000, 0x3F800000,
+	0x00000000, 0x00000000, 0x3F800000, 0x3F800000, 0x00000000, 0x3F800000,
+	0x00000005, 0x00000000, 0xFFFFFFFF, 0x00000000, 0x00000000, 0x00000000,
+	0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};  /* fzgx-allow: A1 retail pool bytes */
+
+#pragma section code_type ".fzgxpool"
+static const u32 fzgx_pool_table2[2] = {
+	0x00000000, 0x3F800000,
+};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep2(void) { const u32 *volatile cp; cp = fzgx_pool_table2; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
+	volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+	d = 4503599627370496.0;
+}
+static const u32 fzgx_pool_table3[58] = {
+	0x425C0000, 0x3DCCCCCD, 0x47AFC800, 0x43F00000, 0x44200000, 0x00000000,
+	0x43300000, 0x80000000, 0x3FE00000, 0x00000000, 0x3F400000, 0x00000000,
+	0x3F63B4F6, 0x9FE2918E, 0x43A00000, 0x43700000, 0x437F0000, 0x3F000000,
+	0x40000000, 0x40800000, 0x00000000, 0x40000000, 0x40000000, 0x00000000,
+	0x3F800000, 0x3F800000, 0x9B000000, 0x40000000, 0x40000000, 0x9B000000,
+	0x3F800000, 0x3F800000, 0x0000FF00, 0x40000000, 0x40000000, 0x0000FF00,
+	0x3F800000, 0x3F800000, 0xFFF20000, 0x3F800000, 0x3F800000, 0xFF800000,
+	0x3F800000, 0x3F800000, 0x00008000, 0x40000000, 0x40000000, 0x00000000,
+	0x00000000, 0x00000000, 0x00000000, 0x3E000000, 0xFFFFFF00, 0x00000000,
+	0x47800000, 0x42A00000, 0x42700000, 0x00000000,
+};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep3(void) { const u32 *volatile cp; cp = fzgx_pool_table3; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime2(void) {
+	volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+	d = 255.0;
+}
+static const u32 fzgx_pool_table4[1] = {
+	0x41000000,
+};  /* fzgx-allow: A1 retail pool bytes */
+__declspec(section ".fzgxpool") static void fzgx_pool_keep4(void) { const u32 *volatile cp; cp = fzgx_pool_table4; }  /* fzgx-allow: S2 pool primer sink */
+__declspec(section ".fzgxpool") static void fzgx_pool_prime3(void) {
+	volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+	s = 13.0f;
+	s = 26.0f;
+}
+__declspec(section ".fzgxpool") static void fzgx_pool_prime4(void) {
+	volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
+	s = 0.009999999776482582f;
+	d = 0.0005;
+}
+#pragma section code_type ".text"
+
+void fn_1_53E40(u8 *color, const char *name, f32 x, f32 y, f32 z, f32 w, f32 h)
+{
+	f32 total;
+	f32 delta;
+
+	if (z < 0.01f) {
+		z = 0.01f;
+	}
+	fn_1_496FC(x, y);
+	fn_1_4954C((f32)(z - 0.0005));
+	fn_1_4955C(h, h);
+	fn_1_495C8(9);
+	fn_1_4A0D8(name);
+	total = w * h + fn_1_4B068(name);
+	delta = w * h + fn_1_4B090(name);
+
+	{
+		Record rec = *(const Record *)fzgx_pool_table1;
+
+		rec.field_0 = 2;
+		rec.field_4 = x;
+		rec.field_8 = y;
+		rec.field_c = z;
+		if (color != 0) {
+			rec.field_2c = (f32)((f64)(u32)color[3] / 255.0);
+			rec.field_38 = *(u32 *)color;
+		}
+		rec.field_30 = 10;
+
+		fn_1_50190(&rec, total, delta, 13.0f, 13.0f, 26.0f, 26.0f);
+	}
+}
+/* fzgx:end fn_1_53E40 */
 
 /* fzgx:begin fn_1_5415C */
 void fn_1_5415C(void *arg, s32 value) {
