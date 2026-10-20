@@ -398,9 +398,10 @@ def add_pool_rules() -> None:
     n = 0
     for source, mapping in pool.items():
         stem = source.rsplit(".", 1)[0]
-        # the edge is `...o: mwcc $` (inputs on the next line, generated units) or
-        # `...o: mwcc src/... $` (a standalone unit): both become mwcc_pool
-        pat = re.compile(rf"^(build build/{re.escape(config.version)}/src/{re.escape(stem)}\.o: )mwcc( |\$)", re.M)
+        # the edge is `...o: mwcc $` (inputs on the next line, generated units),
+        # `...o: mwcc src/... $` (a standalone unit) or, when the output path is long,
+        # `...o: $` with `mwcc` wrapped onto the next line: all become mwcc_pool
+        pat = re.compile(rf"^(build build/{re.escape(config.version)}/src/{re.escape(stem)}\.o: (?:\$\n +)?)mwcc( |\$)", re.M)
         m = pat.search(text)
         if m:
             poolmap = ",".join(f"{k}={v}" for k, v in sorted(mapping.items()))
@@ -412,6 +413,8 @@ def add_pool_rules() -> None:
             j = text.index("  mw_version = ", i)
             text = text[:j] + f"  poolmap = {poolmap}\n" + text[j:]
             n += 1
+        else:
+            sys.exit(f"build.ninja: no mwcc edge for pooled unit {source}")
     ninja_path.write_text(text)
     if n:
         print(f"build.ninja: {n} units compile through mwcc_pool (literal-pool retargeting)")

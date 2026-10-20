@@ -91,9 +91,9 @@ typedef struct {
 u32 fzgx_obj_lbl_1_bss_7ACD8;
 u32 lbl_1_bss_7ACDC;
 u32 lbl_1_bss_7ACE0;
-u8 lbl_1_bss_7ACE0_4;
+u8 lbl_1_bss_7ACE0__fzgx_offset_4;
 u8 fzgx_obj_lbl_1_bss_7ACE5;
-u16 lbl_1_bss_7ACD8_gap_7ACE6;
+u16 fzgx_pool_gap_bss_7ACE6;
 s32 fzgx_obj_lbl_1_bss_7ACE8;
 
 #pragma section code_type ".fzgxpool"
@@ -102,9 +102,9 @@ static void fzgx_bss_layout(void) {
     s = *(u8 *)&fzgx_obj_lbl_1_bss_7ACD8;
     s = *(u8 *)&lbl_1_bss_7ACDC;
     s = *(u8 *)&lbl_1_bss_7ACE0;
-    s = *(u8 *)&lbl_1_bss_7ACE0_4;
+    s = *(u8 *)&lbl_1_bss_7ACE0__fzgx_offset_4;
     s = *(u8 *)&fzgx_obj_lbl_1_bss_7ACE5;
-    s = *(u8 *)&lbl_1_bss_7ACD8_gap_7ACE6;
+    s = *(u8 *)&fzgx_pool_gap_bss_7ACE6;
     s = *(u8 *)&fzgx_obj_lbl_1_bss_7ACE8;
 }
 #pragma section code_type ".text"
@@ -128,9 +128,9 @@ void fn_1_D1848(void) {
     fzgx_obj_lbl_1_bss_7ACD8 = fn_1_4630(lbl_801A6410, 600, "face.c", 0x15f);
     fzgx_obj_lbl_1_bss_7ACE8 = 0;
     c = fn_1_86624();
-    lbl_1_bss_7ACE0_4 = c;
+    lbl_1_bss_7ACE0__fzgx_offset_4 = c;
     lbl_1_bss_7ACDC = fn_1_4630(lbl_801A6410, c << 2, "face.c", 0x173);
-    lbl_1_bss_7ACE0 = fn_1_4630(lbl_801A6410, lbl_1_bss_7ACE0_4 << 2, "face.c", 0x174);
+    lbl_1_bss_7ACE0 = fn_1_4630(lbl_801A6410, lbl_1_bss_7ACE0__fzgx_offset_4 << 2, "face.c", 0x174);
     size = GXGetTexBufferSize(64, 64, 5, 0, 0);
     obj = (Ent *)fzgx_obj_lbl_1_bss_7ACD8;
     for (i = 0; i < 6; i++, obj++) {
