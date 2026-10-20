@@ -154,7 +154,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In short: one function per change, match
 Credits
 =======
 
-This project builds on [rayanht/fzgx](https://github.com/rayanht/fzgx), whose CC0-licensed source, recovered types, build configuration, tooling and matched code form the foundation of this repository. It was imported as a new repository at commit `3a0542c` rather than forked. It also incorporates matching work from an earlier private F-Zero GX decompilation effort.
+This project builds on [rayanht/fzgx](https://github.com/rayanht/fzgx), whose CC0-licensed source, recovered types, build configuration, tooling and matched code form the foundation of this repository. It was imported as a new repository at commit `3a0542c` rather than forked. That work in turn comes from Armando Flores' [karamzov123/fzero-gx-decomp](https://github.com/karamzov123/fzero-gx-decomp) (CC0), where this lineage began; matched C functions from it (commit `c98e27a`) are imported here, excluding assembly. It also incorporates matching work from an earlier private F-Zero GX decompilation effort.
 
 See [docs/RESOURCES.md](docs/RESOURCES.md). This project stands on [decomp-toolkit](https://github.com/encounter/decomp-toolkit), [objdiff](https://github.com/encounter/objdiff), [wibo](https://github.com/decompals/wibo) and [dtk-template](https://github.com/encounter/dtk-template) by encounter and the decompals community, on CosmoCortney's [Line__Crypt](https://github.com/CosmoCortney/Line__Crypt) and bobjrsenior's [SMB_LZ_Tool](https://github.com/bobjrsenior/SMB_LZ_Tool) for the `line__.bin` format, and on a decade of format work by the F-Zero GX modding community.
 

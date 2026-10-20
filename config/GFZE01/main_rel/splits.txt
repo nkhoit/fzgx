@@ -6547,3 +6547,90 @@ rel/main_rel/avline.c:
 
 rel/main_rel/ptclput.c:
 	.text       start:0x0009F7DC end:0x0009FE74 align:4
+
+rel/main_rel/accessory/fn_1_1289F0.c:
+	.text       start:0x001289F0 end:0x00128AAC align:4
+
+rel/main_rel/bg_common/fn_1_105AB8.c:
+	.text       start:0x00105AB8 end:0x00105BD8 align:4
+
+rel/main_rel/bg_common/fn_1_105BD8.c:
+	.text       start:0x00105BD8 end:0x00105CC8 align:4
+
+rel/main_rel/bg_win/fn_1_15BCDC.c:
+	.text       start:0x0015BCDC end:0x0015BE38 align:4
+
+rel/main_rel/spline/fn_1_F8E30.c:
+	.text       start:0x000F8E30 end:0x000F9028 align:4
+
+rel/main_rel/car/fn_1_82EDC.c:
+	.text       start:0x00082EDC end:0x00083070 align:4
+
+rel/main_rel/effect/fn_1_5D718.c:
+	.text       start:0x0005D718 end:0x0005D88C align:4
+
+rel/main_rel/effect/fn_1_64760.c:
+	.text       start:0x00064760 end:0x000648D4 align:4
+
+rel/main_rel/effect/fn_1_65CDC.c:
+	.text       start:0x00065CDC end:0x00065E58 align:4
+
+rel/main_rel/font/fn_1_5158C.c:
+	.text       start:0x0005158C end:0x00051678 align:4
+
+rel/main_rel/ghost/fn_1_F1A24.c:
+	.text       start:0x000F1A24 end:0x000F1B78 align:4
+
+rel/main_rel/motasglist/fn_1_449A8.c:
+	.text       start:0x000449A8 end:0x00044A74 align:4
+
+rel/main_rel/sel_static_disp/fn_1_14DD68.c:
+	.text       start:0x0014DD68 end:0x0014DDF4 align:4
+
+rel/main_rel/sel_static_disp/fn_1_14DDF4.c:
+	.text       start:0x0014DDF4 end:0x0014DE80 align:4
+
+rel/main_rel/sel_static_disp/fn_1_14EBF8.c:
+	.text       start:0x0014EBF8 end:0x0014ED00 align:4
+
+rel/main_rel/sel_static_disp/fn_1_14F608.c:
+	.text       start:0x0014F608 end:0x0014F6F8 align:4
+
+rel/main_rel/spline/fn_1_F4F08.c:
+	.text       start:0x000F4F08 end:0x000F5458 align:4
+
+rel/main_rel/car_test/fn_1_7C2A0.c:
+	.text       start:0x0007C2A0 end:0x0007C7CC align:4
+
+rel/main_rel/effect/fn_1_5B078.c:
+	.text       start:0x0005B078 end:0x0005B188 align:4
+
+rel/main_rel/effect/fn_1_5B188.c:
+	.text       start:0x0005B188 end:0x0005B30C align:4
+
+rel/main_rel/effect_car/fn_1_6FD58.c:
+	.text       start:0x0006FD58 end:0x0006FFA0 align:4
+
+rel/main_rel/font/fn_1_53E40.c:
+	.text       start:0x00053E40 end:0x00053FE4 align:4
+
+rel/main_rel/mdlload/fn_1_D3FDC.c:
+	.text       start:0x000D3FDC end:0x000D4174 align:4
+
+rel/main_rel/phys/fn_1_E5AE0.c:
+	.text       start:0x000E5AE0 end:0x000E5CC4 align:4
+
+rel/main_rel/screen_effect/fn_1_7880C.c:
+	.text       start:0x0007880C end:0x000788B0 align:4
+
+rel/main_rel/screen_effect/fn_1_788B0.c:
+	.text       start:0x000788B0 end:0x00078950 align:4
+
+rel/main_rel/sel_static_disp/fn_1_1418EC.c:
+	.text       start:0x001418EC end:0x00141A80 align:4
+
+rel/main_rel/sel_static_disp/fn_1_14F6F8.c:
+	.text       start:0x0014F6F8 end:0x0014FC80 align:4
+
+rel/main_rel/sel_static_disp/fn_1_150D3C.c:
+	.text       start:0x00150D3C end:0x00150ED0 align:4
