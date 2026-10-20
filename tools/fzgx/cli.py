@@ -128,6 +128,12 @@ def cmd_check(a, p):
     return 0 if r["ok"] and r["matched"] else 1
 
 
+def cmd_quick(a, p):
+    r = api.quick(p, a.symbol, a.file, a.max_diff_lines, a.mw_version, a.extra_cflags)
+    _print(r if a.json else api.format_check(r), a.json)
+    return 2 if not r['ok'] else 0 if r['matched'] or r.get('matched_pool') else 1
+
+
 def cmd_read_evidence(a, p):
     r = api.read_evidence(p, a.symbol, a.section, a.cursor)
     _print(r if a.json else api.format_check(r), a.json)
@@ -218,9 +224,9 @@ def cmd_verify(a, p):
         if a.interval <= 0:
             raise ValueError('--interval must be positive')
         from . import verify
-        verify.watch(p.version, a.interval, a.until_pid, a.stop_file, a.message)
+        verify.watch(p.version, a.interval, a.until_pid, a.stop_file, a.message, a.trailer)
         return 0
-    r = api.verify_links(p, a.message)
+    r = api.verify_links(p, a.message, a.trailer)
     _print(r, a.json); return 0 if r.get("ok") else 1
 
 
@@ -423,6 +429,10 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("check", help="compile + objdiff one function"); s.set_defaults(fn=cmd_check)
     s.add_argument("symbol"); s.add_argument("--max-diff-lines", type=int, default=80)
     s.add_argument("--versions", help="'all' or comma list, e.g. GC/1.2.5n,GC/1.3.2: compile under each compiler and report %%")
+    s = sub.add_parser("quick", help="compile any C file and diff one function against retail; no claim, ledger or build lock"); s.set_defaults(fn=cmd_quick)
+    s.add_argument("symbol"); s.add_argument("file", type=Path); s.add_argument("--max-diff-lines", type=int, default=80)
+    s.add_argument("--mw-version", help="compiler, e.g. GC/1.3.2 (default: the unit's, else every candidate for the module)")
+    s.add_argument("--extra-cflags", help="extra compiler flags, space separated")
     s = sub.add_parser("submit", help="accept a 100%% match: relink, hash, lint, commit"); s.set_defaults(fn=cmd_submit)
     s.add_argument("symbol"); s.add_argument("--name", dest="agent", default="unknown", help="your name, recorded with attempts"); s.add_argument("--names", help="JSON sidecar of name proposals")
     s.add_argument("--message"); s.add_argument("--max-diff-lines", type=int, default=40)
@@ -514,6 +524,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("sources", nargs="*"); s.add_argument("--stubs", action="store_true")
     s = sub.add_parser("verify", help="relink once for all accepted units, verify hashes, commit; bisect on failure"); s.set_defaults(fn=cmd_verify)
     s.add_argument("--message")
+    s.add_argument("--trailer", action="append", help="commit trailer for the auto-commit, e.g. 'Co-Authored-By: Name <mail>'; "
+                   "repeatable, added after the lines of $FZGX_COMMIT_TRAILERS (which tu-finish and trivial commits use too)")
     s.add_argument('--watch', action='store_true', help='verify completed matches periodically, independent of model sessions')
     s.add_argument('--interval', type=float, default=60, help='seconds between pending-work checks in watch mode')
     s.add_argument('--until-pid', type=int, help='watch until this parent exits, then drain once more')
