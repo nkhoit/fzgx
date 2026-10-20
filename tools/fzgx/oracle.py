@@ -464,6 +464,14 @@ def _bss_base_rows(project, module, obj, left, right, lrows, rrows, function_nam
             pair = (own['name'], binding, f'{binding}=verified BSS object[{own["size"]}]')
             if pair not in pairs:
                 pairs.append(pair)
+        # a unit that reaches its objects only by name still carries the section symbol;
+        # left local in the emptied section it crashes mwldeppc, so bind it to the start
+        base = next((s for s in symbols.values() if s['name'].startswith('...bss')
+                     and s['shndx'] == section['index'] and s['value'] == 0), None)
+        start = next((s for s in project.symbols(module).values()
+                      if s.section == retail.section and s.addr == origin and s.kind == 'object'), None)
+        if base is not None and start is not None and not any(p[0] == base['name'] for p in pairs):
+            pairs.append((base['name'], start.name, f'{start.name}=owned BSS base'))
     for i, (l, r) in enumerate(zip(lrows, rrows)):
         li, ri = l.get('instruction', {}), r.get('instruction', {})
         lr, rr = li.get('relocation'), ri.get('relocation')

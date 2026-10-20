@@ -1086,25 +1086,13 @@ rel/main_rel/shadowmap/fn_1_57720.c:
 rel/main_rel/shadowmap/fn_1_57DC0.c:
 	.text       start:0x00057DC0 end:0x00057E84
 
-rel/main_rel/avline/fn_1_58114.c:
-	.text       start:0x00058114 end:0x00058158
-
-rel/main_rel/avline/fn_1_58158.c:
-	.text       start:0x00058158 end:0x0005819C
-
-rel/main_rel/avline/fn_1_5819C.c:
-	.text       start:0x0005819C end:0x000581AC
-
-rel/main_rel/avline/fn_1_584AC.c:
-	.text       start:0x000584AC end:0x000584D4
-
-rel/main_rel/avline/fn_1_58854.c:
+rel/main_rel/effect/fn_1_58854.c:
 	.text       start:0x00058854 end:0x00058994
 
 rel/main_rel/effect/fn_1_58D38.c:
 	.text       start:0x00058D38 end:0x00058E3C
 
-rel/main_rel/avline/fn_1_591A0.c:
+rel/main_rel/effect/fn_1_591A0.c:
 	.text       start:0x000591A0 end:0x00059290
 
 rel/main_rel/effect/fn_1_59290.c:
@@ -1446,10 +1434,7 @@ rel/main_rel/screen_effect/fn_1_7B184.c:
 rel/main_rel/screen_effect/fn_1_7B4C0.c:
 	.text       start:0x0007B4C0 end:0x0007B558
 
-rel/main_rel/light/fn_1_7BE94.c:
-	.text       start:0x0007BE94 end:0x0007BEAC
-
-rel/main_rel/light/fn_1_7BF9C.c:
+rel/main_rel/car_test/fn_1_7BF9C.c:
 	.text       start:0x0007BF9C end:0x0007C13C
 
 rel/main_rel/car_test/fn_1_7D694.c:
@@ -2102,9 +2087,6 @@ rel/main_rel/background/fn_1_9E598.c:
 
 rel/main_rel/background/fn_1_9E5B8.c:
 	.text       start:0x0009E5B8 end:0x0009E608
-
-rel/main_rel/ptclput/fn_1_9F8FC.c:
-	.text       start:0x0009F8FC end:0x0009F914
 
 rel/main_rel/sound/fn_1_9FE74.c:
 	.text       start:0x0009FE74 end:0x0009FEE8
@@ -4185,81 +4167,6 @@ rel/main_rel/bg_aur/fn_1_151E74.c:
 rel/main_rel/bg_aur/fn_1_152840.c:
 	.text       start:0x00152840 end:0x001528D0
 
-rel/main_rel/bg_aur/fn_1_153988.c:
-	.text       start:0x00153988 end:0x0015398C
-
-rel/main_rel/bg_aur/fn_1_15398C.c:
-	.text       start:0x0015398C end:0x001539D0
-
-rel/main_rel/bg_aur/fn_1_1539D0.c:
-	.text       start:0x001539D0 end:0x00153A28
-
-rel/main_rel/bg_aur/fn_1_153A28.c:
-	.text       start:0x00153A28 end:0x00153AAC
-
-rel/main_rel/bg_aur/fn_1_153AAC.c:
-	.text       start:0x00153AAC end:0x00153AB0
-
-rel/main_rel/bg_aur/fn_1_153AB0.c:
-	.text       start:0x00153AB0 end:0x00153AF4
-
-rel/main_rel/bg_aur/fn_1_153AF4.c:
-	.text       start:0x00153AF4 end:0x00153AF8
-
-rel/main_rel/bg_aur/fn_1_153AF8.c:
-	.text       start:0x00153AF8 end:0x00153B24
-
-rel/main_rel/bg_aur/fn_1_153D48.c:
-	.text       start:0x00153D48 end:0x00153D74
-
-rel/main_rel/bg_aur/fn_1_1543E8.c:
-	.text       start:0x001543E8 end:0x00154410
-
-rel/main_rel/bg_tow/fn_1_154708.c:
-	.text       start:0x00154708 end:0x00154798
-
-rel/main_rel/bg_tow/fn_1_1548A8.c:
-	.text       start:0x001548A8 end:0x00154930
-
-rel/main_rel/bg_tow/fn_1_154930.c:
-	.text       start:0x00154930 end:0x001549B8
-
-rel/main_rel/rep_memcard/fn_1_154CC4.c:
-	.text       start:0x00154CC4 end:0x00154CD0
-
-rel/main_rel/rep_memcard/fn_1_154CD0.c:
-	.text       start:0x00154CD0 end:0x00154D84
-
-rel/main_rel/rep_memcard/fn_1_154D84.c:
-	.text       start:0x00154D84 end:0x00154E24
-
-rel/main_rel/rep_memcard/fn_1_154E24.c:
-	.text       start:0x00154E24 end:0x00154E34
-
-rel/main_rel/rep_memcard/fn_1_154E34.c:
-	.text       start:0x00154E34 end:0x00154E4C
-
-rel/main_rel/rep_memcard/fn_1_154ED0.c:
-	.text       start:0x00154ED0 end:0x00154F1C
-
-rel/main_rel/rep_memcard/fn_1_154F1C.c:
-	.text       start:0x00154F1C end:0x00154F74
-
-rel/main_rel/rep_memcard/fn_1_154F74.c:
-	.text       start:0x00154F74 end:0x00154F88
-
-rel/main_rel/rep_memcard/fn_1_154F88.c:
-	.text       start:0x00154F88 end:0x00154F98
-
-rel/main_rel/rep_memcard/fn_1_154F98.c:
-	.text       start:0x00154F98 end:0x00154FA8
-
-rel/main_rel/rep_memcard/fn_1_154FA8.c:
-	.text       start:0x00154FA8 end:0x00154FC0
-
-rel/main_rel/rep_memcard/fn_1_154FC0.c:
-	.text       start:0x00154FC0 end:0x00154FD8
-
 rel/main_rel/ranking/fn_1_1554D0.c:
 	.text       start:0x001554D0 end:0x0015555C
 
@@ -4545,9 +4452,6 @@ rel/main_rel/spline/fn_1_F70D0.c:
 rel/main_rel/sel_static_disp/fn_1_13EDDC.c:
 	.text       start:0x0013EDDC end:0x0013EE60 align:4
 
-rel/main_rel/ptclput/fn_1_9F870.c:
-	.text       start:0x0009F870 end:0x0009F8FC align:4
-
 rel/main_rel/camera/fn_1_6400.c:
 	.text       start:0x00006400 end:0x0000649C align:4
 
@@ -4565,9 +4469,6 @@ rel/main_rel/_prolog/fn_1_12B4.c:
 
 rel/main_rel/spline/fn_1_F5AF0.c:
 	.text       start:0x000F5AF0 end:0x000F5B38 align:4
-
-rel/main_rel/bg_tow/fn_1_1549B8.c:
-	.text       start:0x001549B8 end:0x00154A08 align:4
 
 rel/main_rel/mdlload/fn_1_D3C58.c:
 	.text       start:0x000D3C58 end:0x000D3CF4 align:4
@@ -4722,9 +4623,6 @@ rel/main_rel/memcard/fn_1_AC92C.c:
 rel/main_rel/spline/fn_1_FA5E0.c:
 	.text       start:0x000FA5E0 end:0x000FA61C align:4
 
-rel/main_rel/bg_tow/fn_1_154C84.c:
-	.text       start:0x00154C84 end:0x00154CC4 align:4
-
 rel/main_rel/sound/fn_1_A4DF4.c:
 	.text       start:0x000A4DF4 end:0x000A4F18 align:4
 
@@ -4742,9 +4640,6 @@ rel/main_rel/spline/fn_1_F8AFC.c:
 
 rel/main_rel/car/fn_1_7FA04.c:
 	.text       start:0x0007FA04 end:0x0007FAA8 align:4
-
-rel/main_rel/rep_memcard/fn_1_154E4C.c:
-	.text       start:0x00154E4C end:0x00154ED0 align:4
 
 rel/main_rel/car/fn_1_900C4.c:
 	.text       start:0x000900C4 end:0x0009012C align:4
@@ -4764,14 +4659,8 @@ rel/main_rel/archive/fn_1_131084.c:
 rel/main_rel/game/fn_1_40EE4.c:
 	.text       start:0x00040EE4 end:0x00040F34 align:4
 
-rel/main_rel/bg_tow/fn_1_1547FC.c:
-	.text       start:0x001547FC end:0x001548A8 align:4
-
 rel/main_rel/face/fn_1_D3020.c:
 	.text       start:0x000D3020 end:0x000D3144 align:4
-
-rel/main_rel/rep_memcard/fn_1_154FD8.c:
-	.text       start:0x00154FD8 end:0x00155120 align:4
 
 rel/main_rel/font/fn_1_56470.c:
 	.text       start:0x00056470 end:0x00056530 align:4
@@ -5103,9 +4992,6 @@ rel/main_rel/game/fn_1_3FF90.c:
 rel/main_rel/game/fn_1_40710.c:
 	.text       start:0x00040710 end:0x000408E8 align:4
 
-rel/main_rel/bg_aur/fn_1_1540B0.c:
-	.text       start:0x001540B0 end:0x00154164 align:4
-
 rel/main_rel/memcard/fn_1_B9CCC.c:
 	.text       start:0x000B9CCC end:0x000B9DE8 align:4
 
@@ -5117,9 +5003,6 @@ rel/main_rel/car_test/fn_1_7EB0C.c:
 
 rel/main_rel/memcard/fn_1_B7C6C.c:
 	.text       start:0x000B7C6C end:0x000B7CD4 align:4
-
-rel/main_rel/ptclput/fn_1_9F914.c:
-	.text       start:0x0009F914 end:0x0009F9A4 align:4
 
 rel/main_rel/sel_static_disp/fn_1_14E1E0.c:
 	.text       start:0x0014E1E0 end:0x0014E2DC align:4
@@ -5208,9 +5091,6 @@ rel/main_rel/sel_static_disp/fn_1_133BD8.c:
 rel/main_rel/motasglist/fn_1_42E74.c:
 	.text       start:0x00042E74 end:0x0004300C align:4
 
-rel/main_rel/bg_aur/fn_1_153C60.c:
-	.text       start:0x00153C60 end:0x00153D48 align:4
-
 rel/main_rel/game/fn_1_3A2C4.c:
 	.text       start:0x0003A2C4 end:0x0003A330 align:4
 
@@ -5271,7 +5151,7 @@ rel/main_rel/effect/fn_1_632D4.c:
 rel/main_rel/screen_effect/fn_1_79810.c:
 	.text       start:0x00079810 end:0x00079948 align:4
 
-rel/main_rel/avline/fn_1_58694.c:
+rel/main_rel/effect/fn_1_58694.c:
 	.text       start:0x00058694 end:0x00058854 align:4
 
 rel/main_rel/load/fn_1_45CD8.c:
@@ -5408,9 +5288,6 @@ rel/main_rel/live_camera/fn_1_101D0.c:
 
 rel/main_rel/accessory/fn_1_128E10.c:
 	.text       start:0x00128E10 end:0x00128E8C align:4
-
-rel/main_rel/ptclput/fn_1_9F9A4.c:
-	.text       start:0x0009F9A4 end:0x0009FA18 align:4
 
 rel/main_rel/font/fn_1_51B84.c:
 	.text       start:0x00051B84 end:0x00051BFC align:4
@@ -5549,9 +5426,6 @@ rel/main_rel/camera/fn_1_6898.c:
 
 rel/main_rel/bg_win/fn_1_15E330.c:
 	.text       start:0x0015E330 end:0x0015E3E0 align:4
-
-rel/main_rel/ptclput/fn_1_9F7DC.c:
-	.text       start:0x0009F7DC end:0x0009F870 align:4
 
 rel/main_rel/driver/fn_1_A8DD4.c:
 	.text       start:0x000A8DD4 end:0x000A8E78 align:4
@@ -5781,9 +5655,6 @@ rel/main_rel/burner/fn_1_9ADCC.c:
 rel/main_rel/memcard/fn_1_AC000.c:
 	.text       start:0x000AC000 end:0x000AC12C align:4
 
-rel/main_rel/rep_memcard/fn_1_15530C.c:
-	.text       start:0x0015530C end:0x001554D0 align:4
-
 rel/main_rel/memcard/fn_1_B8170.c:
 	.text       start:0x000B8170 end:0x000B8338 align:4
 
@@ -5819,9 +5690,6 @@ rel/main_rel/spline/fn_1_F9028.c:
 
 rel/main_rel/archive/fn_1_12CB04.c:
 	.text       start:0x0012CB04 end:0x0012CCB0 align:4
-
-rel/main_rel/bg_aur/fn_1_153B24.c:
-	.text       start:0x00153B24 end:0x00153C60 align:4
 
 rel/main_rel/car/fn_1_8658C.c:
 	.text       start:0x0008658C end:0x00086624 align:4
@@ -5879,9 +5747,6 @@ rel/main_rel/stcoli/fn_1_2C768.c:
 
 rel/main_rel/memcard/fn_1_C23CC.c:
 	.text       start:0x000C23CC end:0x000C2454 align:4
-
-rel/main_rel/light/fn_1_7BCCC.c:
-	.text       start:0x0007BCCC end:0x0007BD6C align:4
 
 rel/main_rel/load/fn_1_47268.c:
 	.text       start:0x00047268 end:0x00047330 align:4
@@ -6399,9 +6264,6 @@ rel/main_rel/live_camera/fn_1_FB50.c:
 rel/main_rel/car/fn_1_8CED0.c:
 	.text       start:0x0008CED0 end:0x0008D0A4 align:4
 
-rel/main_rel/avline/fn_1_581AC.c:
-	.text       start:0x000581AC end:0x00058248 align:4
-
 rel/main_rel/archive/fn_1_12AC28.c:
 	.text       start:0x0012AC28 end:0x0012ADA0 align:4
 
@@ -6413,9 +6275,6 @@ rel/main_rel/ranking/fn_1_1576B4.c:
 
 rel/main_rel/camera/fn_1_6B48.c:
 	.text       start:0x00006B48 end:0x00006BC0 align:4
-
-rel/main_rel/rep_memcard/fn_1_154BE4.c:
-	.text       start:0x00154BE4 end:0x00154C84 align:4
 
 rel/main_rel/game/fn_1_3908C.c:
 	.text       start:0x0003908C end:0x000391F0 align:4
@@ -6506,9 +6365,6 @@ rel/main_rel/font/fn_1_4E060.c:
 
 rel/main_rel/screen_effect/fn_1_769FC.c:
 	.text       start:0x000769FC end:0x00076A94 align:4
-
-rel/main_rel/screen_effect/fn_1_7BA08.c:
-	.text       start:0x0007BA08 end:0x0007BA48 align:4
 
 rel/main_rel/car/fn_1_8421C.c:
 	.text       start:0x0008421C end:0x000843BC align:4
@@ -6642,15 +6498,6 @@ rel/main_rel/bitmap/fn_1_47E54.c:
 rel/main_rel/bitmap/fn_1_48214.c:
 	.text       start:0x00048214 end:0x00048418 align:4
 
-rel/main_rel/light/fn_1_7BEAC.c:
-	.text       start:0x0007BEAC end:0x0007BF9C align:4
-
-rel/main_rel/screen_effect/fn_1_7BB80.c:
-	.text       start:0x0007BB80 end:0x0007BCCC align:4
-
-rel/main_rel/screen_effect/fn_1_7BD6C.c:
-	.text       start:0x0007BD6C end:0x0007BE94 align:4
-
 rel/main_rel/_prolog/fn_1_3C18.c:
 	.text       start:0x00003C18 end:0x00003C78 align:4
 
@@ -6675,14 +6522,13 @@ rel/main_rel/relocation.c:
 rel/main_rel/alloc/fn_1_4E60.c:
 	.text       start:0x00004E60 end:0x00004FEC align:4
 
-rel/main_rel/bg_tow/fn_1_154410.c:
-	.text       start:0x00154410 end:0x00154708 align:4
+rel/main_rel/rep_memcard.c:
+	.text       start:0x00154708 end:0x001554D0 align:4
+	.data       start:0x00049A18 end:0x00049B08 align:8
+	.bss        start:0x0008ED90 end:0x0008EF20 align:8
 
-rel/main_rel/rep_memcard/fn_1_154A08.c:
-	.text       start:0x00154A08 end:0x00154BE4 align:4
-
-rel/main_rel/rep_memcard/fn_1_155120.c:
-	.text       start:0x00155120 end:0x0015530C align:4
+rel/main_rel/bg_tow.c:
+	.text       start:0x00153988 end:0x00154708 align:4
 
 rel/main_rel/face/fn_1_D2110.c:
 	.text       start:0x000D2110 end:0x000D2404 align:4
@@ -6692,3 +6538,12 @@ rel/main_rel/face/fn_1_D27B8.c:
 
 rel/main_rel/face/fn_1_D1848.c:
 	.text       start:0x000D1848 end:0x000D19B8 align:4
+
+rel/main_rel/light.c:
+	.text       start:0x0007BA08 end:0x0007BF9C align:4
+
+rel/main_rel/avline.c:
+	.text       start:0x00058114 end:0x000584D4 align:4
+
+rel/main_rel/ptclput.c:
+	.text       start:0x0009F7DC end:0x0009FE74 align:4

@@ -1,85 +1,436 @@
-#include "rel/main_rel/globals.h"
-#include "rel/main_rel/bg_tow.h"
-
-extern void fn_1_B9BE0(void);
-extern void fn_1_B9DE8(Obj_1_bss_8EDA4 *arg0);
-extern void fn_1_48418(s32 arg0);
-extern void fn_1_159440(s32 arg0, s32 arg1);
-extern u8 lbl_1_bss_8EDA0;
-extern s32 fn_1_BA144(Obj_1_bss_8EDA4 *arg0);
-extern void fn_1_1596DC(s32 arg0);
-extern void fn_1_484CC(s32 arg0);
-extern void fn_1_BC310(Obj_1_bss_8EDA4 *arg0);
-extern void fn_1_C0510(u32 *arg0, u32 arg1, u32 arg2);
-extern u32 fn_1_426C(u32);
-extern u32 fn_1_46B4(u32, u32, u32, u32);
-extern u32 fn_1_B9C0C(void);
-extern u32 lbl_801A6410;
-
-/* fzgx:begin fn_1_154410 */
 #include "types.h"
+#include "rel/main_rel/globals.h"
+#include "psvec.h"
+#include "dolphin/hw_regs.h"
 
-extern void lbl_8006D7DC(void *);
-extern void mathutil_mtxA_rotate_z(s16);
-extern void mathutil_mtxA_rotate_y(s16);
-extern void mathutil_mtxA_rotate_x(s16);
-extern void lbl_8006DB74(void *);
-extern void OSPanic(const char *, int, const char *, ...);
-extern u32 lbl_801A63C0;
+typedef struct {
+    f32 x, y, z;
+} Vec;
 
-#pragma section code_type ".fzgxpool"
-__declspec(section ".fzgxpool") static void fzgx_pool_prime1(void) {
-    volatile f32 s; volatile f64 d;  /* fzgx-allow: S2 pool primer sinks */
-    s = 0.15000000596046448f;
-    s = -0.949999988079071f;
-    s = 0.03099999949336052f;
-    s = 0.004999999888241291f;
-    s = -0.03200000151991844f;
-    s = -0.9229999780654907f;
-    s = 1.0f;
-    s = 0.0f;
-    d = 4503601774854144.0;
-}
-static const u32 fzgx_pool_table2[22] = {0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x3F800000, 0x00000000, 0x3F800000, 0x00000000, 0x00000000, 0x00000000, 0x3F800000, 0x00000000, 0x00000000, 0x00000000, 0x43480000, 0x42480000, 0x3DCCCCCD, 0x40A00000, 0x00000000, 0x00000000, 0x00000000};  /* fzgx-allow: A1 retail pool bytes */
-__declspec(section ".fzgxpool") static void fzgx_pool_keep2(void) { const u32 *volatile cp; cp = fzgx_pool_table2; }  /* fzgx-allow: S2 pool primer sink */
-#pragma section code_type ".text"
+typedef f32 Mtx[3][4];
+
+/* the matrix the math library keeps in the locked cache */
+#define LC_MTX (*(Mtx *)LC_BASE)
 
 typedef struct {
     u32 flags;
-    u8 pad_4[0x8];
-    f32 pos[3];
+    u32 mask;
+    u8 pad_8[0x4];
+    Vec pos;
     s16 rot_x;
     s16 rot_y;
     s16 rot_z;
+    u8 pad_1E[0x2];
+    Vec scale;
+    u8 pad_2C[0x14];
 } TowObj;
 
+/* the camera-facing objects and search lights */
 typedef struct {
     s32 count;
-    s32 mtx_count;
-    TowObj *unk_8;
-    TowObj *objs[16];
+    s32 light_count;
+    TowObj *model;
+    TowObj *models[16];
     s32 flags[16];
-    u8 pad_8C[0x270];
-    f32 mtx[16][12];
+    Vec pos[4];        /* 0x8C */
+    Vec front[4];      /* 0xBC */
+    Vec up[4];         /* 0xEC */
+    Mtx mtx[4];        /* 0x11C */
+    Vec target[4];     /* 0x1DC */
+    Vec dir[4];        /* 0x20C */
+    Mtx view[4];       /* 0x23C */
+    Mtx lights[16];    /* 0x2FC */
 } TowSub;
 
+/* the window objects */
 typedef struct {
     s32 count;
     TowObj *objs[64];
-    s32 unk_104[64];
-    f32 unk_204[64];
-    f32 unk_304[64];
-    f32 unk_404[64];
-    f32 mtx[64][12];
+    s32 counter[64];
+    f32 timer[64];
+    f32 progress[64];
+    f32 cooldown[64];
+    Mtx mtx[64];
     u32 unk_1104;
     TowSub sub;
 } TowWork;
+
+extern u32 lbl_801A63C0;
+extern Mtx *lbl_801A6D00;
+extern void OSPanic(const char *, int, const char *, ...);
+extern void fn_80008BEC(void *dst, u32 value, u32 size);
+extern void fn_80072558(void);
+extern void fn_8006F1F0(Vec *, Vec *, Vec *);
+extern f32 lbl_8006D0B4(f32);
+extern void lbl_8006D784(void *);
+extern void lbl_8006D7DC(void *);
+extern void lbl_8006DAEC(void);
+extern void lbl_8006DB30(void);
+extern void lbl_8006DB74(void *);
+extern void lbl_8006DD7C(void);
+extern void lbl_8006DFC4(void *);
+extern void lbl_8006DFE8(void *);
+extern void lbl_8006E0A4(void *);
+extern void lbl_8006E0C8(void *);
+extern void lbl_8006E13C(void *);
+extern void mathutil_mtxA_rotate_x(s16);
+extern void mathutil_mtxA_rotate_y(s16);
+extern void mathutil_mtxA_rotate_z(s16);
+extern s16 camera_get_mode(void);
+extern s32 fn_1_58C4(void);
+extern s32 fn_1_5910(void);
+extern void fn_1_5948(s32);
+extern void fn_1_627C(s32);
+extern void fn_1_55210(void *);
+extern void fn_1_560F0(s32, void *);
+extern void fn_1_862D4(s32, Vec *);
+extern void fn_1_8636C(s32, Mtx *);
+extern void fn_1_869B0(s32, Vec *);
+extern void fn_1_9A508(void);
+extern void fn_1_9AD54(void);
+extern void fn_1_9AD88(void);
+extern void fn_1_9BBE4(TowObj *, u32, u32, void *);
+extern void fn_1_9D260(void);
+
+void fn_1_153AF8(u32 *entries);
+void fn_1_153B24(TowWork *work);
+void fn_1_153C60(u8 *base);
+void fn_1_153D48(TowWork *work);
+void fn_1_153D74(TowWork *work);
+void fn_1_1540B0(TowWork *work);
+void fn_1_154164(TowWork *work, const Vec *pos, void *view, s32 all);
 
 static inline s32 tow_rand(void) {
     lbl_801A63C0 = lbl_801A63C0 * 0x676A4B6B + 0x33CB;
     return (lbl_801A63C0 >> 16) & 0x7FFF;
 }
 
+/* fzgx:begin fn_1_153988 */
+void fn_1_153988(void) {
+}
+/* fzgx:end fn_1_153988 */
+
+/* fzgx:begin fn_1_15398C */
+// Prepares the shared background object and advances the background system.
+void fn_1_15398C(void) {
+    TowWork *work = (TowWork *)lbl_1_data_2A7E0.unk_3C;
+    fn_1_153AF8((u32 *)&work->count);
+    fn_1_153D48(work);
+    fn_1_9A508();
+}
+/* fzgx:end fn_1_15398C */
+
+/* fzgx:begin fn_1_1539D0 */
+void fn_1_1539D0(void) {
+    int count = fn_1_58C4();
+    int i;
+    for (i = 0; i < count; i++) {
+        fn_1_5948(i);
+        fn_1_627C(i);
+    }
+}
+/* fzgx:end fn_1_1539D0 */
+
+/* fzgx:begin fn_1_153A28 */
+void fn_1_153A28(void) {
+    TowWork *work;
+    int count;
+    int i;
+
+    work = (TowWork *)lbl_1_data_2A7E0.unk_3C;
+    fn_1_9D260();
+    fn_1_9AD54();
+    count = fn_1_58C4();
+    for (i = 0; i < count; i++) {
+        fn_1_5948(i);
+        fn_1_153D74(work);
+        fn_1_627C(i);
+    }
+    fn_1_153B24(work);
+}
+/* fzgx:end fn_1_153A28 */
+
+/* fzgx:begin fn_1_153AAC */
+void fn_1_153AAC(void) {
+}
+/* fzgx:end fn_1_153AAC */
+
+/* fzgx:begin fn_1_153AB0 */
+void fn_1_153AB0(void) {
+    TowWork *work = (TowWork *)lbl_1_data_2A7E0.unk_3C;
+    fn_1_153C60((u8 *)work);
+    fn_1_1540B0(work);
+    fn_1_9AD88();
+}
+/* fzgx:end fn_1_153AB0 */
+
+/* fzgx:begin fn_1_153AF4 */
+void fn_1_153AF4(void) {
+}
+/* fzgx:end fn_1_153AF4 */
+
+/* fzgx:begin fn_1_153AF8 */
+// Clears the first entry and any following entries selected by its count.
+void fn_1_153AF8(u32 *entries) {
+    u32 *current = entries;
+    int index = 0;
+    entries[0] = 0;
+    while (index < (int)entries[0]) {
+        *++current = 0;
+        index++;
+    }
+}
+/* fzgx:end fn_1_153AF8 */
+
+/* fzgx:begin fn_1_153B24 */
+// Animates the window lights: each one flickers down its column and restarts.
+void fn_1_153B24(TowWork *work) {
+    f32 base;
+    f32 prod;
+    s32 i;
+
+    for (i = 0; i < work->count; i++) {
+        work->timer[i] -= 0.15f;
+        if (work->timer[i] <= -0.95f) {
+            work->counter[i]++;
+            work->timer[i] = 0.031f;
+        }
+
+        base = 0.005f;
+        prod = -0.032f * (f32)work->counter[i];
+        work->progress[i] = base + prod;
+
+        if (work->progress[i] <= -0.923f) {
+            work->timer[i] = -0.95f;
+            work->progress[i] = -0.923f;
+            work->counter[i] = (s32)((work->progress[i] - 0.005f) / -0.032f);
+        }
+
+        if (work->progress[i] == -0.923f) {
+            work->cooldown[i] -= -0.032f;
+            if (work->cooldown[i] > 1.0f) {
+                work->cooldown[i] = 0.0f;
+                work->timer[i] = 0.031f;
+                work->progress[i] = 0.005f;
+                work->counter[i] = (s32)((work->progress[i] - 0.005f) / -0.032f);
+            }
+        }
+    }
+}
+/* fzgx:end fn_1_153B24 */
+
+/* fzgx:begin fn_1_153C60 */
+void fn_1_153C60(u8 *base) {
+    u8 *entry;
+    u8 *slot;
+    s32 i;
+    u8 *obj;
+    u8 work0[0x30];
+    u8 work1[0x30];
+
+    entry = base;
+    slot = base;
+    i = 0;
+
+    while (i < *(s32 *)base) {
+        obj = *(u8 **)(entry + 4);
+        {
+            u32 value = *(u32 *)(obj + 4);
+
+            if ((value + 0x10000) == 0xffff || (value & lbl_1_data_2A7E0.unk_50) != 0) {
+                lbl_8006DFE8(slot + 0x504);
+                lbl_8006E13C(obj + 0x20);
+                lbl_8006E0A4((u8 *)*(void **)(base + 0x1104) + 8);
+                fn_80072558();
+                lbl_8006D784(work0);
+                *(f32 *)(work0 + 0xC) = *(f32 *)(entry + 0x204);
+                *(f32 *)(work0 + 0x1C) = *(f32 *)(entry + 0x304);
+                fn_1_560F0(0, work0);
+                lbl_8006D784(work1);
+                *(f32 *)(work1 + 0x1C) = *(f32 *)(entry + 0x404);
+                fn_1_560F0(1, work1);
+                fn_1_55210(*(void **)(base + 0x1104));
+            }
+        }
+
+        entry += 4;
+        slot += 0x30;
+        i++;
+    }
+}
+/* fzgx:end fn_1_153C60 */
+
+/* fzgx:begin fn_1_153D48 */
+// Clears the search-light work area.
+void fn_1_153D48(TowWork *work) {
+    fn_80008BEC(&work->sub, 0, sizeof(TowSub));
+}
+/* fzgx:end fn_1_153D48 */
+
+/* fzgx:begin fn_1_153D74 */
+// Points each camera's search light at a spot ahead of the camera and eases it there.
+void fn_1_153D74(TowWork *work_) {
+    TowSub *work = &work_->sub;
+    s32 count;
+    s32 i;
+    s32 mode;
+    f32 len;
+    f32 dist;
+    f32 height;
+    f32 rate;
+    f32 max;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    Vec eye;
+    Vec delta;
+
+    if (work->model == NULL) {
+        return;
+    }
+    count = fn_1_58C4();
+    dist = 200.0f;
+    height = 50.0f;
+    rate = 0.1f;
+    max = 5.0f;
+    for (i = 0; i < count; i++) {
+        fn_1_5948(i);
+        mode = camera_get_mode();
+        if (mode == -1) {
+            eye = (Vec){0.0f, 0.0f, 0.0f};
+            work->front[i] = (Vec){0.0f, 0.0f, 1.0f};
+            work->up[i] = (Vec){0.0f, 1.0f, 0.0f};
+            work->dir[i] = (Vec){0.0f, 0.0f, 1.0f};
+            work->target[i] = (Vec){0.0f, 0.0f, 0.0f};
+            lbl_8006D784(&work->mtx[i]);
+            lbl_8006D784(&work->view[i]);
+        } else {
+            lbl_8006DAEC();
+            fn_1_862D4(mode, &eye);
+            fn_1_8636C(mode, lbl_801A6D00);
+            LC_MTX[0][3] = 0.0f;
+            LC_MTX[1][3] = 0.0f;
+            LC_MTX[2][3] = 0.0f;
+            work->front[i].x = -(*lbl_801A6D00)[0][2];
+            work->front[i].y = -(*lbl_801A6D00)[1][2];
+            work->front[i].z = -(*lbl_801A6D00)[2][2];
+            work->up[i].x = (*lbl_801A6D00)[0][1];
+            work->up[i].y = (*lbl_801A6D00)[1][1];
+            work->up[i].z = (*lbl_801A6D00)[2][1];
+            lbl_8006DB74(&work->mtx[i]);
+            fn_1_869B0(mode, &work->dir[i]);
+            fn_8006F1F0(&eye, &work->up[i], &work->pos[i]);
+            LC_MTX[0][3] = 0.0f;
+            LC_MTX[1][3] = 0.0f;
+            LC_MTX[2][3] = 0.0f;
+            lbl_8006DD7C();
+            lbl_8006DB74(&work->view[i]);
+            lbl_8006DB30();
+        }
+        work->target[i].x = eye.x + (f32)(work->dir[i].x * dist) + (f32)(work->up[i].x * height);
+        work->target[i].y = eye.y + (f32)(work->dir[i].y * dist) + (f32)(work->up[i].y * height);
+        work->target[i].z = eye.z + (f32)(work->dir[i].z * dist) + (f32)(work->up[i].z * height);
+        dx = rate * (work->target[i].x - work->pos[i].x);
+        dy = rate * (work->target[i].y - work->pos[i].y);
+        dz = rate * (work->target[i].z - work->pos[i].z);
+        delta.x = dx;
+        delta.y = dy;
+        delta.z = dz;
+        len = dx * dx;
+        len = dy * dy + len;
+        len = dz * dz + len;
+        len = lbl_8006D0B4(len);
+        if (len > max) {
+            len = max / len;
+            delta.x *= len;
+            delta.y *= len;
+            delta.z *= len;
+        }
+        psvec_add(&work->pos[i], &delta, &work->pos[i]);
+    }
+}
+/* fzgx:end fn_1_153D74 */
+
+/* fzgx:begin fn_1_1540B0 */
+void fn_1_1540B0(TowWork *work) {
+    u8 *table;
+    s32 i;
+    TowSub *sub;
+
+    sub = &work->sub;
+    {
+        s32 slot;
+        slot = fn_1_5910();
+        fn_1_154164(work, (Vec *)((u8 *)sub + slot * 0xc + 0x8c), (u8 *)sub + slot * 0x30 + 0x23c, 0);
+    }
+
+    table = (u8 *)sub;
+    for (i = 0; i < sub->light_count; i++) {
+        Vec zero = {0.0f, 0.0f, 0.0f};
+        fn_1_154164(work, &zero, table + 0x2fc, 1);
+        table += 0x30;
+    }
+}
+/* fzgx:end fn_1_1540B0 */
+
+/* fzgx:begin fn_1_154164 */
+// Draws the search-light model and every camera-facing object relative to `pos`.
+void fn_1_154164(TowWork *work_, const Vec *pos, void *view, s32 all) {
+    s32 i;
+    TowSub *work = &work_->sub;
+    TowObj objs[17];
+    Mtx mtx;
+
+    if (work->model == NULL) {
+        return;
+    }
+    objs[0] = *work->model;
+    objs[0].flags &= ~0x80000000;
+    psvec_add(&objs[0].pos, pos, &objs[0].pos);
+    lbl_8006D7DC(&objs[0].pos);
+    lbl_8006DFC4(view);
+    lbl_8006E13C(&objs[0].scale);
+    lbl_8006DB74(&mtx);
+    fn_1_9BBE4(&objs[0], 0, 0, &mtx);
+    for (i = 0; i < work->count; i++) {
+        if (all == 0 && work->flags[i] != 0) {
+            continue;
+        }
+        objs[i + 1] = *work->models[i];
+        objs[i + 1].flags &= ~0x80000000;
+        psvec_add(&objs[i + 1].pos, pos, &objs[i + 1].pos);
+        lbl_8006D7DC(&objs[0].pos);
+        lbl_8006DFC4(view);
+        lbl_8006E0C8(&objs[0].pos);
+        lbl_8006E0A4(&objs[i + 1].pos);
+        mathutil_mtxA_rotate_z(objs[i + 1].rot_z);
+        mathutil_mtxA_rotate_y(objs[i + 1].rot_y);
+        mathutil_mtxA_rotate_x(objs[i + 1].rot_x);
+        lbl_8006E13C(&objs[i + 1].scale);
+        lbl_8006DB74(&mtx);
+        fn_1_9BBE4(&objs[i + 1], 0, 0, &mtx);
+    }
+}
+/* fzgx:end fn_1_154164 */
+
+/* fzgx:begin fn_1_1543E8 */
+u32 fn_1_1543E8(s32 value, u32 *source) {
+    TowWork *work = (TowWork *)lbl_1_data_2A7E0.unk_3C;
+
+    switch (value) {
+    case 0:
+        work->unk_1104 = *source;
+        break;
+    default:
+        break;
+    }
+
+    return 1;
+}
+/* fzgx:end fn_1_1543E8 */
+
+
+/* fzgx:begin fn_1_154410 */
 // Registers a tow background object with the stage work area by kind.
 s32 fn_1_154410(s32 kind, TowObj *obj) {
     TowWork *work = (TowWork *)lbl_1_data_2A7E0.unk_3C;
@@ -88,11 +439,11 @@ s32 fn_1_154410(s32 kind, TowObj *obj) {
     case 0:
         obj->flags |= 0x80000000;
         work->objs[work->count] = obj;
-        work->unk_204[work->count] = -0.95f + (f32)(0.981f * ((f32)tow_rand() / 32767.0f));
-        work->unk_304[work->count] = 0.005f + (f32)(-0.928f * ((f32)tow_rand() / 32767.0f));
-        work->unk_104[work->count] = (s32)((work->unk_304[work->count] - 0.005f) / -0.032f);
-        work->unk_404[work->count] = 0.0f;
-        lbl_8006D7DC(obj->pos);
+        work->timer[work->count] = -0.95f + (f32)(0.981f * ((f32)tow_rand() / 32767.0f));
+        work->progress[work->count] = 0.005f + (f32)(-0.928f * ((f32)tow_rand() / 32767.0f));
+        work->counter[work->count] = (s32)((work->progress[work->count] - 0.005f) / -0.032f);
+        work->cooldown[work->count] = 0.0f;
+        lbl_8006D7DC(&obj->pos);
         mathutil_mtxA_rotate_z(obj->rot_z);
         mathutil_mtxA_rotate_y(obj->rot_y);
         mathutil_mtxA_rotate_x(obj->rot_x);
@@ -104,14 +455,14 @@ s32 fn_1_154410(s32 kind, TowObj *obj) {
         break;
     case 1:
         obj->flags |= 0x80000000;
-        work->sub.unk_8 = obj;
+        work->sub.model = obj;
         break;
     case 2:
     case 3:
     case 5: {
         TowSub *sub = &work->sub;
         obj->flags |= 0x80000000;
-        sub->objs[sub->count] = obj;
+        sub->models[sub->count] = obj;
         if (kind == 5) {
             sub->flags[sub->count] = 1;
         } else {
@@ -125,13 +476,13 @@ s32 fn_1_154410(s32 kind, TowObj *obj) {
     }
     case 4: {
         TowSub *sub = &work->sub;
-        lbl_8006D7DC(obj->pos);
+        lbl_8006D7DC(&obj->pos);
         mathutil_mtxA_rotate_z(obj->rot_z);
         mathutil_mtxA_rotate_y(obj->rot_y);
         mathutil_mtxA_rotate_x(obj->rot_x);
-        lbl_8006DB74(sub->mtx[sub->mtx_count]);
-        sub->mtx_count++;
-        if (sub->mtx_count >= 16) {
+        lbl_8006DB74(sub->lights[sub->light_count]);
+        sub->light_count++;
+        if (sub->light_count >= 16) {
             OSPanic("bg_tow.c", 0x20F, "BG_TOW_SCAMPOINT01 NUM OVER!");
         }
         break;
@@ -140,206 +491,3 @@ s32 fn_1_154410(s32 kind, TowObj *obj) {
     return 1;
 }
 /* fzgx:end fn_1_154410 */
-
-/* fzgx:begin fn_1_154708 noprologue */
-#include "types.h"
-
-struct fn_1_154708_lbl_1_data_49A18 {
-    u8 pad_0[0x90];
-    u32 unk_90;
-    u32 unk_94;
-    u32 unk_98;
-    u32 unk_9C;
-};
-struct fn_1_154708_lbl_1_bss_8ED90 {
-    u32 unk_0;
-    u32 unk_4;
-    u32 unk_8;
-    u32 unk_C;
-    u8 unk_10;
-};
-
-extern struct fn_1_154708_lbl_1_bss_8ED90 lbl_1_bss_8ED90;
-extern struct fn_1_154708_lbl_1_data_49A18 lbl_1_data_49A18;
-extern u32 fn_1_3F8C(u32, u32, u32, u32);
-extern u32 fn_1_435C(u32);
-extern u32 fn_1_B9BE0(u32);
-extern void fn_1_154798(void);
-
-void fn_1_154708(u32 arg0) {
-    struct fn_1_154708_lbl_1_bss_8ED90 *p_lbl_1_bss_8ED90;
-    u32 t1;
-    p_lbl_1_bss_8ED90 = (struct fn_1_154708_lbl_1_bss_8ED90 *)&lbl_1_bss_8ED90;
-    p_lbl_1_bss_8ED90->unk_C = arg0;
-{
-    struct fn_1_154708_lbl_1_data_49A18 * p_lbl_1_data_49A18 = (struct fn_1_154708_lbl_1_data_49A18 *)&lbl_1_data_49A18;
-    p_lbl_1_data_49A18->unk_90 = -1;
-    fn_1_435C(arg0);
-    t1 = fn_1_3F8C((u32)((u8 *)(u32)p_lbl_1_data_49A18 + 160), (u32)fn_1_154798, 0, 18);
-    p_lbl_1_data_49A18->unk_90 = t1;
-    p_lbl_1_data_49A18->unk_94 = -1;
-    p_lbl_1_data_49A18->unk_98 = -1;
-    p_lbl_1_data_49A18->unk_9C = -1;
-}
-    p_lbl_1_bss_8ED90->unk_10 = 0;
-    p_lbl_1_bss_8ED90->unk_8 = 0;
-    p_lbl_1_bss_8ED90->unk_0 = 0;
-    p_lbl_1_bss_8ED90->unk_4 = 0;
-    fn_1_B9BE0(t1);
-}
-/* fzgx:end fn_1_154708 */
-
-/* fzgx:begin fn_1_1547FC */
-#include "types.h"
-
-struct fn_1_1547FC_lbl_1_data_49A18 {
-    u8 pad_0[0x90];
-    u32 unk_90;
-    u32 unk_94;
-    u32 unk_98;
-    u32 unk_9C;
-};
-struct fn_1_1547FC_lbl_1_bss_8ED90 {
-    u32 unk_0;
-    u32 unk_4;
-    u8 pad_8[0x4];
-    u32 unk_C;
-};
-
-extern u32 fn_1_435C(u32);
-
-s32 fn_1_1547FC(u32 arg0, u32 arg1, u32 arg2, u32 arg3) {
-    struct fn_1_1547FC_lbl_1_data_49A18 *p_lbl_1_data_49A18;
-    struct fn_1_1547FC_lbl_1_bss_8ED90 *p_lbl_1_bss_8ED90;
-    u32 v0;
-    u32 v1;
-    u32 v2;
-    u32 v3;
-    u32 v4;
-    s32 v5;
-    u32 t0, t1, t2, t3;
-    p_lbl_1_bss_8ED90 = (struct fn_1_1547FC_lbl_1_bss_8ED90 *)&(*(struct fn_1_1547FC_lbl_1_bss_8ED90 *)&lbl_1_bss_8ED90);
-    p_lbl_1_data_49A18 = &(*(struct fn_1_1547FC_lbl_1_data_49A18 *)&lbl_1_data_49A18);
-    t0 = fn_1_B9C0C();
-    v0 = p_lbl_1_bss_8ED90->unk_0;
-    v1 = t0;
-    v2 = arg2;
-    v3 = arg3;
-    if (v0 != 0) {
-    v2 = (u32)((u8 *)(u32)p_lbl_1_data_49A18 + 176);
-    v1 = (u32)&lbl_801A6410;
-    v3 = 115;
-    v1 = *(u32 *)((u8 *)v1 + 0);
-    t1 = fn_1_46B4(v1, v0, (u32)v2, v3);
-    v1 = t1;
-    p_lbl_1_bss_8ED90->unk_0 = 0;
-    p_lbl_1_bss_8ED90->unk_4 = 0;
-    }
-    v4 = p_lbl_1_data_49A18->unk_90;
-    p_lbl_1_data_49A18->unk_94 = -1;
-    p_lbl_1_data_49A18->unk_98 = -1;
-    p_lbl_1_data_49A18->unk_9C = -1;
-    v5 = -1;
-    if ((s32)v4 != -1) {
-    v5 = p_lbl_1_bss_8ED90->unk_C;
-    t2 = fn_1_435C(v5);
-    v5 = t2;
-    v5 = p_lbl_1_data_49A18->unk_90;
-    t3 = fn_1_426C(v5);
-    v5 = t3;
-    v5 = 0;
-    p_lbl_1_bss_8ED90->unk_C = v5;
-    p_lbl_1_data_49A18->unk_90 = -1;
-    }
-    return v5;
-}
-/* fzgx:end fn_1_1547FC */
-
-/* fzgx:begin fn_1_1548A8 */
-#include "types.h"
-
-// Initialize the tow settings and select the mode-dependent input value.
-void fn_1_1548A8(void) {
-    s16 mode;
-    s16 *mode_ptr;
-    Obj_1_bss_8EDA4 *obj;
-
-    fn_1_B9BE0();
-    fn_1_B9DE8(&lbl_1_bss_8EDA4);
-
-    mode_ptr = (s16 *)&lbl_1_bss_960;
-    obj = &lbl_1_bss_8EDA4;
-    mode = *mode_ptr;
-    obj->unk_0 = 0x20;
-    if (mode == 0xc) {
-        obj->unk_4 = 0xa;
-    } else {
-        obj->unk_4 = 9;
-    }
-
-    if (mode != 2) {
-        fn_1_48418(2);
-        fn_1_159440(2, 0);
-    }
-
-    lbl_1_data_49AB4.unk_0 = 1;
-}
-/* fzgx:end fn_1_1548A8 */
-
-/* fzgx:begin fn_1_154930 */
-void fn_1_154930(void) {
-    s8 result;
-
-    result = fn_1_BA144(&lbl_1_bss_8EDA4);
-    if (result == 0) {
-        lbl_1_data_49AB4.unk_0 = 2;
-    } else if (result == 1) {
-        lbl_1_data_49AB4.unk_0 = 4;
-        lbl_1_bss_8EDA0 = 1;
-        fn_1_1596DC(2);
-        fn_1_484CC(2);
-    } else {
-        fn_1_BC310(&lbl_1_bss_8EDA4);
-    }
-}
-/* fzgx:end fn_1_154930 */
-
-/* fzgx:begin fn_1_1549B8 */
-#include "types.h"
-
-// Copy the tow state into the active settings and advance the tow mode.
-void fn_1_1549B8(void) {
-    u32 *src = &lbl_1_bss_8ED90;
-    u32 *dst = src + 5;
-    u32 first = src[0];
-    u32 second = src[1];
-
-    dst[2] = first;
-    dst[3] = second;
-    dst[4] = 5;
-    fn_1_C0510(dst, second, first);
-    lbl_1_data_49AB4.unk_0 = 3;
-}
-/* fzgx:end fn_1_1549B8 */
-
-/* fzgx:begin fn_1_154C84 */
-#include "types.h"
-
-extern u32 lbl_1_data_49AB0;
-
-
-
-s32 fn_1_154C84(void) {
-    u32 v0;
-    if ((s32)lbl_1_data_49AB0 == 4) {
-    v0 = 0;
-    return v0;
-    }
-    if ((s32)lbl_1_data_49AB0 != -1 || (s32)(*(u32 *)&lbl_1_data_49AB4) != -1) {
-    v0 = 1;
-    return v0;
-    }
-    v0 = 0;
-    return v0;
-}
-/* fzgx:end fn_1_154C84 */
