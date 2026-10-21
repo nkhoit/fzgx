@@ -646,6 +646,139 @@ void fn_1_9E5B8(Obj_1_bss_6EA80_Target *node) {
 }
 /* fzgx:end fn_1_9E5B8 */
 
+/* fzgx:begin fn_1_9EA94 */
+typedef struct {
+    u8 pad_0[0xC];
+    f32 unk_C;
+    s16 unk_10;
+    u16 unk_12;
+    u32 unk_14;
+} Obj_1_9EA94_Target;
+
+extern f32 lbl_1_rodata_42D0;
+extern f32 lbl_1_rodata_42D4;
+extern s32 fn_1_54E34(Obj_1_9EA94_Target *, f32);
+extern void fn_800724C8(void);
+extern void fn_8007245C(u32);
+extern void lbl_8006DAEC(void);
+extern void lbl_8006D758(void);
+extern u32 GXLoadPosMtxImm(u32, u32);
+extern u32 lbl_801A6D00;
+extern void lbl_8006DB30(void);
+extern void fn_800736C0(u32, void *);
+extern void fn_8003462C(u32, u32, u32);
+extern void lbl_8006E0A4(Obj_1_9EA94_Target *);
+extern u32 mathutil_mtxA_rotate_z(u32);
+extern void lbl_8006E1D8(void *, f32, f32, f32);
+
+#pragma opt_propagation off
+void fn_1_9EA94(Obj_1_9EA94_Target *arg0) {
+    u32 v0;
+    f32 v3;
+    f32 v2;
+    void * lab_t0_2;
+    f32 loc_30[3];
+    f32 loc_24[3];
+    f32 loc_18[3];
+    f32 loc_C[3];
+    u32 loc_8;
+    void * lab_t0;
+
+    if (fn_1_54E34(arg0, arg0->unk_C) == 0) {
+        arg0->unk_12 |= 1;
+        return;
+    }
+    arg0->unk_12 &= 0xFFFE;
+    fn_800724C8();
+    fn_8007245C(0x2200);
+    lbl_8006DAEC();
+    lbl_8006D758();
+    GXLoadPosMtxImm(*(u32 *)&lbl_801A6D00, 0);
+    lbl_8006DB30();
+    loc_8 = arg0->unk_14;
+    fn_800736C0(0, &loc_8);
+    fn_8003462C(0x90, 0, 8);
+    v0 = 0x80;
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    fn_8003462C(v0, 0, 4);
+    v2 = arg0->unk_C;
+    v3 = -v2;
+    lbl_8006DAEC();
+    lbl_8006E0A4(arg0);
+    if (arg0->unk_10 != 0) {
+        mathutil_mtxA_rotate_z(arg0->unk_10);
+    }
+    lbl_8006E1D8((lab_t0 = loc_C), v3, v3, lbl_1_rodata_42D0);
+    lab_t0 = loc_18;
+    lbl_8006E1D8(lab_t0, v2, v3, lbl_1_rodata_42D0);
+    lab_t0_2 = loc_24;
+    lbl_8006E1D8(lab_t0_2, v2, v2, lbl_1_rodata_42D0);
+    lab_t0_2 = loc_30;
+    lbl_8006E1D8(lab_t0_2, v3, v2, lbl_1_rodata_42D0);
+    lbl_8006DB30();
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_C[0];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_C[1];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_C[2];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_18[0];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_18[1];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_18[2];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D4;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_24[0];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_24[1];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_24[2];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D4;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D4;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_30[0];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_30[1];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = loc_30[2];  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D0;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+    *(volatile f32 *)((u8 *)0xCC010000 + -32768) = lbl_1_rodata_42D4;  /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+}
+#pragma opt_propagation reset
+/* fzgx:end fn_1_9EA94 */
+
 /* fzgx:begin fn_1_9EDE8 */
 #include "dolphin/hw_regs.h"
 #include "types.h"
@@ -789,3 +922,103 @@ void fn_1_9EDE8(Obj_1_9EDE8 *arg0) {
     FIFO(lbl_1_rodata_42D4);
 }
 /* fzgx:end fn_1_9EDE8 */
+
+/* fzgx:begin fn_1_9F164 */
+typedef struct { f32 x, y, z, w; } Vec4;
+
+struct fn_1_9F164_Arg0 {
+    f32 unk_0;
+    f32 unk_4;
+    Vec4 unk_8[3];
+    u32 unk_38;
+    u32 unk_3C;
+};
+
+#define XF_PUT(v) (*(volatile f32 *)0xCC008000 = (f32)(v)) /* fzgx-allow: A1,A2 unnamed OS/hardware memory */
+
+extern f32 lbl_1_rodata_42D0;
+extern f32 lbl_1_rodata_42D4;
+extern s32 fn_1_54E34(void *, f32);
+extern void fn_800736C0(u32, void *);
+extern void fn_8003462C(u32, u32, u32);
+extern void lbl_8006DAEC(void);
+extern void lbl_8006DFC4(void *);
+extern void lbl_8006E1D8(void *, f32, f32, f32);
+extern void lbl_8006DB30(void);
+
+#pragma opt_propagation off
+void fn_1_9F164(struct fn_1_9F164_Arg0 *arg0, f32 arg1) {
+    u32 v0;
+    f32 v1;
+    f32 v5;
+    f32 v4;
+    f32 loc_3C[3];
+    f32 loc_30[3];
+    f32 loc_24[3];
+    f32 loc_18[3];
+    f32 loc_C[3];
+    u32 loc_8;
+    void * lab_t0;
+    loc_C[0] = arg0->unk_8[0].w;
+    loc_C[1] = arg0->unk_8[1].w;
+    loc_C[2] = arg0->unk_8[2].w;
+    v0 = arg0->unk_38;
+    if ((v0 & 0x2) != 0) {
+        v1 = arg0->unk_4;
+    } else {
+        v1 = arg0->unk_0;
+    }
+    if ((v0 & 0x4) == 0 && fn_1_54E34((void *)loc_C, v1) == 0) {
+        arg0->unk_38 |= 1;
+    } else {
+        arg0->unk_38 &= ~1;
+        loc_8 = arg0->unk_3C;
+        fn_800736C0(0, (void *)&loc_8);
+        fn_8003462C(0x90, 0, 8);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0); XF_PUT(lbl_1_rodata_42D0);
+        fn_8003462C(0x80, 0, 4);
+        v4 = arg0->unk_0;
+        v5 = -v4;
+        lbl_8006DAEC();
+        lbl_8006DFC4((void *)&arg0->unk_8[0]);
+        lbl_8006E1D8((lab_t0 = (void *)loc_18), v5, v5, lbl_1_rodata_42D0);
+        lab_t0 = (void *)loc_24;
+        lbl_8006E1D8(lab_t0, v4, v5, lbl_1_rodata_42D0);
+        lab_t0 = (void *)loc_30;
+        lbl_8006E1D8(lab_t0, v4, v4, lbl_1_rodata_42D0);
+        lab_t0 = (void *)loc_3C;
+        lbl_8006E1D8(lab_t0, v5, v4, lbl_1_rodata_42D0);
+        lbl_8006DB30();
+        XF_PUT(loc_18[0]);
+        XF_PUT(loc_18[1]);
+        XF_PUT(loc_18[2]);
+        XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(loc_24[0]);
+        XF_PUT(loc_24[1]);
+        XF_PUT(loc_24[2]);
+        XF_PUT(lbl_1_rodata_42D4);
+        XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(loc_30[0]);
+        XF_PUT(loc_30[1]);
+        XF_PUT(loc_30[2]);
+        XF_PUT(lbl_1_rodata_42D4);
+        XF_PUT(lbl_1_rodata_42D4);
+        XF_PUT(loc_3C[0]);
+        XF_PUT(loc_3C[1]);
+        XF_PUT(loc_3C[2]);
+        XF_PUT(lbl_1_rodata_42D0);
+        XF_PUT(lbl_1_rodata_42D4);
+    }
+}
+#pragma opt_propagation reset
+/* fzgx:end fn_1_9F164 */

@@ -6820,3 +6820,60 @@ rel/main_rel/stcoli/fn_1_18784.c:
 
 rel/main_rel/game/fn_1_2E3B4.c:
 	.text       start:0x0002E3B4 end:0x0002E928 align:4
+
+rel/main_rel/_prolog/fn_1_1ACC.c:
+	.text       start:0x00001ACC end:0x00001C00 align:4
+
+rel/main_rel/archive/fn_1_12CEA8.c:
+	.text       start:0x0012CEA8 end:0x0012D254 align:4
+
+rel/main_rel/background/fn_1_9EA94.c:
+	.text       start:0x0009EA94 end:0x0009EDE8 align:4
+
+rel/main_rel/background/fn_1_9F164.c:
+	.text       start:0x0009F164 end:0x0009F4B4 align:4
+
+rel/main_rel/bg_aur/fn_1_152208.c:
+	.text       start:0x00152208 end:0x00152510 align:4
+
+rel/main_rel/bg_aur/fn_1_152510.c:
+	.text       start:0x00152510 end:0x00152840 align:4
+
+rel/main_rel/bg_cas/fn_1_FDC00.c:
+	.text       start:0x000FDC00 end:0x000FDD7C align:4
+
+rel/main_rel/bg_common/fn_1_103D28.c:
+	.text       start:0x00103D28 end:0x00103F10 align:4
+
+rel/main_rel/bg_san/fn_1_DC084.c:
+	.text       start:0x000DC084 end:0x000DC1B8 align:4
+
+rel/main_rel/car/fn_1_892E8.c:
+	.text       start:0x000892E8 end:0x000892FC align:4
+
+rel/main_rel/driver/fn_1_A96BC.c:
+	.text       start:0x000A96BC end:0x000A96DC align:4
+
+rel/main_rel/effect/fn_1_62AF8.c:
+	.text       start:0x00062AF8 end:0x00062C84 align:4
+
+rel/main_rel/motasglist/fn_1_41CB8.c:
+	.text       start:0x00041CB8 end:0x00041E34 align:4
+
+rel/main_rel/live_camera/fn_1_1289C.c:
+	.text       start:0x0001289C end:0x00012B88 align:4
+
+rel/main_rel/memcard/fn_1_BFE20.c:
+	.text       start:0x000BFE20 end:0x000C00EC align:4
+
+rel/main_rel/motasglist/fn_1_42AD0.c:
+	.text       start:0x00042AD0 end:0x00042E74 align:4
+
+rel/main_rel/ranking/fn_1_156C08.c:
+	.text       start:0x00156C08 end:0x00156D9C align:4
+
+rel/main_rel/spline/fn_1_F5458.c:
+	.text       start:0x000F5458 end:0x000F55C4 align:4
+
+rel/main_rel/spline/fn_1_F7A20.c:
+	.text       start:0x000F7A20 end:0x000F7B2C align:4

@@ -605,3 +605,45 @@ rel/sel/sel/fn_10_F57C.c:
 
 rel/sel/sel/fn_10_FF54.c:
 	.text       start:0x0000FF54 end:0x00010168 align:4
+
+rel/sel/sel/fn_10_1973C.c:
+	.text       start:0x0001973C end:0x00019924 align:4
+
+rel/sel/sel/fn_10_1F3B8.c:
+	.text       start:0x0001F3B8 end:0x0001F688 align:4
+
+rel/sel/sel/fn_10_22760.c:
+	.text       start:0x00022760 end:0x0002287C align:4
+
+rel/sel/sel/fn_10_3954.c:
+	.text       start:0x00003954 end:0x00003A98 align:4
+
+rel/sel/sel/fn_10_3B44.c:
+	.text       start:0x00003B44 end:0x00003C14 align:4
+
+rel/sel/sel/fn_10_3C14.c:
+	.text       start:0x00003C14 end:0x00003D64 align:4
+
+rel/sel/sel/fn_10_7320.c:
+	.text       start:0x00007320 end:0x000073AC align:4
+
+rel/sel/sel/fn_10_7FC0.c:
+	.text       start:0x00007FC0 end:0x0000804C align:4
+
+rel/sel/sel/fn_10_924C.c:
+	.text       start:0x0000924C end:0x0000948C align:4
+
+rel/sel/sel/fn_10_A0E8.c:
+	.text       start:0x0000A0E8 end:0x0000A25C align:4
+
+rel/sel/sel/fn_10_A90C.c:
+	.text       start:0x0000A90C end:0x0000AB98 align:4
+
+rel/sel/sel/fn_10_C6A4.c:
+	.text       start:0x0000C6A4 end:0x0000C8A8 align:4
+
+rel/sel/sel/fn_10_CA94.c:
+	.text       start:0x0000CA94 end:0x0000CB20 align:4
+
+rel/sel/sel/fn_10_CB20.c:
+	.text       start:0x0000CB20 end:0x0000CD90 align:4
