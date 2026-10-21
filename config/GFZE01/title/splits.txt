@@ -260,3 +260,24 @@ rel/title/title/fn_8_7734.c:
 
 rel/title/title/fn_8_81AC.c:
 	.text       start:0x000081AC end:0x00008440 align:4
+
+rel/title/operation/fn_8_A3A4.c:
+	.text       start:0x0000A3A4 end:0x0000A954 align:4
+
+rel/title/operation/fn_8_ABBC.c:
+	.text       start:0x0000ABBC end:0x0000ADF4 align:4
+
+rel/title/operation/fn_8_ADF4.c:
+	.text       start:0x0000ADF4 end:0x0000B138 align:4
+
+rel/title/operation/fn_8_B138.c:
+	.text       start:0x0000B138 end:0x0000B380 align:4
+
+rel/title/operation/fn_8_BD08.c:
+	.text       start:0x0000BD08 end:0x0000C038 align:4
+
+rel/title/title/fn_8_23AC.c:
+	.text       start:0x000023AC end:0x000025F8 align:4
+
+rel/title/title/fn_8_954.c:
+	.text       start:0x00000954 end:0x00000AA8 align:4

@@ -482,3 +482,21 @@ rel/customize/toolkit/fn_3_1A488.c:
 
 rel/customize/toolkit/fn_3_1A648.c:
 	.text       start:0x0001A648 end:0x0001AB34 align:4
+
+rel/customize/_prolog/fn_3_10A4.c:
+	.text       start:0x000010A4 end:0x000012D4 align:4
+
+rel/customize/_prolog/fn_3_131C.c:
+	.text       start:0x0000131C end:0x000014C4 align:4
+
+rel/customize/_prolog/fn_3_9800.c:
+	.text       start:0x00009800 end:0x0000990C align:4
+
+rel/customize/customize/fn_3_BF1C.c:
+	.text       start:0x0000BF1C end:0x0000C128 align:4
+
+rel/customize/editor/fn_3_16FD0.c:
+	.text       start:0x00016FD0 end:0x00017098 align:4
+
+rel/customize/toolkit/fn_3_1AE40.c:
+	.text       start:0x0001AE40 end:0x0001AEE4 align:4
