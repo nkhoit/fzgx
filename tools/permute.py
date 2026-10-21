@@ -76,8 +76,9 @@ def ensure_permuter() -> Path:
     return PERMUTER_DIR
 
 
-def compile_script(project: Project, sym):
-    mw, extra = oracle.version_for(project, sym)
+def compile_script(project: Project, sym, body: Path):
+    # an uncarved function takes the candidate build its body scores best under (e.g. movie_module's stmw)
+    mw, extra = oracle.version_for(project, sym, body)
     cmd = [a for a in oracle.compile_command(project, sym.module, mw, extra) if a != "-nofail"]
     defines = [a for a in cmd if a.startswith("-D")]
     return ("#!/bin/bash\n"
@@ -106,7 +107,7 @@ def cmd_setup(args) -> int:
         sys.exit(f"{d} already exists; pass --force to overwrite")
     d.mkdir(parents=True, exist_ok=True)
 
-    script, defines = compile_script(project, sym)
+    script, defines = compile_script(project, sym, body)
     pre = subprocess.run(["gcc", "-E", "-P", "-nostdinc", "-I", str(ROOT / "include"),
                           "-I", str(project.build_dir / "include"), *defines, str(body.resolve())],
                          capture_output=True, text=True)
@@ -120,7 +121,8 @@ def cmd_setup(args) -> int:
     (d / "settings.toml").write_text(
         f'func_name = "{sym.name}"\n'
         'compiler_type = "mwcc"\n'
-        f'objdump_command = "{find_objdump()} -dr -EB -mpowerpc -M broadway"\n')
+        # --disassemble: an uncarved function's target.o is dtk's whole split object
+        f'objdump_command = "{find_objdump()} -dr -EB -mpowerpc -M broadway --disassemble={sym.name}"\n')
 
     probe = subprocess.run([str(d / "compile.sh"), str(d / "base.c"), "-o", str(d / "base.o")],
                            capture_output=True, text=True)
