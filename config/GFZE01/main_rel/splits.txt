@@ -6877,3 +6877,6 @@ rel/main_rel/spline/fn_1_F5458.c:
 
 rel/main_rel/spline/fn_1_F7A20.c:
 	.text       start:0x000F7A20 end:0x000F7B2C align:4
+
+rel/main_rel/enemy_ctrl/fn_1_CFB28.c:
+	.text       start:0x000CFB28 end:0x000CFCA4 align:4
