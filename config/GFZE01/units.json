@@ -551,6 +551,17 @@
   },
   {
     "module": "customize",
+    "source": "rel/customize/_prolog/fn_3_AC4C.c",
+    "symbols": [
+      "fn_3_AC4C"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/customize/_prolog.c"
+  },
+  {
+    "module": "customize",
     "source": "rel/customize/_prolog/fn_3_AF8.c",
     "symbols": [
       "fn_3_AF8"
@@ -29585,6 +29596,20 @@
     "mw_version": null,
     "extra_cflags": [],
     "tu": "rel/main_rel/bg_cas.c"
+  },
+  {
+    "module": "main_rel",
+    "source": "rel/main_rel/bg_cas/fn_1_FDD7C.c",
+    "symbols": [
+      "fn_1_FDD7C"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/main_rel/bg_cas.c",
+    "pool": {
+      "@25": "lbl_1_rodata_765C"
+    }
   },
   {
     "module": "main_rel",
@@ -65781,6 +65806,17 @@
     "source": "rel/story/story_mode/fn_7_E84.c",
     "symbols": [
       "fn_7_E84"
+    ],
+    "status": "matching",
+    "mw_version": null,
+    "extra_cflags": [],
+    "tu": "rel/story/story_mode.c"
+  },
+  {
+    "module": "story",
+    "source": "rel/story/story_mode/fn_7_FB4.c",
+    "symbols": [
+      "fn_7_FB4"
     ],
     "status": "matching",
     "mw_version": null,
